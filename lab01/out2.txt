@@ -1,0 +1,10 @@
+total 36
+drwx------ 2 skhalsa10 ugrad 4096 Aug 27 12:46 .
+drwx------ 4 skhalsa10 ugrad 4096 Aug 26 09:45 ..
+-rwxr-xr-x 1 skhalsa10 ugrad 8522 Aug 27 10:22 a.out
+-rw------- 1 skhalsa10 ugrad  628 Aug 27 10:13 asciiArt.c
+-rw------- 1 skhalsa10 ugrad  282 Aug 27 10:01 asciiArt.c~
+-rw-r--r-- 1 skhalsa10 ugrad   37 Aug 27 12:45 out1.txt
+-rw-r--r-- 1 skhalsa10 ugrad    0 Aug 27 12:46 out2.txt
+-rw-r--r-- 1 skhalsa10 ugrad  277 Aug 27 12:44 siri-khalsa.txt
+-rw-r--r-- 1 skhalsa10 ugrad  244 Aug 27 12:42 siri-khalsa.txt~
