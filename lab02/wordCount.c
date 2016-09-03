@@ -12,9 +12,9 @@
 main()
 {
   int c, charStream, numOfChars, numOfLines, numOfWordsTotal, isNewLine, inWord;
-  int numOfWords;
-  numOfChars = numOfLines = 0;
-  numOfWordsTotal = numofWords = 1;
+  int numOfWords, numOfCharsTotal;
+  numOfChars = numOfLines = numOfCharsTotal = 0;
+  numOfWordsTotal = numOfWords = 1;
   isNewLine = inWord = TRUE;
 
   while((c = getchar()) != EOF)
@@ -32,6 +32,7 @@ main()
       inWord = FALSE;
       if (c == '\n')
       {
+        printf("[%d,%d]", numOfWords, numOfChars);
         numOfChars = 1;
         numOfWords = 1;
         isNewLine = TRUE;
@@ -47,7 +48,7 @@ main()
     putchar(c);
   }
 
-  printf("%d of lines, %d of words, %d of characters\n", numOfLines, numOfWordsTotal, numOfChars );
+  printf("%d of lines, %d of words, %d of characters\n", numOfLines, numOfWordsTotal, numOfCharsTotal );
 
 
 }
