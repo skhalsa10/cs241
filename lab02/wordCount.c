@@ -11,7 +11,7 @@
 
 main()
 {
-  int charStream, numOfChars, numOfLines, numOfWords, isNewLine, inWord;
+  int c, charStream, numOfChars, numOfLines, numOfWords, isNewLine, inWord;
   numOfChars = numOfLines = numOfWords = 0;
   isNewLine = inWord = TRUE;
 
@@ -22,8 +22,8 @@ main()
     {
       numOfLines++;
       isNewLine = FALSE;
-      //putchar(numOfLines);
-      //putchar('.');
+      putchar(numOfLines);
+      putchar('.');
     }
     if(c == ' ' || c == "\n"|| c == '\t')
     {
