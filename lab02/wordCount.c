@@ -41,13 +41,13 @@ void performNewLineTasks();
 void printVerboseEnding();
 
 int main()
-/* initialize everything to default values */
-totalWords = numOfWords = totalLines = 1;
-charStream = lineLargestChar = lineLargestWord = 0;
-largestCharNum = largestWordNum  = totalChars = numOfChars = 0;
-isNewLine = inWord= TRUE;
-
 {
+  /* initialize everything to default values */
+  totalWords = numOfWords = totalLines = 1;
+  charStream = lineLargestChar = lineLargestWord = 0;
+  largestCharNum = largestWordNum  = totalChars = numOfChars = 0;
+  isNewLine = inWord= TRUE;
+
   while((charStream = getchar()) != EOF)
   {
     numOfChars++;
