@@ -25,7 +25,7 @@ main()
       putchar(numOfLines);
       putchar('.');
     }
-    if(c == ' ' || c == "\n"|| c == '\t')
+    if(c == ' ' || c == "\n" || c == '\t')
     {
       inWord = FALSE;
     }
@@ -36,6 +36,8 @@ main()
     }
     putchar(c);
   }
+
+  printf("%d of lines, %d of words, %d of characters\n", numOfLines, numOfWords, numOfChars );
 
 
 }
