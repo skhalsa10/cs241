@@ -22,7 +22,7 @@ main()
     {
       numOfLines++;
       isNewLine = FALSE;
-      putchar(numOfLines);
+      printf("%d.", numOfLines);
       putchar('.');
     }
     if(c == ' ' || c == '\n' || c == '\t')
