@@ -25,9 +25,13 @@ main()
       putchar(numOfLines);
       putchar('.');
     }
-    if(c == ' ' || c == "\n" || c == '\t')
+    if(c == ' ' || c == '\n' || c == '\t')
     {
       inWord = FALSE;
+      if (c == '\n')
+      {
+        isNewLine = TRUE;
+      }
     }
     else if(inWord == FALSE)
     {
