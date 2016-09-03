@@ -31,12 +31,7 @@ int totalLines, totalWords, totalChars;
 int numOfWords, numOfChars;
 
 /* variables used as boolean flags initialized to TRUE */
-int isNewLine = inWord = TRUE;
-
-/* initialize everything to default values */
-totalWords = numOfWords = totalLines = 1;
-charStream = lineLargestChar = lineLargestWord = largestCharNum = largestWordNum
-  = totalChars = numOfChars = 0;
+int isNewLine, inWord;
 
 /* function declerations */
 void calcLargestChars(int inputChars);
@@ -46,11 +41,17 @@ void performNewLineTasks();
 void printVerboseEnding();
 
 int main()
+/* initialize everything to default values */
+totalWords = numOfWords = totalLines = 1;
+charStream = lineLargestChar = lineLargestWord = 0;
+largestCharNum = largestWordNum  = totalChars = numOfChars = 0;
+isNewLine = inWord= TRUE;
+
 {
   while((charStream = getchar()) != EOF)
   {
-    numOfChars++
-    totalChars++
+    numOfChars++;
+    totalChars++;
     if(isNewLine == TRUE)
     {
       performNewLineTasks();
@@ -94,8 +95,8 @@ void performNewLineTasks()
 void performLineEndTasks()
 {
   printf("[%d,%d]", numOfWords, numOfChars);
-  calcLargestChars(int numOfChars);
-  calcLargestWords(int numOfWords);
+  calcLargestChars(numOfChars);
+  calcLargestWords(numOfWords);
   numOfWords = numOfChars = 1;
   isNewLine = TRUE;
 }
