@@ -1,33 +1,41 @@
 #include <stdio.h>
-#define TRUE 1
-#define FALSE 0
+#define TRUE 1 //will be used for my own boolean value
+#define FALSE 0 // used as boolean
+
+/*********************************************
+*                                            *
+* This program will echo what is fed into it.*
+* While it echos it it counds words and lines*
+*                                            *
+**********************************************/
 
 main()
 {
-  int c, line;
-  long nc, nl;
-  nc = nl = 0;
-  line = FALSE;
-  printf("%ld",(nl+1));
+  int charStream, numOfChars, numOfLines, numOfWords, isNewLine, inWord;
+  numOfChars = numOfLines = numOfWords = 0;
+  isNewLine = inWord = TRUE;
+
   while((c = getchar()) != EOF)
+  {
+    numOfChars++;
+    if(isNewLine == TRUE)
     {
-      if(c == '\n')
-        {
-	  line = TRUE;
-	  ++nl;
-     	  //printf("\n%ld.", nl+1);
-	}
-      if(line == TRUE)
-	{
-	  //getchar("%ld.", (nl+1))
-	  printf("\n%ld.", (nl+1));
-	  line = FALSE;	  
-	}
-      putchar(c);
-      ++nc;
+      numOfLines++;
+      isNewLine = FALSE;
+      //putchar(numOfLines);
+      //putchar('.');
     }
-  printf("\nthere are %ld number of characters\n and %ld number of lines.", nc, nl);
-      //putchar(c);
-      
+    if(c == ' ' || c == "\n"|| c == '\t')
+    {
+      inWord = FALSE;
+    }
+    else if(inWord == FALSE)
+    {
+      inWord = TRUE;
+      numOfWords++;
+    }
+    putchar(c);
+  }
+
 
 }
