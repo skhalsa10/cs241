@@ -1,9 +1,3 @@
-#include <stdio.h>
-
-/* defining values for boolean tests */
-#define TRUE 1
-#define FALSE 0
-
 /*********************************************
 *
 * Siri Khalsa
@@ -12,8 +6,15 @@
 *
 * This program will echo what is fed into it.
 * While it echos it it counds words and lines
+* and characters
 *
 **********************************************/
+
+#include <stdio.h>
+
+/* defining values for boolean tests */
+#define TRUE 1
+#define FALSE 0
 
 /*global variables used by all  functions and main*/
 
@@ -40,6 +41,15 @@ void performLineEndTasks();
 void performNewLineTasks();
 void printVerboseEnding();
 
+/**********************************************
+*
+* This is the main function it initializez the
+* global variables runs a while loop that loops
+* until the EOF character is received It counts
+* words lines and characters while looping upon
+* receiving EOF it then prints out totals and
+* lines with most chars and words.
+***********************************************/
 int main()
 {
   /* initialize everything to default values */
@@ -91,12 +101,17 @@ void performNewLineTasks()
 }
 
 /*************************************************
+* performLineEndTasks()
+* Parameters: none
+* return value is void
+*
 * This function performs tasks that happen
 * when the end of the line is reached.
 * Print the current line info
 * set isNewLine flag to TRUE
 * call calculation functions
-* reset line counters
+* add the current line counters to total counters
+* and reset line counters
 **************************************************/
 void performLineEndTasks()
 {
@@ -110,7 +125,13 @@ void performLineEndTasks()
 }
 
 /*************************************************
-*This Function takes in the current line chars
+* calcLargestChars()
+* Parameters:
+* inputChars: a positive int that is the number
+* of current chars in line
+* return value is void
+*
+* This Function takes in the current line chars
 * compares it to the variables that hold the
 * largest info
 * if larger replaces value else do nothing
@@ -125,7 +146,13 @@ void calcLargestChars(int inputChars)
 }
 
 /*************************************************
-*This Function takes in the current line chars
+* calcLargestWords()
+* Parameters:
+* inputWords: a positive int that is the number
+* of current words in line
+* return value is void
+*
+*This Function takes in the current line words
 * compares it to the variables that hold the
 * largest info
 * if larger replaces value else do nothing
@@ -140,6 +167,10 @@ void calcLargestWords(int inputWords)
 }
 
 /************************************************
+* printVerboseEnding()
+* Parameters: none
+* return value is void
+
 * This function prints all the verbose
 * information collected through out the program
 * run.
