@@ -70,7 +70,10 @@ int main()
       numOfWords++;
       /*totalWords++;*/
     }
-    numOfChars++;
+    if(charStream != '\n')
+    {
+      numOfChars++;
+    }
     putchar(charStream);
   }
   printVerboseEnding();
