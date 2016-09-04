@@ -44,7 +44,7 @@ int main()
 {
   /* initialize everything to default values */
   numOfWords = totalLines = 1;
-  charStream = lineLargestChar = lineLargestWord = totalWords 0;
+  charStream = lineLargestChar = lineLargestWord = totalWords = 0;
   largestCharNum = largestWordNum  = totalChars = numOfChars = 0;
   isNewLine = inWord= TRUE;
 
