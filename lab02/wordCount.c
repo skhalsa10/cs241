@@ -43,8 +43,8 @@ void printVerboseEnding();
 int main()
 {
   /* initialize everything to default values */
-  numOfWords = totalLines = 1;
-  charStream = lineLargestChar = lineLargestWord = totalWords = 0;
+  numOfWords =  1;
+  charStream = lineLargestChar = lineLargestWord = totalWords = totalLines = 0;
   largestCharNum = largestWordNum  = totalChars = numOfChars = 0;
   isNewLine = inWord= TRUE;
 
@@ -80,8 +80,9 @@ int main()
 *number and sets isNewLine flag to false */
 void performNewLineTasks()
 {
-  printf("%d.", totalLines);
   totalLines++;
+  printf("%d.", totalLines);
+
   isNewLine = FALSE;
 }
 
