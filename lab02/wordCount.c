@@ -51,7 +51,7 @@ int main()
   while((charStream = getchar()) != EOF)
   {
     numOfChars++;
-    //totalChars++;
+    /*totalChars++;*/
     if(isNewLine == TRUE)
     {
       performNewLineTasks();
@@ -68,7 +68,7 @@ int main()
     {
       inWord = TRUE;
       numOfWords++;
-      //totalWords++;
+      /*totalWords++;*/
     }
     putchar(charStream);
   }
