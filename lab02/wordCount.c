@@ -51,7 +51,7 @@ int main()
   while((charStream = getchar()) != EOF)
   {
     numOfChars++;
-    totalChars++;
+    //totalChars++;
     if(isNewLine == TRUE)
     {
       performNewLineTasks();
@@ -66,14 +66,13 @@ int main()
     }
     else if (inWord == FALSE)
     {
-      inWord = TRUE;
+      inWord == TRUE;
       numOfWords++;
-      totalWords++;
+      //totalWords++;
     }
     putchar(charStream);
   }
   printVerboseEnding();
-  return 0;
 }
 
 /* This function print #. increments line
@@ -98,7 +97,9 @@ void performLineEndTasks()
   printf("[%d,%d]", numOfWords, numOfChars);
   calcLargestChars(numOfChars);
   calcLargestWords(numOfWords);
-  numOfWords = numOfChars = 1;
+  totalWords = totalWords + numOfWords;
+  totalChars = totalChars + numOfChars;
+  numOfWords = numOfChars = 0;
   isNewLine = TRUE;
 }
 
@@ -139,9 +140,6 @@ void calcLargestWords(int inputWords)
 * Total lines, total chars, total words
 * the line with the most amount of chars
 * and finally the line with the most words
-5 lines, 50 words, 252 characters
-With 56, line 2 has the most characters
-With 11, line 1 has the most words
 *************************************************/
 void printVerboseEnding()
 {
