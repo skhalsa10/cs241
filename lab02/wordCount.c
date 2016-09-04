@@ -66,13 +66,14 @@ int main()
     }
     else if (inWord == FALSE)
     {
-      inWord == TRUE;
+      inWord = TRUE;
       numOfWords++;
       //totalWords++;
     }
     putchar(charStream);
   }
   printVerboseEnding();
+  return 0;
 }
 
 /* This function print #. increments line
