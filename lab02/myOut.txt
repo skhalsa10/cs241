@@ -11,6 +11,6 @@
 11.  Start and end with spaces            [5,40]
 12.Tabs?	one		two	.[4,17]
 13.oneWord_allAlone[1,17]
-14 lines, 95 words, 494 characters
+14 lines, 94 words, 494 characters
 With 69, Line 7 has the most characters
 With 16, Line 7 has the most words
