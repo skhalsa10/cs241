@@ -150,6 +150,6 @@ void calcLargestWords(int inputWords)
 void printVerboseEnding()
 {
   printf("%d lines, %d words, %d characters\n", totalLines, totalWords, totalChars);
-  printf("With %d, Line %d has the most characters\n", largestCharNum, lineLargestChar);
-  printf("With %d, Line %d has the most words\n", largestWordNum, lineLargestWord);
+  printf("With %d, line %d has the most characters\n", largestCharNum, lineLargestChar);
+  printf("With %d, line %d has the most words\n", largestWordNum, lineLargestWord);
 }
