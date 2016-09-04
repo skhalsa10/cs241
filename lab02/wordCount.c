@@ -50,7 +50,7 @@ int main()
 
   while((charStream = getchar()) != EOF)
   {
-    numOfChars++;
+
     /*totalChars++;*/
     if(isNewLine == TRUE)
     {
@@ -70,6 +70,7 @@ int main()
       numOfWords++;
       /*totalWords++;*/
     }
+    numOfChars++;
     putchar(charStream);
   }
   printVerboseEnding();
@@ -96,7 +97,7 @@ void performNewLineTasks()
 **************************************************/
 void performLineEndTasks()
 {
-  printf("[%d,%d]", numOfWords, numOfChars);
+  printf("[%d;%d]", numOfWords, numOfChars);
   calcLargestChars(numOfChars);
   calcLargestWords(numOfWords);
   totalWords = totalWords + numOfWords;
