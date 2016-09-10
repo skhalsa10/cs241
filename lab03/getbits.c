@@ -82,6 +82,7 @@ void calculateLine()
 
   while( (c = getchar()) != ',' || c != EOF)
   {
+    printf("this is the char in 1st loop %c\n", c);
     overflowtest = number;
     /*if( (c <= '0') || (c >= '9') )
     {
@@ -100,6 +101,7 @@ void calculateLine()
   /* convert position to numerical value*/
   while( (c = getchar()) != ',' || c != EOF)
   {
+    printf("this is the char in 2nd loop %c\n", c);
     /*if( (c <= '0') || (c >= '9') )
     {
       otherError = TRUE;
@@ -113,6 +115,7 @@ void calculateLine()
   /*convert nbits to numerical value */
   while( (c = getchar()) != '\n' || c != EOF)
   {
+    printf("this is the char in 3rd loop %c\n", c);
     /* if( (c <= '0') || (c >= '9') )
     {
       printf("this should not be types");
