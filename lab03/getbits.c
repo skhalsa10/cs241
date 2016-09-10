@@ -23,7 +23,7 @@
 enum boolean {FALSE, TRUE};
 
 /*declare fuctions*/
-unsigned int getbits(unsigned int x, int p, int n);
+unsigned int getBits(unsigned int x, int p, int n);
 void calculateLine();
 void getBitsAndPrint();
 
@@ -152,7 +152,7 @@ void getBitsAndPrint()
   }
   else
   {
-      printf("getbits(x=%u, p=%d, n=%d) = %u\n", number, position, nBits, getbits(number,position,nBits));
+      printf("getbits(x=%u, p=%d, n=%d) = %u\n", number, position, nBits, getBits(number,position,nBits));
   }
 }
 
