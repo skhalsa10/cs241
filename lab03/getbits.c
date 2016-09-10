@@ -103,7 +103,7 @@ void calculateLine()
   c = getchar();
   while( c != ',' || c != EOF)
   {
-    printf("this is the char in 2nd loop %c\n", c);
+    printf("this is the char in 2nd loop %c in decimal form %d\n", c, c);
     /*if( (c <= '0') || (c >= '9') )
     {
       otherError = TRUE;
