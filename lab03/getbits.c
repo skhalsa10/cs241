@@ -55,6 +55,9 @@ int main()
 *************************************************/
 void calculateLine()
 {
+  /*declare variables used in this functio first to avoid warnings*/
+  int c;
+  int overflowtest;
   /* reset variables to 0 and FALSE*/
   number = 0;
   position = 0;
@@ -74,8 +77,9 @@ void calculateLine()
   char. if not the loop breaks immediately
   and sets an errror flag and sends string to
   error stream */
-  int c;
-  int overflowtest;
+  /*int c; for some reason i get an error if I dont declare this before
+  all expressions?! some old standard ? */
+
   while( (c = getchar()) != ',' || c != EOF)
   {
     overflowtest = number;
