@@ -83,12 +83,12 @@ void calculateLine()
   while( (c = getchar()) != ',' || c != EOF)
   {
     overflowtest = number;
-    if( (c <= '0') || (c >= '9') )
+    /*if( (c <= '0') || (c >= '9') )
     {
       otherError = TRUE;
       perror("unexpected character value");
       break;
-    }
+    }*/
     number = 10 * number + (c - '0');
     /*check for overflow */
     if (number < overflowtest)
@@ -100,12 +100,12 @@ void calculateLine()
   /* convert position to numerical value*/
   while( (c = getchar()) != ',' || c != EOF)
   {
-    if( (c <= '0') || (c >= '9') )
+    /*if( (c <= '0') || (c >= '9') )
     {
       otherError = TRUE;
       perror("unexpected character value");
       break;
-    }
+    }*/
     position = 10 * position + (c - '0');
   }
   if (position > 31) positionOutOfRange = TRUE;
@@ -113,12 +113,13 @@ void calculateLine()
   /*convert nbits to numerical value */
   while( (c = getchar()) != '\n' || c != EOF)
   {
-    if( (c <= '0') || (c >= '9') )
+    /* if( (c <= '0') || (c >= '9') )
     {
+      printf("this should not be types");
       otherError = TRUE;
-      perror("unexpected character value");
+      perror("this must be printing no matter what FUCK");
       break;
-    }
+      }*/
     nBits = 10 * nBits + (c - '0');
   }
   if ((position + 1 - nBits)< 0) nBitsGreaterThanPosition = TRUE;
