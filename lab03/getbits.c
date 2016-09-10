@@ -111,10 +111,12 @@ void calculateLine()
       break;
     }*/
     position = 10 * position + (c - '0');
+    c = getchar();
   }
   if (position > 31) positionOutOfRange = TRUE;
 
   /*convert nbits to numerical value */
+  c = getchar();
   while( c!= '\n' || c != EOF)
   {
     printf("this is the char in 3rd loop %c\n", c);
@@ -126,6 +128,7 @@ void calculateLine()
       break;
       }*/
     nBits = 10 * nBits + (c - '0');
+    c = getchar();
   }
   if ((position + 1 - nBits)< 0) nBitsGreaterThanPosition = TRUE;
   if (nBits > 31) nBitsOutOfRange = TRUE;
