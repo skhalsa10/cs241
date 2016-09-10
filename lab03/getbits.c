@@ -42,7 +42,7 @@ int main()
 {
   while(notEndOfFile)
   {
-    calculateLine()
+    calculateLine();
     getBitsAndPrint();
   }
   return 1;
@@ -55,11 +55,15 @@ int main()
 *************************************************/
 void calculateLine()
 {
-  /* reset variables to 0*/
+  /* reset variables to 0 and FALSE*/
   number = 0;
   position = 0;
   nBits = 0;
-  outOfRange = FALSE;
+  valueOutOfRange = FALSE;
+  nBitsGreaterThanPosition = FALSE;
+  positionOutOfRange = FALSE;
+  nBitsOutOfRange = FALSE;
+  otherError = FALSE;
 
   /* getchar() until \n if EOF set flag to FALSE
   this assumes there will be 2 commas garunteed
@@ -128,19 +132,19 @@ void getBitsAndPrint()
 {
   if(valueOutOfRange)
   {
-    printf("Error: value out of range\n",);
+    printf("Error: value out of range\n");
   }
   else if(nBitsGreaterThanPosition)
   {
-    printf("Error: too many bits requested from position\n",);
+    printf("Error: too many bits requested from position\n");
   }
   else if(positionOutOfRange)
   {
-    printf("Error: position out of range\n",);
+    printf("Error: position out of range\n");
   }
   else if(nBitsOutOfRange)
   {
-    printf("Error: number of bits out of range\n", );
+    printf("Error: number of bits out of range\n" );
   }
   else
   {
