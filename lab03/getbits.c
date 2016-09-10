@@ -79,8 +79,8 @@ void calculateLine()
   error stream */
   /*int c; for some reason i get an error if I dont declare this before
   all expressions?! some old standard ? */
-
-  while( (c = getchar()) != ',' || c != EOF)
+  c = getchar();
+  while( c != ',' || c != EOF)
   {
     printf("this is the char in 1st loop %c\n", c);
     overflowtest = number;
@@ -97,9 +97,11 @@ void calculateLine()
       valueOutOfRange = TRUE;
       break;
     }
+    c = getchar();
   }
   /* convert position to numerical value*/
-  while( (c = getchar()) != ',' || c != EOF)
+  c = getchar();
+  while( c != ',' || c != EOF)
   {
     printf("this is the char in 2nd loop %c\n", c);
     /*if( (c <= '0') || (c >= '9') )
@@ -113,7 +115,7 @@ void calculateLine()
   if (position > 31) positionOutOfRange = TRUE;
 
   /*convert nbits to numerical value */
-  while( (c = getchar()) != '\n' || c != EOF)
+  while( c!= '\n' || c != EOF)
   {
     printf("this is the char in 3rd loop %c\n", c);
     /* if( (c <= '0') || (c >= '9') )
