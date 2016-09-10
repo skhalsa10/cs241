@@ -23,7 +23,7 @@
 enum boolean {FALSE, TRUE};
 
 /*declare fuctions*/
-unsigned getbits(unsigned x, int p, int n);
+unsigned int getbits(unsigned int x, int p, int n);
 void calculateLine();
 void getBitsAndPrint();
 
