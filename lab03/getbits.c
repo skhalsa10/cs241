@@ -83,7 +83,7 @@ void calculateLine()
   while( (c = getchar()) != ',' && c != EOF)
   {
     overflowtest = number;
-    if( (c <= '0') || (c >= '9') )
+    if( (c < '0') || (c > '9') )
     {
       otherError = TRUE;
       printf("unexpected character value: char %c\n", c);
@@ -100,7 +100,7 @@ void calculateLine()
   /* convert position to numerical value*/
   while( (c = getchar()) != ',' && c != EOF)
   {
-    if( (c <= '0') || (c >= '9') )
+    if( (c < '0') || (c > '9') )
     {
       otherError = TRUE;
       printf("unexpected character value: char %c\n", c);
@@ -113,7 +113,7 @@ void calculateLine()
   /*convert nbits to numerical value */
   while( (c = getchar()) != '\n' && c != EOF)
   {
-    if( (c <= '0') || (c >= '9') )
+    if( (c < '0') || (c > '9') )
     {
       otherError = TRUE;
       printf("unexpected character value: char %c\n", c);
