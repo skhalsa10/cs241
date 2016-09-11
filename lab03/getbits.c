@@ -86,7 +86,7 @@ void calculateLine()
     if( (c <= '0') || (c >= '9') )
     {
       otherError = TRUE;
-      perror("unexpected character value");
+      printf("unexpected character value: char %c\n", c);
       break;
     }
     number = 10 * number + (c - '0');
@@ -103,7 +103,7 @@ void calculateLine()
     if( (c <= '0') || (c >= '9') )
     {
       otherError = TRUE;
-      perror("unexpected character value");
+      printf("unexpected character value: char %c\n", c);
       break;
     }
     position = 10 * position + (c - '0');
@@ -116,7 +116,7 @@ void calculateLine()
     if( (c <= '0') || (c >= '9') )
     {
       otherError = TRUE;
-      perror("unexpected character value");
+      printf("unexpected character value: char %c\n", c);
       break;
     }
     nBits = 10 * nBits + (c - '0');
