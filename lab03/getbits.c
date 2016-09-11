@@ -116,7 +116,7 @@ void calculateLine()
     if( (c < '0') || (c > '9') )
     {
       otherError = TRUE;
-      printf("unexpected character value: char %c\n", c);
+      printf("unexpected character value from third loop: char %c\n", c);
       break;
     }
     nBits = 10 * nBits + (c - '0');
