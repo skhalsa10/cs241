@@ -104,6 +104,11 @@ void calculateLine()
   printf("this is the char in outside %c in decimal form %d\n", c, c);
   c = getchar();
   printf("this is the char in outside %c in decimal form %d\n", c, c);
+  while( c != ',' || c != EOF)
+  {
+    printf("this is the char in 2nd loop %c in decimal form %d\n", c, c);
+    c = getchar();
+  }
   /*
   while( c != ',' || c != EOF)
   {
