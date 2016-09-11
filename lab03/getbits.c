@@ -29,8 +29,8 @@ void getBitsAndPrint();
 
 /*declare variables*/
 unsigned int number = 0;
-int position = 0;
-int nBits = 0;
+unsigned int position = 0;
+unsigned int nBits = 0;
 int notEndOfFile = TRUE;
 int valueOutOfRange = FALSE;
 int nBitsGreaterThanPosition = FALSE;
@@ -56,8 +56,8 @@ int main()
 void calculateLine()
 {
   /*declare variables used in this functio first to avoid warnings*/
-  int c;
-  int overflowtest;
+  unsigned int c;
+  unsigned int overflowtest;
   /* reset variables to 0 and FALSE*/
   number = 0;
   position = 0;
@@ -82,7 +82,7 @@ void calculateLine()
   c = getchar();
   while( c != ',' || c != EOF)
   {
-    printf("this is the char in 1st loop %c\n", c);
+    printf("this is the char in 1nd loop %c in decimal form %d\n", c, c);
     overflowtest = number;
     /*if( (c <= '0') || (c >= '9') )
     {
@@ -101,7 +101,8 @@ void calculateLine()
   }
 
 
-  /* convert position to numerical value*/
+/  /* convert position to numerical value*/
+  printf("this is the char in outside %c in decimal form %d\n", c, c);
   c = getchar();
   while( c != ',' || c != EOF)
   {
@@ -114,8 +115,6 @@ void calculateLine()
     }*/
     position = 10 * position + (c - '0');
     c = getchar();
-    c++;
-    c++;
   }
   if (position > 31) positionOutOfRange = TRUE;
 
