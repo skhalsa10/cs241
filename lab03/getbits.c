@@ -28,7 +28,6 @@ void calculateLine();
 void getBitsAndPrint();
 
 /*declare variables*/
-unsigned int c= 0;
 unsigned int number = 0;
 unsigned int position = 0;
 unsigned int nBits = 0;
@@ -57,7 +56,7 @@ int main()
 void calculateLine()
 {
   /*declare variables used in this functio first to avoid warnings*/
-
+  unsigned int c;
   unsigned int overflowtest;
   /* reset variables to 0 and FALSE*/
   number = 0;
@@ -80,7 +79,7 @@ void calculateLine()
   error stream */
   /*int c; for some reason i get an error if I dont declare this before
   all expressions?! some old standard ? */
-  c = getchar();
+  c = getc(stdin);
   while( c != ',' || c != EOF)
   {
     printf("this is the char in 1nd loop %c in decimal form %d\n", c, c);
@@ -98,17 +97,17 @@ void calculateLine()
       valueOutOfRange = TRUE;
       break;
     }
-    c = getchar();
+    c = getc(stdin);
   }
 
 
   printf("this is the char in outside %c in decimal form %d\n", c, c);
-  c = getchar();
+  c = getc(stdin);
   printf("this is the char in outside %c in decimal form %d\n", c, c);
-  while( c != ',' || c != EOF)
+  while((c != ',') || (c != EOF))
   {
     printf("this is the char in 2nd loop %c in decimal form %d\n", c, c);
-    c = getchar();
+    c = getc(stdin);
   }
   /*
   while( c != ',' || c != EOF)
@@ -127,7 +126,7 @@ void calculateLine()
 
 
   /*convert nbits to numerical value */
-  c = getchar();
+  c = getc(stdin);
 /*  while( c!= '\n' || c != EOF)
   {
     printf("this is the char in 3rd loop %c\n", c);*/
