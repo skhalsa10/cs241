@@ -29,8 +29,8 @@ void getBitsAndPrint();
 
 /*declare variables*/
 unsigned int number = 0;
-unsigned int position = 0;
-unsigned int nBits = 0;
+int position = 0;
+int nBits = 0;
 int notEndOfFile = TRUE;
 int valueOutOfRange = FALSE;
 int nBitsGreaterThanPosition = FALSE;
@@ -43,7 +43,10 @@ int main()
   while(notEndOfFile)
   {
     calculateLine();
-    getBitsAndPrint();
+    if(notEndOfFile)
+    {
+      getBitsAndPrint();
+    }
   }
   return 1;
 }
