@@ -56,8 +56,8 @@ int main()
 void calculateLine()
 {
   /*declare variables used in this functio first to avoid warnings*/
-  unsigned int c;
-  unsigned int overflowtest;
+  int c;
+  int overflowtest;
   /* reset variables to 0 and FALSE*/
   number = 0;
   position = 0;
@@ -79,17 +79,16 @@ void calculateLine()
   error stream */
   /*int c; for some reason i get an error if I dont declare this before
   all expressions?! some old standard ? */
-  c = getc(stdin);
-  while( c != ',' || c != EOF)
+
+  while( (c = getchar()) != ',' && c != EOF)
   {
-    printf("this is the char in 1nd loop %c in decimal form %d\n", c, c);
     overflowtest = number;
-    /*if( (c <= '0') || (c >= '9') )
+    if( (c <= '0') || (c >= '9') )
     {
       otherError = TRUE;
       perror("unexpected character value");
       break;
-    }*/
+    }
     number = 10 * number + (c - '0');
     /*check for overflow */
     if (number < overflowtest)
@@ -97,22 +96,10 @@ void calculateLine()
       valueOutOfRange = TRUE;
       break;
     }
-    c = getc(stdin);
   }
-
-
-  printf("this is the char in outside %c in decimal form %d\n", c, c);
-  c = getc(stdin);
-  printf("this is the char in outside %c in decimal form %d\n", c, c);
-  while((c != ',') || (c != EOF))
+  /* convert position to numerical value*/
+  while( (c = getchar()) != ',' && c != EOF)
   {
-    printf("this is the char in 2nd loop %c in decimal form %d\n", c, c);
-    c = getc(stdin);
-  }
-  /*
-  while( c != ',' || c != EOF)
-  {
-    printf("this is the char in 2nd loop %c in decimal form %d\n", c, c);
     if( (c <= '0') || (c >= '9') )
     {
       otherError = TRUE;
@@ -120,29 +107,24 @@ void calculateLine()
       break;
     }
     position = 10 * position + (c - '0');
-    c = getchar();
-  }*/
+  }
   if (position > 31) positionOutOfRange = TRUE;
 
-
   /*convert nbits to numerical value */
-  c = getc(stdin);
-/*  while( c!= '\n' || c != EOF)
+  while( (c = getchar()) != '\n' && c != EOF)
   {
-    printf("this is the char in 3rd loop %c\n", c);*/
-    /* if( (c <= '0') || (c >= '9') )
+    if( (c <= '0') || (c >= '9') )
     {
-      printf("this should not be types");
       otherError = TRUE;
-      perror("this must be printing no matter what FUCK");
+      perror("unexpected character value");
       break;
-      }*/
-    /*nBits = 10 * nBits + (c - '0');
-    c = getchar();
-  }*/
+    }
+    nBits = 10 * nBits + (c - '0');
+  }
   if ((position + 1 - nBits)< 0) nBitsGreaterThanPosition = TRUE;
   if (nBits > 31) nBitsOutOfRange = TRUE;
   if(c == EOF) notEndOfFile = FALSE;
+
 }
 
 /************************************************
