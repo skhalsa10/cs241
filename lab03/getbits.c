@@ -28,6 +28,7 @@ void calculateLine();
 void getBitsAndPrint();
 
 /*declare variables*/
+unsigned int c= 0;
 unsigned int number = 0;
 unsigned int position = 0;
 unsigned int nBits = 0;
@@ -56,7 +57,7 @@ int main()
 void calculateLine()
 {
   /*declare variables used in this functio first to avoid warnings*/
-  unsigned int c;
+
   unsigned int overflowtest;
   /* reset variables to 0 and FALSE*/
   number = 0;
