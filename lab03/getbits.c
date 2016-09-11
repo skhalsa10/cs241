@@ -94,7 +94,6 @@ void calculateLine()
     if (number < overflowtest)
     {
       valueOutOfRange = TRUE;
-      break;
     }
   }
   /* convert position to numerical value*/
