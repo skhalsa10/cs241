@@ -100,24 +100,11 @@ void calculateLine()
     c = getchar();
   }
 
-  c = getchar();
-  while( c != ',' || c != EOF)
-  {
-    printf("this is the char in 2nd loop %c in decimal form %d\n", c, c);
 
-    /*if( (c <= '0') || (c >= '9') )
-    {
-      otherError = TRUE;
-      perror("unexpected character value");
-      break;
-    }*/
-    position = 10 * position + (c - '0');
-
-    c = getchar();
-  }
-  /* convert position to numerical value*/
-  /*printf("this is the char in outside %c in decimal form %d\n", c, c);
+  printf("this is the char in outside %c in decimal form %d\n", c, c);
   c = getchar();
+  printf("this is the char in outside %c in decimal form %d\n", c, c);
+  /*
   while( c != ',' || c != EOF)
   {
     printf("this is the char in 2nd loop %c in decimal form %d\n", c, c);
