@@ -114,8 +114,8 @@ void calculateLine()
     }*/
     position = 10 * position + (c - '0');
     c = getchar();
-    c++
-    c++
+    c++;
+    c++;
   }
   if (position > 31) positionOutOfRange = TRUE;
 
