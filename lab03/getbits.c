@@ -99,6 +99,8 @@ void calculateLine()
     }
     c = getchar();
   }
+
+
   /* convert position to numerical value*/
   c = getchar();
   while( c != ',' || c != EOF)
@@ -112,8 +114,11 @@ void calculateLine()
     }*/
     position = 10 * position + (c - '0');
     c = getchar();
+    c++
+    c++
   }
   if (position > 31) positionOutOfRange = TRUE;
+
 
   /*convert nbits to numerical value */
   c = getchar();
