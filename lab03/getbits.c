@@ -100,13 +100,11 @@ void calculateLine()
     c = getchar();
   }
 
-
-  /* convert position to numerical value*/
-  printf("this is the char in outside %c in decimal form %d\n", c, c);
   c = getchar();
   while( c != ',' || c != EOF)
   {
     printf("this is the char in 2nd loop %c in decimal form %d\n", c, c);
+
     /*if( (c <= '0') || (c >= '9') )
     {
       otherError = TRUE;
@@ -114,8 +112,24 @@ void calculateLine()
       break;
     }*/
     position = 10 * position + (c - '0');
+
     c = getchar();
   }
+  /* convert position to numerical value*/
+  /*printf("this is the char in outside %c in decimal form %d\n", c, c);
+  c = getchar();
+  while( c != ',' || c != EOF)
+  {
+    printf("this is the char in 2nd loop %c in decimal form %d\n", c, c);
+    if( (c <= '0') || (c >= '9') )
+    {
+      otherError = TRUE;
+      perror("unexpected character value");
+      break;
+    }
+    position = 10 * position + (c - '0');
+    c = getchar();
+  }*/
   if (position > 31) positionOutOfRange = TRUE;
 
 
