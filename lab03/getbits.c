@@ -122,9 +122,9 @@ void calculateLine()
 
   /*convert nbits to numerical value */
   c = getchar();
-  while( c!= '\n' || c != EOF)
+/*  while( c!= '\n' || c != EOF)
   {
-    printf("this is the char in 3rd loop %c\n", c);
+    printf("this is the char in 3rd loop %c\n", c);*/
     /* if( (c <= '0') || (c >= '9') )
     {
       printf("this should not be types");
@@ -132,9 +132,9 @@ void calculateLine()
       perror("this must be printing no matter what FUCK");
       break;
       }*/
-    nBits = 10 * nBits + (c - '0');
+    /*nBits = 10 * nBits + (c - '0');
     c = getchar();
-  }
+  }*/
   if ((position + 1 - nBits)< 0) nBitsGreaterThanPosition = TRUE;
   if (nBits > 31) nBitsOutOfRange = TRUE;
   if(c == EOF) notEndOfFile = FALSE;
