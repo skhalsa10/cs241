@@ -101,7 +101,7 @@ void calculateLine()
   }
 
 
-/  /* convert position to numerical value*/
+  /* convert position to numerical value*/
   printf("this is the char in outside %c in decimal form %d\n", c, c);
   c = getchar();
   while( c != ',' || c != EOF)
