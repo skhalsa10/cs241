@@ -1,23 +1,22 @@
 #include <stdio.h>
-#include <limits.h>
 
 /************************************************
-* Siri Khalsa
-* 09/09/2016
-* CS241 001
-* LAB03
-*
-* This program implements the getbits
-* program in K&N. It adds error checking for
-* the following:
-*
-* 1. integer over flow
-* 2. There is enough bit spots to shift
-* 3. or the given inputs fit into a 32 bit int
-*
-* this program reads a camma deliminated file
-* and feeds it into getbits() K&N
-*
+* Siri Khalsa                                   *
+* 09/09/2016                                    *
+* CS241 001                                     *
+* LAB03                                         *
+*                                               *
+* This program implements the getbits           *
+* program in K&N. It adds error checking for    *
+* the following:                                *
+*                                               *
+* 1. integer over flow                          *
+* 2. There is enough bit spots to shift         *
+* 3. or the given inputs fit into a 32 bit int  *
+*                                               *
+* this program reads a camma deliminated file   *
+* and feeds it into getbits() K&N               *
+*                                               *
 *************************************************/
 /*declare boolean ENUM*/
 enum boolean {FALSE, TRUE};
@@ -27,7 +26,7 @@ unsigned int getBits(unsigned int x, int p, int n);
 void calculateLine();
 void getBitsAndPrint();
 
-/*declare variables*/
+/*declare variables and initialize*/
 unsigned int number = 0;
 int position = 0;
 int nBits = 0;
@@ -38,6 +37,12 @@ int positionOutOfRange = FALSE;
 int nBitsOutOfRange = FALSE;
 int otherError = FALSE;
 
+/************************************************
+* The main function is simple                   *
+* It loops until the end of file.               *
+* It calculates line by line after each '\n'    *
+* it prints calculations for that line.         *
+*************************************************/
 int main()
 {
   while(notEndOfFile)
@@ -81,7 +86,7 @@ void calculateLine()
   and sets an errror flag and sends string to
   error stream */
   /*int c; for some reason i get an error if I dont declare this before
-  all expressions?! some old standard ? */
+  all expressions?! some old standard ? i moved it to the top */
 
   while( (c = getchar()) != ',' && c != EOF)
   {
