@@ -26,7 +26,7 @@ int main()
   while((charStream = getchar()) != EOF)
   {
     convertLineToGrid();
-    checkIfGridLegal()
+    /*checkIfGridLegal();*/
     if(errorNotNumeric)
     {
       printf("errorNotNumeric\n");
@@ -91,7 +91,7 @@ int convertLineToGrid()
      to error just break the second one */
     if (errorNotNumeric||errorLineTooShort)
     {
-      printf("breaking immediately after error%d\n", count)
+      printf("breaking immediately after error%d\n", count);
       break;
     }
   }
