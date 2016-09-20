@@ -103,7 +103,9 @@ int convertLineToGrid()
     charStream = getchar();
   }*/
   /* successfull return!!! */
-  if(charStream == '\n') return 1;
+  if(charStream == '\n')
+  { return 1;
+  }
   /* I MEAN ALMOST FRIGGIN successfull!! our line seems to
   be more then 81 characters UGHHHH! */
   else
@@ -112,7 +114,7 @@ int convertLineToGrid()
     /* we need to return this function with a '\n'...
     ....
     ....   while loop: do your thing */
-    while (charStream != '\n' ||charStream != EOF)
+    while (charStream != '\n' && charStream != EOF)
     {
       printf("getting to end of line loop");
       charStream = getchar();
