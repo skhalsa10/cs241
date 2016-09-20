@@ -25,12 +25,28 @@ int main()
     convertLineToGrid();
     int i = 0;
     int j = 0;
-    for(i=0; i<9;i++)
+    if(errorNotNumeric)
+    {
+      printf("errorNotNumeric\n");
+    }
+    else if (errorLineTooShort)
+    {
+      printf("errorLineTooShort\n");
+    }
+    else if (errorLineTooLong)
+    {
+      printf("errorLineTooLong\n");
+    }
+    else
     {
       printf("\n+---------------------------+\n");
-      for(j=0;j<9;j++)
+      for(i=0; i<9;i++)
       {
-        printf("|%d|", theGrid[i][j]);
+        for(j=0;j<9;j++)
+        {
+          printf("|%d|", theGrid[i][j]);
+        }
+        printf("\n");
       }
     }
   }
