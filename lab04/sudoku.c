@@ -95,6 +95,7 @@ int convertLineToGrid()
       break;
     }
   }
+  printf("\n\n\nOUT OF GRID LOOP\n\n\n");
   /* if we get 81 characters the next char should be'\n'
   but if our line is too short this will keep the stream in order
   if(!errorLineTooShort)
