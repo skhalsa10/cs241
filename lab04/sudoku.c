@@ -86,11 +86,11 @@ int convertLineToGrid()
     if (errorNotNumeric||errorLineTooShort) break;
   }
   /* if we get 81 characters the next char should be'\n'
-  but if our line is too short this will keep the stream in order*/
+  but if our line is too short this will keep the stream in order
   if(!errorLineTooShort)
   {
     charStream = getchar();
-  }
+  }*/
   /* successfull return!!! */
   if(charStream == '\n') return 1;
   /* I MEAN ALMOST FRIGGIN successfull!! our line seems to
