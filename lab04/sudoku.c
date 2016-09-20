@@ -23,10 +23,12 @@ int main()
   while((charStream = getchar()) != EOF)
   {
     convertLineToGrid();
-    for(int i=0; i<9;i++)
+    int i = 0;
+    int j = 0;
+    for(i=0; i<9;i++)
     {
       printf("\n+---------------------------+\n");
-      for(int j=0;j<9;j++)
+      for(j=0;j<9;j++)
       {
         printf("|%d|", theGrid[i][j]);
       }
@@ -81,7 +83,7 @@ int convertLineToGrid()
     charStream = getchar();
   }
   /* successfull return!!! */
-  if(charstream == '\n') return 1;
+  if(charStream == '\n') return 1;
   /* I MEAN ALMOST FRIGGIN successfull!! our line seems to
   be more then 81 characters UGHHHH! */
   else
