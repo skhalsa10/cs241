@@ -39,16 +39,9 @@ int main()
     }
     else
     {
-      printf("\n+---------------------------+\n");
-      for(i=0; i<9;i++)
-      {
-        for(j=0;j<9;j++)
-        {
-          printf("|%d|", theGrid[i][j]);
-        }
-        printf("\n");
-      }
+        printf("no errors YES!");
     }
+
   }
 }
 
