@@ -73,14 +73,12 @@ int convertLineToGrid()
       /*test for line to short error */
       else if (charStream == '\n')
       {
-        printf("breaking at line to short%d\n", count);
         errorLineTooShort = TRUE;
         break;
       }
       /*if it makes it this far than we have nonnumeric char*/
       else
       {
-        printf("breaking at nonnumeric%d\n", count);
         errorNotNumeric = TRUE;
         break;
       }
@@ -91,11 +89,10 @@ int convertLineToGrid()
      to error just break the second one */
     if (errorNotNumeric||errorLineTooShort)
     {
-      printf("breaking immediately after error%d\n", count);
       break;
     }
   }
-  printf("\n\n\nOUT OF GRID LOOP\n\n\n");
+
   /* if we get 81 characters the next char should be'\n'
   but if our line is too short this will keep the stream in order
   if(!errorLineTooShort)
@@ -104,10 +101,12 @@ int convertLineToGrid()
   }*/
   /* successfull return!!! */
   if(charStream == '\n')
-  { return 1;
+  {
+    return 1;
   }
   /* I MEAN ALMOST FRIGGIN successfull!! our line seems to
-  be more then 81 characters UGHHHH! */
+  be more then 81 characters UGHHH!... we could also have a
+  nonnumerical value here as well*/
   else
   {
     errorLineTooLong = TRUE;
@@ -116,9 +115,9 @@ int convertLineToGrid()
     ....   while loop: do your thing */
     while (charStream != '\n' && charStream != EOF)
     {
-      printf("getting to end of line loop");
       charStream = getchar();
     }
+
     return 0;
   }
 }
