@@ -39,7 +39,7 @@ int main()
     }
     else
     {
-        printf("no errors YES!");
+        printf("no errors YES!\n");
     }
 
   }
