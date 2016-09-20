@@ -23,10 +23,10 @@ int main()
   while((charStream = getchar()) != EOF)
   {
     convertLineToGrid();
-    for(i=0; i<9;i++)
+    for(int i=0; i<9;i++)
     {
       printf("\n+---------------------------+\n");
-      for(j=0;j<9;j++)
+      for(int j=0;j<9;j++)
       {
         printf("|%d|", theGrid[i][j]);
       }
@@ -39,7 +39,7 @@ int convertLineToGrid()
   /*reinitialize error flags to false to start  off function*/
   errorLineTooShort = FALSE;
   errorNotNumeric = FALSE;
-  errorLineTooLong = false;
+  errorLineTooLong = FALSE;
 
   /* loop over line and copt to theGrid*/
   int i = 0;
