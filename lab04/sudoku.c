@@ -112,7 +112,11 @@ int convertLineToGrid()
     /* we need to return this function with a '\n'...
     ....
     ....   while loop: do your thing */
-    while ((charStream = getchar()) != '\n' ||charStream != EOF)
+    while (charStream != '\n' ||charStream != EOF)
+    {
+      printf("getting to end of line loop");
+      charStream = getChar();
+    }
     return 0;
   }
 }
