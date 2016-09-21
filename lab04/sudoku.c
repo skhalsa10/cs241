@@ -100,6 +100,7 @@ int convertLineToGrid()
       /*if it makes it this far than we have nonnumeric char*/
       else
       {
+        count++;
         errorNotNumeric = TRUE;
         break;
       }
@@ -110,7 +111,6 @@ int convertLineToGrid()
      to error just break the second one */
     if (errorNotNumeric||errorLineTooShort)
     {
-      count++;
       break;
     }
   }
