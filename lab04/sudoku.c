@@ -3,16 +3,24 @@
 #define TRUE 1
 
 /* declare all functions here */
+int convertLineToGrid();
+int checkIfGridLegal();/*still need to create*/
+int checkIfGridFull();/*still need to create*/
+int checkIfGridSolved();/*still need to create*/
+int createConstraintGrid();/*still need to create*/
+void printResults();/*still need to create*/
 
-
-/* 2d array ill call theGrid */
+/* 2d array i'll call theGrid */
 int theGrid[9][9];
 /* declare variable for charStream*/
 int charStream = 0;
+/* declare String used for printing results */
+char inputLine[100];
 /*declare and initialize error boolean variables*/
 int errorLineTooLong = FALSE;
 int errorLineTooShort = FALSE;
 int errorNotNumeric = FALSE;
+int puzzleSolved = FALSE;
 
 int main()
 {
@@ -25,28 +33,38 @@ int main()
   characters before '\n' error flag is turned on. */
   while((charStream = getchar()) != EOF)
   {
-    convertLineToGrid();
-    /*checkIfGridLegal();*/
-    if(errorNotNumeric)
+    /*this will always only happen once
+    but I want to break out of the set
+    of instructions when certain criteria is met
+    like an error flag is turned on or a function
+    returns 0 */
+    /*do
     {
-      printf("errorNotNumeric\n");
+      if(!convertLineToGrid()) break;
+      if(checkIfGridFull())
+      {
+        puzzleSolved = FALSE;
+        if(checkIfGridSolved())
+        {
+          puzzleSolved = TRUE;
+        }
+        break;
+      }
+      checkIfGridLegal();
     }
-    else if (errorLineTooShort)
-    {
-      printf("errorLineTooShort\n");
-    }
-    else if (errorLineTooLong)
-    {
-      printf("errorLineTooLong\n");
-    }
-    else
-    {
-        printf("no errors YES!\n");
-    }
+    while(0);*/
+    convertLineToGrid())
+    printResults()
 
   }
 }
 
+
+/*
+* this function converts one line at a time into a puzzle to solve
+* this function garuntees the to set the charStream to \n or EOF
+* if there is an error it will return 0 otherwise 1.
+**/
 int convertLineToGrid()
 {
   /*reinitialize error flags to false to start  off function*/
@@ -56,12 +74,15 @@ int convertLineToGrid()
 
   /* loop over line and copt to theGrid*/
   int i = 0;
-  int count = 1;
+  int count = 0;
   int j = 0;
   for(i = 0; i < 9; i++)
   {
     for (j = 0; j < 9; j++)
     {
+
+      inputLine[count]= putchar(charStream);
+
       if(charStream == '.')
       {
         theGrid[i][j] = 0;
@@ -89,6 +110,7 @@ int convertLineToGrid()
      to error just break the second one */
     if (errorNotNumeric||errorLineTooShort)
     {
+      count++;
       break;
     }
   }
@@ -102,6 +124,7 @@ int convertLineToGrid()
   /* successfull return!!! */
   if(charStream == '\n')
   {
+    inputLine[count] = putchar('\0');
     return 1;
   }
   /* I MEAN ALMOST FRIGGIN successfull!! our line seems to
@@ -115,9 +138,16 @@ int convertLineToGrid()
     ....   while loop: do your thing */
     while (charStream != '\n' && charStream != EOF)
     {
+      inputLine[count] = putchar(charStream);
       charStream = getchar();
+      count++;
     }
-
+    inputLine[count] = putchar('\0');
     return 0;
   }
+}
+
+void printResults()
+{
+  printf("\s\n", inputLine);
 }
