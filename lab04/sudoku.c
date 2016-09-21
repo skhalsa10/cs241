@@ -54,7 +54,7 @@ int main()
     }
     while(0);*/
     convertLineToGrid();
-    /*printResults();*/
+    printResults();
 
   }
 }
@@ -81,7 +81,7 @@ int convertLineToGrid()
     for (j = 0; j < 9; j++)
     {
 
-      inputLine[count]= putchar(charStream);
+      inputLine[count]= charStream;
 
       if(charStream == '.')
       {
@@ -124,7 +124,7 @@ int convertLineToGrid()
   /* successfull return!!! */
   if(charStream == '\n')
   {
-    inputLine[count] = putchar('\0');
+    inputLine[count] = '\0';
     return 1;
   }
   /* I MEAN ALMOST FRIGGIN successfull!! our line seems to
@@ -138,17 +138,16 @@ int convertLineToGrid()
     ....   while loop: do your thing */
     while (charStream != '\n' && charStream != EOF)
     {
-      inputLine[count] = putchar(charStream);
+      inputLine[count] = charStream;
       charStream = getchar();
       count++;
     }
-    inputLine[count] = putchar('\0');
+    inputLine[count] ='\0';
     return 0;
   }
 }
 
 void printResults()
 {
-  printf("entered");
   printf("%s\n", inputLine);
 }
