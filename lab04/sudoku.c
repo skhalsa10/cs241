@@ -54,7 +54,7 @@ int main()
     }
     while(0);*/
     convertLineToGrid();
-    printResults();
+    /*printResults();*/
 
   }
 }
