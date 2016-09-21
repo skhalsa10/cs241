@@ -53,8 +53,8 @@ int main()
       checkIfGridLegal();
     }
     while(0);*/
-    convertLineToGrid())
-    printResults()
+    convertLineToGrid();
+    printResults();
 
   }
 }
