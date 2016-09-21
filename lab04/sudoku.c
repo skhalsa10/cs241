@@ -149,5 +149,6 @@ int convertLineToGrid()
 
 void printResults()
 {
+  printf("entered");
   printf("%s\n", inputLine);
 }
