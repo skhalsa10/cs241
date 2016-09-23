@@ -38,7 +38,7 @@ int main()
     of instructions when certain criteria is met
     like an error flag is turned on or a function
     returns 0 */
-    /*do
+    do
     {
       if(!convertLineToGrid()) break;
       if(checkIfGridFull())
@@ -52,11 +52,30 @@ int main()
       }
       checkIfGridLegal();
     }
-    while(0);*/
-    convertLineToGrid();
+    while(0);
     printResults();
 
   }
+}
+
+/*
+* This function just loops through theGrid
+* if it makes it to the end it means it is
+* full and return 0
+*/
+int checkIfGridFull()
+{
+  printf("entering checkifgridisfull");
+  int i = 0;
+  int j = 0;
+  for(i;i<9;i++)
+  {
+    for(j;j<9;j++)
+    {
+      if(theGrid[i][j]==0)return 0;
+    }
+  }
+  return 1;
 }
 
 
