@@ -240,6 +240,7 @@ int createConstraintGrid()
       if (theGrid[i][j] > 0)
       {
         updateConstraints(i, j, theGrid[i][j]);
+        return 0;
       }
     }
   }
@@ -253,7 +254,7 @@ int updateConstraints(int inputRow, int inputColumn, int inputNumber)
 {
   if(theGrid[inputRow][inputColumn] == inputNumber)
   {
-    /*constraintGrid[inputRow][inputColumn] = 0;*/
+    constraintGrid[inputRow][inputColumn] = 0;
   }
   else
   {
