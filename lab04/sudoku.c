@@ -71,6 +71,10 @@ int main()
       {
         printf("SOLVED\nSOLVED\nSOLVED\n");
       }
+      else
+      {
+          printf"PUZZLE NOT SOLVED");
+      }
     }
     printResults();
 
