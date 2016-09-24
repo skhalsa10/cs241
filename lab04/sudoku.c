@@ -105,14 +105,14 @@ int checkIfGridSolved()
 
 int everyRowContainsEveryNumber()
 {
-  truthValue = 1;
+  int truthValue = 1;
   int i = 0;
   int n = 0;
   for(i= 0;i < 9; i++)
   {
     for(n=0;n < 9; n++)
     {
-      truthValue = (truthValue && rowContainsNNumber(i,n);
+      truthValue = (truthValue && rowContainsNNumber(i,n));
       if(truthValue==0)return truthValue;
     }
   }
@@ -138,14 +138,14 @@ int rowContainsNNumber(int row, int number)
 */
 int columnContainsEverNumber(int column, int number)
 {
-  truthValue = 1;
+  int truthValue = 1;
   int j = 0;
   int n = 0;
   for(j= 0;j < 9; j++)
   {
     for(n=0;n < 9; n++)
     {
-      truthValue = (truthValue && columnContainsNNumber(j,n);
+      truthValue = (truthValue && columnContainsNNumber(j,n));
       if(truthValue==0)return truthValue;
     }
   }
@@ -168,7 +168,7 @@ int columnContainsNNumber()
 
 int boxContainsEveryNumber()
 {
-  truthValue = 1;
+  int truthValue = 1;
   int r = 0;
   int c = 0;
   int n = 0;
@@ -178,7 +178,7 @@ int boxContainsEveryNumber()
     {
       for(n=0; n < 9; n++)
       {
-        truthValue = truthValue && boxContainsNNumber(r,c,n);
+        truthValue = (truthValue && boxContainsNNumber(r,c,n));
         if (truthValue == 0) return truthValue;
       }
     }
@@ -212,9 +212,9 @@ int checkIfGridFull()
   printf("entering checkifgridisfull");
   int i = 0;
   int j = 0;
-  for(i;i<9;i++)
+  for(i= 0;i<9;i++)
   {
-    for(j;j<9;j++)
+    for(j = 0;j<9;j++)
     {
       if(theGrid[i][j]==0)return 0;
     }
