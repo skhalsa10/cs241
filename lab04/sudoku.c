@@ -68,7 +68,7 @@ int main()
     {
       if(checkIfGridSolved())
       {
-        printf("SOLVED\n %d",checkIfGridSolved());
+        printf("SOLVED");
       }
       else
       {
