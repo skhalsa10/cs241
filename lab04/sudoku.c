@@ -65,6 +65,13 @@ int main()
     while(0);*/
     convertLineToGrid();
     printf("%d value from full",checkIfGridFull());
+    if(checkIfGridFull())
+    {
+      if(checkIfGridSolved())
+      {
+        printf("SOLVED\nSOLVED\nSOLVED\n");
+      }
+    }
     printResults();
 
   }
@@ -186,7 +193,7 @@ int boxContainsEveryNumber()
   return truthValue;
 }
 
-int boxContainsNNumber(int boxRow, int BoxColumn, int number)
+int boxContainsNNumber(int boxRow, int boxColumn, int number)
 {
   int containsNumber = 0;
   int i = 0;
