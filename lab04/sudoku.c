@@ -111,7 +111,7 @@ return 0 if false and true otherwise
 */
 int checkIfGridSolved()
 {
-  printf("every row return value: %d\n", everyRowContainsEveryNumber());
+  printf("\n\n\nevery row return value: %d\n", everyRowContainsEveryNumber());
   printf("every column return value: %d\n", columnContainsEverNumber());
   printf("every box return value: %d\n", boxContainsEveryNumber());
   return (everyRowContainsEveryNumber()&&columnContainsEverNumber()&&boxContainsEveryNumber());
@@ -142,6 +142,7 @@ int rowContainsNNumber(int row, int number)
   for (j=0;j<9;j++)
   {
     containsNumber = containsNumber||(theGrid[row][j] == number);
+    printf("ROW: %d\n column: %d\n number%d\n containsNumber%d", row, j, number, containsNumber);
     if (containsNumber) return containsNumber;
   }
   return containsNumber;
