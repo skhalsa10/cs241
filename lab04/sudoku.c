@@ -84,6 +84,7 @@ int main()
     while(0);*?
     /*printResults();*/
     convertLineToGrid();
+    createConstraintGrid();
     int i = 0;
     int j = 0;
     for(i = 0; i < 9; i++)
