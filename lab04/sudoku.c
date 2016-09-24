@@ -68,11 +68,11 @@ int main()
     {
       if(checkIfGridSolved())
       {
-        printf("SOLVED");
+        printf("SOLVED\n");
       }
       else
       {
-          printf("PUZZLE NOT SOLVED");
+          printf("PUZZLE NOT SOLVED\n");
       }
     }
     /*printResults();*/
