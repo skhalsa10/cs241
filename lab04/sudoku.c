@@ -33,6 +33,8 @@ int updateConstraints(int inputRow, int inputColumn, int inputNumber);
 int updateRowConstraints(int row, int number);
 int updateColumnConstraints(int column, int number);
 int updateBoxConstraints(int boxRow, int boxColumn, int number);
+int fillInSingleConstraints();
+int complexSolution();
 
 
 /* 2d array i'll call theGrid */
@@ -98,6 +100,86 @@ int main()
 
 
   }
+}
+
+/*
+* this is the brains on this program. it is the algorithm that solves the puzzle
+*/
+int solvePuzzle()
+{
+  while(fillInSingleConstraints());
+  if(!checkIfGridFull())
+  {
+    return complexSolution();
+  }
+  return 1;
+}
+
+/*
+* This function loops through constraintGrid if a cell has one possible solution
+* fill in theGrid
+* will return 1 if it made a change other wise it will return 0 if no changes were made
+*/
+int fillInSingleConstraints()
+{
+  int changeMade = FALSE;
+  int i = 0
+  int j = 0
+  for(i=0;i<9;i++)
+  {
+    for(j=0;j<9;j++)
+    {
+      switch (constraintGrid[i][j])
+      {
+        case ONE:
+        theGrid[i][j] = 1;
+        updateConstraints(i,j,1);
+        changeMade = TRUE;
+        break;
+        case TWO:
+        theGrid[i][j] = 2;
+        updateConstraints(i,j,2);
+        changeMade = TRUE;
+        break;
+        case THREE:
+        theGrid[i][j] = 3;
+        updateConstraints(i,j,3);
+        changeMade = TRUE;
+        break;
+        case FOUR:
+        theGrid[i][j] = 4;
+        updateConstraints(i,j,4);
+        changeMade = TRUE;
+        break;
+        case FIVE:
+        theGrid[i][j] = 5;
+        updateConstraints(i,j,5);
+        changeMade = TRUE;
+        break;
+        case SIX:
+        theGrid[i][j] = 6;
+        updateConstraints(i,j,6);
+        changeMade = TRUE;
+        break;
+        case SEVEN:
+        theGrid[i][j] = 7;
+        updateConstraints(i,j,7);
+        changeMade = TRUE;
+        break;
+        case EIGHT:
+        theGrid[i][j] = 8;
+        updateConstraints(i,j,8);
+        changeMade = TRUE;
+        break;
+        case NINE:
+        theGrid[i][j] = 9;
+        updateConstraints(i,j,9);
+        changeMade = TRUE;
+        break;
+      }
+    }
+  }
+  return changeMade;
 }
 
 /*this function checks the board that is input to make sure it doesnt
@@ -247,7 +329,8 @@ int createConstraintGrid()
 }
 
 /*
-*
+*this function eliminates all usability at cell location for all numbers
+*and propogates constrains for rest of board for that number
 */
 int updateConstraints(int inputRow, int inputColumn, int inputNumber)
 {
@@ -266,7 +349,7 @@ int updateConstraints(int inputRow, int inputColumn, int inputNumber)
 }
 
 /*
-*
+*this eliminates number from usability in row.
 */
 int updateRowConstraints(int row, int number)
 {
@@ -310,6 +393,9 @@ int updateRowConstraints(int row, int number)
   return 1;
 }
 
+/*
+* this eliminates number from usabiolity in column
+*/
 int updateColumnConstraints(int column, int number)
 {
   int i = 0;
@@ -352,6 +438,9 @@ int updateColumnConstraints(int column, int number)
   return 1;
 }
 
+/*
+*this function eliminates number from usability in box
+*/
 int updateBoxConstraints(int boxRow, int boxColumn, int number)
 {
   int i = 0;
@@ -527,7 +616,8 @@ int boxContainsNNumber(int boxRow, int boxColumn, int number)
 /*
 * This function just loops through theGrid
 * if it makes it to the end it means it is
-* full and return 0
+* full and return 1
+* returns 0 if not full
 */
 int checkIfGridFull()
 {
