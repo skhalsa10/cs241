@@ -345,7 +345,7 @@ int updateColumnConstraints(int column, int number)
         break;
         case 9:
         if(constraintGrid[i][column] & NINE) constraintGrid[i][column] ^= NINE;
-        break
+        break;
       }
     }
   }
