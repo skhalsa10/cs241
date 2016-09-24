@@ -121,10 +121,10 @@ int everyRowContainsEveryNumber()
 {
   int truthValue = 1;
   int i = 0;
-  int n = 0;
+  int n = 1;
   for(i= 0;i < 9; i++)
   {
-    for(n=0;n < 9; n++)
+    for(n=1;n < 9; n++)
     {
       truthValue = (truthValue && rowContainsNNumber(i,n));
       if(truthValue==0)return truthValue;
@@ -142,7 +142,7 @@ int rowContainsNNumber(int row, int number)
   for (j=0;j<9;j++)
   {
     containsNumber = containsNumber||(theGrid[row][j] == number);
-    printf("ROW: %d\n column: %d\n number%d\n containsNumber%d", row, j, number, containsNumber);
+    /*printf("ROW: %d\n column: %d\n number%d\n containsNumber%d", row, j, number, containsNumber);*/
     if (containsNumber) return containsNumber;
   }
   return containsNumber;
@@ -155,10 +155,10 @@ int columnContainsEverNumber(int column, int number)
 {
   int truthValue = 1;
   int j = 0;
-  int n = 0;
+  int n = 1;
   for(j= 0;j < 9; j++)
   {
-    for(n=0;n < 9; n++)
+    for(n=1;n < 9; n++)
     {
       truthValue = (truthValue && columnContainsNNumber(j,n));
       if(truthValue==0)return truthValue;
@@ -186,12 +186,12 @@ int boxContainsEveryNumber()
   int truthValue = 1;
   int r = 0;
   int c = 0;
-  int n = 0;
+  int n = 1;
   for (r=0; r<3;r++)
   {
     for(c=0;c<3;c++)
     {
-      for(n=0; n < 9; n++)
+      for(n=1; n < 9; n++)
       {
         truthValue = (truthValue && boxContainsNNumber(r,c,n));
         if (truthValue == 0) return truthValue;
