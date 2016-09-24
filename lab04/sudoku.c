@@ -22,13 +22,13 @@ void printResults();
 int solvePuzzle();
 int everyRowContainsEveryNumber();
 int rowContainsNNumber(int row, int number);
-int columnContainsEverNumber(int column, int number);
+int columnContainsEverNumber();
 int columnContainsNNumber(int column, int number);
 int boxContainsEveryNumber();
 int boxContainsNNumber(int boxRow, int boxColumn, int number);
 int checkRowDuplicateN(int row, int number);
 int checkColumnDuplicateN(int column, int number);
-int checkBoxDuplicateN(int boxRow, boxColumn, int number);
+int checkBoxDuplicateN(int boxRow, int boxColumn, int number);
 
 
 /* 2d array i'll call theGrid */
@@ -78,7 +78,8 @@ int main()
     while(0);*?
     /*printResults();*/
     convertLineToGrid();
-    printf("the result of checkIfGridLegal %d\n", checkIfGridLegal());
+    printf("the result of checkifSolved: %d\n", checkIfGridSolved())
+    printf("the result of checkIfGridLegal: %d\n", checkIfGridLegal());
 
   }
 }
@@ -136,9 +137,9 @@ int checkRowDuplicateN(int row, int number)
 */
 int checkColumnDuplicateN(int column, int number)
 {
-  numberCounter = 0;
+  int numberCounter = 0;
   int i = 0;
-  for(i=0;i<9,i++)
+  for(i=0;i<9;i++)
   {
     if(theGrid[i][column] == number)
     {
@@ -158,7 +159,7 @@ int checkColumnDuplicateN(int column, int number)
 /*
 * this functions returns 1 if a box contains duplicate number
 */
-int checkBoxDuplicateN(int boxRow, boxColumn, int number)
+int checkBoxDuplicateN(int boxRow, int boxColumn, int number)
 {
   numberCounter = 0;
   int i = 0;
@@ -257,7 +258,7 @@ int rowContainsNNumber(int row, int number)
 * this functions checks all
 * columns to see if they contain all numbers
 */
-int columnContainsEverNumber(int column, int number)
+int columnContainsEverNumber()
 {
   int truthValue = 1;
   int j = 0;
