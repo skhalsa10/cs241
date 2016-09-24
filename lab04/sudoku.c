@@ -29,10 +29,16 @@ int boxContainsNNumber(int boxRow, int boxColumn, int number);
 int checkRowDuplicateN(int row, int number);
 int checkColumnDuplicateN(int column, int number);
 int checkBoxDuplicateN(int boxRow, int boxColumn, int number);
+int updateConstraints(int inputRow, int inputColumn, int inputNumber);
+int updateRowConstraints(int row, int number);
+int updateColumnConstraints(int column, int number);
+int updateBoxConstraints(int boxRow, int boxColumn, int number);
 
 
 /* 2d array i'll call theGrid */
 int theGrid[9][9];
+/* 2d array that will hold all constraints*/
+unsigned int constraintGrid[9][9];
 /* declare variable for charStream*/
 int charStream = 0;
 /* declare String used for printing results */
@@ -78,7 +84,17 @@ int main()
     while(0);*?
     /*printResults();*/
     convertLineToGrid();
-    printf("the result of checkIfGridLegal: %d\n", checkIfGridLegal());
+    int i = 0;
+    int j = 0;
+    for(i = 0; i < 9; i++)
+    {
+      for(j=0;j<9;j++)
+      {
+        printf("%d|", constraintGrid[i][j]);
+      }
+      printf("\n------------------------------------\n");
+    }
+
 
   }
 }
@@ -196,10 +212,188 @@ int checkBoxDuplicateN(int boxRow, int boxColumn, int number)
 *
 * I still need some logic to check if a move is valid.
 * This helper method needs to be made first.
+*
 */
 int createConstraintGrid()
 {
+  int i = 0;
+  int j = 0;
+  /* ONE|TWO|THREE|FOUR|FIVE|SIX|SEVEN|EIGHT|NINE == 511 == 111111111
+  * I will initialize the constrain grid with 511
+  */
+  for (i = 0; i < 9; i++)
+  {
+    for(j=0;j<9;j++)
+    {
+      constraintGrid[i][j] = 511;
+    }
+  }
 
+  /* update constraintGrid based on initial
+  * theGrid will utilize updateConstraints()
+  */
+  for(i = 0; i < 9; i++)
+  {
+    for(j=0; j < 9; j++)
+    {
+      if (theGrid[i][j] > 0)
+      {
+        updateConstraints(i, j, theGrid[i][j]);
+      }
+    }
+  }
+  return 1;
+}
+
+/*
+*
+*/
+int updateConstraints(int inputRow, int inputColumn, int inputNumber)
+{
+  if(theGrid[inputRow][inputColumn] == inputNumber)
+  {
+    constraintGrid[inputRow][inputColumn] = 0;
+  }
+  else
+  {
+    return 0;
+  }
+  updateRowConstraints(inputRow, inputNumber);
+  updateColumnConstraints(inputColumn, inputNumber);
+  updateBoxConstraints((inputRow/3),(inputColumn/3), inputNumber);
+  return 1;
+}
+
+/*
+*
+*/
+int updateRowConstraints(int row, int number)
+{
+  int j = 0;
+  for(j = 0; j < 9; j++)
+  {
+    if(constraintGrid[row][j] != 0)
+    {
+      switch (number)
+      {
+        case 1:
+        if(constraintGrid[row][j] &= ONE) constraintGrid[row][j] ^= ONE;
+        break;
+        case 2:
+        if(constraintGrid[row][j] &= TWO) constraintGrid[row][j] ^= TWO;
+        break;
+        case 3:
+        if(constraintGrid[row][j] &= THREE) constraintGrid[row][j] ^= THREE;
+        break;
+        case 4:
+        if(constraintGrid[row][j] &= FOUR) constraintGrid[row][j] ^= FOUR;
+        break;
+        case 5:
+        if(constraintGrid[row][j] &= FIVE) constraintGrid[row][j] ^= FIVE;
+        break;
+        case 6:
+        if(constraintGrid[row][j] &= SIX) constraintGrid[row][j] ^= SIX;
+        break;
+        case 7:
+        if(constraintGrid[row][j] &= SEVEN) constraintGrid[row][j] ^= SEVEN;
+        break;
+        case 8:
+        if(constraintGrid[row][j] &= EIGHT) constraintGrid[row][j] ^= EIGHT;
+        break;
+        case 9:
+        if(constraintGrid[row][j] &= NINE) constraintGrid[row][j] ^= NINE;
+        break;
+      }
+    }
+  }
+  return 1;
+}
+
+int updateColumnConstraints(int column, int number)
+{
+  int i = 0;
+  for(i = 0; i < 9; i++)
+  {
+    if(constraintGrid[i][column] != 0)
+    {
+      switch (number)
+      {
+        case 1:
+        if(constraintGrid[i][column] &= ONE) constraintGrid[i][column] ^= ONE;
+        break;
+        case 2:
+        if(constraintGrid[i][column] &= TWO) constraintGrid[i][column] ^= TWO;
+        break;
+        case 3:
+        if(constraintGrid[i][column] &= THREE) constraintGrid[i][column] ^= THREE;
+        break;
+        case 4:
+        if(constraintGrid[i][column] &= FOUR) constraintGrid[i][column] ^= FOUR;
+        break;
+        case 5:
+        if(constraintGrid[i][column] &= FIVE) constraintGrid[i][column] ^= FIVE;
+        break;
+        case 6:
+        if(constraintGrid[i][column] &= SIX) constraintGrid[i][column] ^= SIX;
+        break;
+        case 7:
+        if(constraintGrid[i][column] &= SEVEN) constraintGrid[i][column] ^= SEVEN;
+        break;
+        case 8:
+        if(constraintGrid[i][column] &= EIGHT) constraintGrid[i][column] ^= EIGHT;
+        break;
+        case 9:
+        if(constraintGrid[i][column] &= NINE) constraintGrid[i][column] ^= NINE;
+        break;
+      }
+    }
+  }
+  return 1;
+}
+
+int updateBoxConstraints(int boxRow, int boxColumn, int number)
+{
+  int i = 0;
+  int j = 0;
+  for(i = 0; i <3; i++)
+  {
+    for(j = 0; j <3; j++)
+    {
+      if(constraintGrid[(3*boxRow + i)][3*boxColumn+j] != 0)
+      {
+        switch (number)
+        {
+          case 1:
+          if(constraintGrid[(3*boxRow + i)][3*boxColumn+j] &= ONE) constraintGrid[(3*boxRow + i)][3*boxColumn+j] ^= ONE;
+          break;
+          case 2:
+          if(constraintGrid[(3*boxRow + i)][3*boxColumn+j] &= TWO) constraintGrid[(3*boxRow + i)][3*boxColumn+j] ^= TWO;
+          break;
+          case 3:
+          if(constraintGrid[(3*boxRow + i)][3*boxColumn+j] &= THREE) constraintGrid[(3*boxRow + i)][3*boxColumn+j] ^= THREE;
+          break;
+          case 4:
+          if(constraintGrid[(3*boxRow + i)][3*boxColumn+j] &= FOUR) constraintGrid[(3*boxRow + i)][3*boxColumn+j] ^= FOUR;
+          break;
+          case 5:
+          if(constraintGrid[(3*boxRow + i)][3*boxColumn+j] &= FIVE) constraintGrid[(3*boxRow + i)][3*boxColumn+j] ^= FIVE;
+          break;
+          case 6:
+          if(constraintGrid[(3*boxRow + i)][3*boxColumn+j] &= SIX) constraintGrid[(3*boxRow + i)][3*boxColumn+j] ^= SIX;
+          break;
+          case 7:
+          if(constraintGrid[(3*boxRow + i)][3*boxColumn+j] &= SEVEN) constraintGrid[(3*boxRow + i)][3*boxColumn+j] ^= SEVEN;
+          break;
+          case 8:
+          if(constraintGrid[(3*boxRow + i)][3*boxColumn+j] &= EIGHT) constraintGrid[(3*boxRow + i)][3*boxColumn+j] ^= EIGHT;
+          break;
+          case 9:
+          if(constraintGrid[(3*boxRow + i)][3*boxColumn+j] &= NINE) constraintGrid[(3*boxRow + i)][3*boxColumn+j] ^= NINE;
+          break;
+        }
+      }
+    }
+  }
 }
 
 /*
