@@ -15,10 +15,21 @@
 /* declare all functions here */
 int convertLineToGrid();
 int checkIfGridLegal();/*still need to create*/
-int checkIfGridFull();/*still need to create*/
-int checkIfGridSolved();/*still need to create*/
+int checkIfGridFull();
+int checkIfGridSolved();
 int createConstraintGrid();/*still need to create*/
-void printResults();/*still need to create*/
+void printResults();
+int solvePuzzle();
+int everyRowContainsEveryNumber();
+int rowContainsNNumber(int row, int number);
+int columnContainsEverNumber(int column, int number);
+int columnContainsNNumber(int column, int number);
+int boxContainsEveryNumber();
+int boxContainsNNumber(int boxRow, int boxColumn, int number);
+int checkRowDuplicateN(int row, int number);
+int checkColumnDuplicateN(int column, int number);
+int checkBoxDuplicateN(int boxRow, boxColumn, int number);
+
 
 /* 2d array i'll call theGrid */
 int theGrid[9][9];
@@ -61,22 +72,118 @@ int main()
         break;
       }
       checkIfGridLegal();
+      createConstraintGrid();
+      solvePuzzle();
     }
-    while(0);*/
-    convertLineToGrid();
-    if(checkIfGridFull())
-    {
-      if(checkIfGridSolved())
-      {
-        printf("SOLVED\n");
-      }
-      else
-      {
-          printf("PUZZLE NOT SOLVED\n");
-      }
-    }
+    while(0);*?
     /*printResults();*/
+    convertLineToGrid();
+    printf("the result of checkIfGridLegal %d\n", checkIfGridLegal());
 
+  }
+}
+
+/*this function checks the board that is input to make sure it doesnt
+* violate rules of sudoku. It will check to confirm  that a numbers
+* doesnt appear twice in any row column or box if it does the input
+* is invalid returns 1 if board is valid other wise return 0
+*/
+int checkIfGridLegal()
+{
+  int i = 0;
+  int j = 0;
+  for(i = 0; i <9;i++)
+  {
+    for(j = 0; j < 9; j++)
+    {
+      if(theGrid[i][j] > 0)
+      {
+        if(checkRowDuplicateN(i, theGrid[i][j])) return 0;
+        if(checkColumnDuplicateN(j, theGrid[i][j])) return 0;
+        if(checkBoxDuplicateN( (i/3), (j/3), theGrid[i][j])) return 0;
+      }
+    }
+  }
+  return 1;
+}
+
+/*
+* function will return 1 if more then one number exists in row
+*/
+int checkRowDuplicateN(int row, int number)
+{
+  int numberCounter = 0;
+  int j = 0;
+  for(j=0;j<9;j++)
+  {
+    if(theGrid[row][j] == number)
+    {
+      numberCounter++;
+    }
+  }
+  if(numberCounter >1)
+  {
+    return 1;
+  }
+  else
+  {
+      return 0;
+  }
+}
+
+/*
+* this funtion returns 1 if column contains more then one number
+*/
+int checkColumnDuplicateN(int column, int number)
+{
+  numberCounter = 0;
+  int i = 0;
+  for(i=0;i<9,i++)
+  {
+    if(theGrid[i][column] == number)
+    {
+      numberCounter++;
+    }
+  }
+  if (numberCounter>1)
+  {
+    return 1;
+  }
+  else
+  {
+    return 0;
+  }
+}
+
+/*
+* this functions returns 1 if a box contains duplicate number
+*/
+int checkBoxDuplicateN(int boxRow, boxColumn, int number)
+{
+  numberCounter = 0;
+  int i = 0;
+  int j = 0;
+  for(i=0; i<3; i++)
+  {
+    for(j = 0; j<3; j++)
+    {
+      if(theGrid[3*boxRow + i][3*boxColumn+j] == number)
+      {
+        numberCounter++;
+        if(numberCounter>1)
+        {
+          return 1;
+        }
+      }
+    }
+  }
+  if(numberCounter>1)
+  {
+    return 1;
+  }
+  else
+  {
+    return 0;
   }
 }
 
