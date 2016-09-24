@@ -73,7 +73,7 @@ int main()
       }
       else
       {
-          printf"PUZZLE NOT SOLVED");
+          printf("PUZZLE NOT SOLVED");
       }
     }
     printResults();
