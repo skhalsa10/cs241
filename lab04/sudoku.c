@@ -1,6 +1,16 @@
 #include <stdio.h>
 #define FALSE 0
 #define TRUE 1
+#define ONE 1
+#define TWO 2
+#define THREE 4
+#define FOUR 8
+#define FIVE 16
+#define SIX 32
+#define SEVEN 64
+#define EIGHT 128
+#define NINE 256
+
 
 /* declare all functions here */
 int convertLineToGrid();
@@ -58,6 +68,138 @@ int main()
     printResults();
 
   }
+}
+
+/*
+* My initial thought to attack this function is to assign
+* a value to each square that explains what moves are legal.
+* if a square can contain all 9 numbers it would be
+* represented by 11111111 i can use & to check if available
+* or | to add it. if I use up a value i can ^ to get it out of the list
+*
+* I still need some logic to check if a move is valid.
+* This helper method needs to be made first.
+*/
+int createConstraintGrid()
+{
+
+}
+
+/*
+* I am thinking about using some sort of
+* propositional satisfiability to assert
+* that the puzzle is solved. still researching.
+this will use recursive calls to check the truth
+value of 9*9*9 = 729 logical tests. This is a logic puzzle.
+i feel. the goal of sudoku fro this perspective is to find a solution
+for logical values. I feel there is a way to solve the puzzle this way
+but I havent figured it out yet
+I will build a check the performs the following check
+(rowContainsEveryNumber()&columnContainsEverNumber()&boxContainsEveryNumber())
+return 0 if false and true otherwise
+*/
+int checkIfGridSolved()
+{
+  return (everyRowContainsEveryNumber()&&columnContainsEverNumber()&&boxContainsEveryNumber());
+}
+
+int everyRowContainsEveryNumber()
+{
+  truthValue = 1;
+  int i = 0;
+  int n = 0;
+  for(i= 0;i < 9; i++)
+  {
+    for(n=0;n < 9; n++)
+    {
+      truthValue = (truthValue && rowContainsNNumber(i,n);
+      if(truthValue==0)return truthValue;
+    }
+  }
+  return truthValue;
+}
+/*
+* this function returns nonZero if the row contains n number
+*/
+int rowContainsNNumber(int row, int number)
+{
+  int containsNumber = 0;
+  int j = 0;
+  for (j=0;j<9;j++)
+  {
+    containsNumber = containsNumber||(theGrid[row][j] == number);
+    if (containsNumber) return containsNumber;
+  }
+  return containsNumber;
+}
+/*
+* this functions checks all
+* columns to see if they contain all numbers
+*/
+int columnContainsEverNumber(int column, int number)
+{
+  truthValue = 1;
+  int j = 0;
+  int n = 0;
+  for(j= 0;j < 9; j++)
+  {
+    for(n=0;n < 9; n++)
+    {
+      truthValue = (truthValue && columnContainsNNumber(j,n);
+      if(truthValue==0)return truthValue;
+    }
+  }
+  return truthValue;
+}
+/*
+*this function checks if a column cantains 1 number
+*/
+int columnContainsNNumber()
+{
+  int containsNumber = 0;
+  int i = 0;
+  for(i=0;i<9;i++)
+  {
+    containsNumber = containsNumber||(theGrid)[i][column] == number);
+    if (containsNumber) return containsNumber;
+  }
+  return containsNumber;
+}
+
+int boxContainsEveryNumber()
+{
+  truthValue = 1;
+  int r = 0;
+  int c = 0;
+  int n = 0;
+  for (r=0; r<3;r++)
+  {
+    for(c=0;c<3;c++)
+    {
+      for(n=0; n < 9; n++)
+      {
+        truthValue = truthValue && boxContainsNNumber(r,c,n);
+        if (truthValue == 0) return truthValue;
+      }
+    }
+  }
+  return truthValue;
+}
+
+int boxContainsNNumber(int boxRow, int BoxColumn, int number)
+{
+  int containsNumber = 0;
+  int i = 0;
+  int j = 0;
+  for(i=0; i <3;i++)
+  {
+    for (j=0; j < 3; j++)
+    {
+      containsNumber = containsNumber||(theGrid[3*boxRow+i][3*boxColumn +j]== number);
+      if (containsNumber) return containsNumber;
+    }
+  }
+  return containsNumber;
 }
 
 /*
