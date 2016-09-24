@@ -232,7 +232,7 @@ int createConstraintGrid()
 
   /* update constraintGrid based on initial
   * theGrid will utilize updateConstraints()
-  */
+  *//*
   for(i = 0; i < 9; i++)
   {
     for(j=0; j < 9; j++)
@@ -242,7 +242,7 @@ int createConstraintGrid()
         updateConstraints(i, j, theGrid[i][j]);
       }
     }
-  }
+  }*/
   return 1;
 }
 
