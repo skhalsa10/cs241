@@ -111,6 +111,9 @@ return 0 if false and true otherwise
 */
 int checkIfGridSolved()
 {
+  printf("every row return value: %d\n", everyRowContainsEveryNumber());
+  printf("every column return value: %d\n", columnContainsEverNumber());
+  printf("every box return value: %d\n", boxContainsEveryNumber());
   return (everyRowContainsEveryNumber()&&columnContainsEverNumber()&&boxContainsEveryNumber());
 }
 
