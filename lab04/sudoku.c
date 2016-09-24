@@ -78,7 +78,6 @@ int main()
     while(0);*?
     /*printResults();*/
     convertLineToGrid();
-    printf("the result of checkifSolved: %d\n", checkIfGridSolved());
     printf("the result of checkIfGridLegal: %d\n", checkIfGridLegal());
 
   }
