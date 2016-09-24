@@ -91,7 +91,7 @@ int main()
     {
       for(j=0;j<9;j++)
       {
-        printf("%d|", constraintGrid[i][j]);
+        printf("%3d|", constraintGrid[i][j]);
       }
       printf("\n------------------------------------\n");
     }
@@ -232,7 +232,7 @@ int createConstraintGrid()
 
   /* update constraintGrid based on initial
   * theGrid will utilize updateConstraints()
-  *//*
+  */
   for(i = 0; i < 9; i++)
   {
     for(j=0; j < 9; j++)
@@ -242,7 +242,7 @@ int createConstraintGrid()
         updateConstraints(i, j, theGrid[i][j]);
       }
     }
-  }*/
+  }
   return 1;
 }
 
@@ -253,7 +253,7 @@ int updateConstraints(int inputRow, int inputColumn, int inputNumber)
 {
   if(theGrid[inputRow][inputColumn] == inputNumber)
   {
-    constraintGrid[inputRow][inputColumn] = 0;
+    /*constraintGrid[inputRow][inputColumn] = 0;*/
   }
   else
   {
