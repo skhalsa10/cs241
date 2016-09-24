@@ -78,7 +78,7 @@ int main()
     while(0);*?
     /*printResults();*/
     convertLineToGrid();
-    printf("the result of checkifSolved: %d\n", checkIfGridSolved())
+    printf("the result of checkifSolved: %d\n", checkIfGridSolved());
     printf("the result of checkIfGridLegal: %d\n", checkIfGridLegal());
 
   }
@@ -161,7 +161,7 @@ int checkColumnDuplicateN(int column, int number)
 */
 int checkBoxDuplicateN(int boxRow, int boxColumn, int number)
 {
-  numberCounter = 0;
+  int numberCounter = 0;
   int i = 0;
   int j = 0;
   for(i=0; i<3; i++)
