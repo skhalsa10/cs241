@@ -64,12 +64,11 @@ int main()
     }
     while(0);*/
     convertLineToGrid();
-    printf("%d value from full",checkIfGridFull());
     if(checkIfGridFull())
     {
       if(checkIfGridSolved())
       {
-        printf("SOLVED\nSOLVED\nSOLVED\n %d",checkIfGridSolved());
+        printf("SOLVED\n %d",checkIfGridSolved());
       }
       else
       {
@@ -111,9 +110,9 @@ return 0 if false and true otherwise
 */
 int checkIfGridSolved()
 {
-  printf("\n\n\nevery row return value: %d\n", everyRowContainsEveryNumber());
+  /*printf("\n\n\nevery row return value: %d\n", everyRowContainsEveryNumber());
   printf("every column return value: %d\n", columnContainsEverNumber());
-  printf("every box return value: %d\n", boxContainsEveryNumber());
+  printf("every box return value: %d\n", boxContainsEveryNumber());*/
   return (everyRowContainsEveryNumber()&&columnContainsEverNumber()&&boxContainsEveryNumber());
 }
 
@@ -181,6 +180,9 @@ int columnContainsNNumber(int column, int number)
   return containsNumber;
 }
 
+/*
+* this functions checks 3 by 3 box to see if it contains every number
+*/
 int boxContainsEveryNumber()
 {
   int truthValue = 1;
@@ -201,6 +203,9 @@ int boxContainsEveryNumber()
   return truthValue;
 }
 
+/*
+* check to see if a given box contains a given number
+*/
 int boxContainsNNumber(int boxRow, int boxColumn, int number)
 {
   int containsNumber = 0;
@@ -224,7 +229,6 @@ int boxContainsNNumber(int boxRow, int boxColumn, int number)
 */
 int checkIfGridFull()
 {
-  printf("entering checkifgridisfull");
   int i = 0;
   int j = 0;
   for(i= 0;i<9;i++)
