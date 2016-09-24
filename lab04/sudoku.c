@@ -154,13 +154,13 @@ int columnContainsEverNumber(int column, int number)
 /*
 *this function checks if a column cantains 1 number
 */
-int columnContainsNNumber()
+int columnContainsNNumber(int column, int number)
 {
   int containsNumber = 0;
   int i = 0;
   for(i=0;i<9;i++)
   {
-    containsNumber = containsNumber||(theGrid)[i][column] == number);
+    containsNumber = containsNumber||(theGrid[i][column] == number);
     if (containsNumber) return containsNumber;
   }
   return containsNumber;
