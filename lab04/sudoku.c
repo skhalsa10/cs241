@@ -87,6 +87,7 @@ int main()
     /*printResults();*/
     convertLineToGrid();
     createConstraintGrid();
+    printf("solve simple status: %d\n", solvePuzzle());
     int i = 0;
     int j = 0;
     for(i = 0; i < 9; i++)
