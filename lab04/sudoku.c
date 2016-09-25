@@ -1202,14 +1202,14 @@ void printResults()
         printf("%d", theGrid[i][j]);
       }
     }
-    printf("\n");
+    printf("\n\n");
   }
   if(noSolution)
   {
-    printf("No solution\n");
+    printf("No solution\n\n");
   }
   if(puzzleError)
   {
-    printf("Error\n");
+    printf("Error\n\n");
   }
 }
