@@ -266,7 +266,7 @@ int undoBoxConstraint(int boxRow, int boxColumn, int number)
 */
 int complexSolution()
 {
-  printf("complexSolution has been called\n");
+  /*printf("complexSolution has been called\n");*/
   int foundBlank = FALSE;
   int i = 0;
   int j = 0;
@@ -285,6 +285,7 @@ int complexSolution()
 
   if(constraintGrid[i][j]&ONE)
   {
+    printf("entering ONE\n");
     theGrid[i][j] = 1;
     updateConstraints(i,j,1, FALSE);
     if(!complexSolution())
@@ -299,6 +300,7 @@ int complexSolution()
   }
   else if (constraintGrid[i][j]&TWO)
   {
+    printf("entering TWO\n");
     theGrid[i][j] = 2;
     updateConstraints(i,j,2, FALSE);
     if(!complexSolution())
@@ -313,6 +315,7 @@ int complexSolution()
   }
   else if (constraintGrid[i][j]&THREE)
   {
+    printf("entering THREE\n");
     theGrid[i][j] = 3;
     updateConstraints(i,j,3, FALSE);
     if(!complexSolution())
@@ -327,6 +330,7 @@ int complexSolution()
   }
   else if (constraintGrid[i][j]&FOUR)
   {
+    printf("entering FOUR\n");
     theGrid[i][j] = 4;
     updateConstraints(i,j,4, FALSE);
     if(!complexSolution())
@@ -341,6 +345,7 @@ int complexSolution()
   }
   else if (constraintGrid[i][j]&FIVE)
   {
+    printf("entering FIVE\n");
     theGrid[i][j] = 5;
     updateConstraints(i,j,5, FALSE);
     if(!complexSolution())
@@ -355,6 +360,7 @@ int complexSolution()
   }
   else if (constraintGrid[i][j]&SIX)
   {
+    printf("entering SIX\n");
     theGrid[i][j] = 6;
     updateConstraints(i,j,6, FALSE);
     if(!complexSolution())
@@ -369,6 +375,7 @@ int complexSolution()
   }
   else if (constraintGrid[i][j]&SEVEN)
   {
+    printf("entering SEVEN\n");
     theGrid[i][j] = 7;
     updateConstraints(i,j,7, FALSE);
     if(!complexSolution())
@@ -383,6 +390,7 @@ int complexSolution()
   }
   else if (constraintGrid[i][j]&EIGHT)
   {
+    printf("entering EIGHT\n");
     theGrid[i][j] = 8;
     updateConstraints(i,j,8, FALSE);
     if(!complexSolution())
@@ -397,6 +405,7 @@ int complexSolution()
   }
   else if (constraintGrid[i][j]&NINE)
   {
+    printf("entering NINE\n");
     theGrid[i][j] = 9;
     updateConstraints(i,j,9, FALSE);
     if(!complexSolution())
