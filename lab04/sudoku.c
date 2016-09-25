@@ -267,9 +267,155 @@ int undoBoxConstraint(int boxRow, int boxColumn, int number)
 int complexSolution()
 {
   printf("complexSolution has been called\n");
+  int foundBlank = FALSE;
   int i = 0;
   int j = 0;
-  for (i = 0; i < 9; i++)
+  for (i=0;i<9;i++)
+  {
+    for(j=0;j<9;j++)
+    {
+      if (theGrid[i][j] == 0)
+      {
+        foundBlank = TRUE;
+        break;
+      }
+    }
+    if(foundBlank) break;
+  }
+
+  if(constraintGrid[i][j]&ONE)
+  {
+    theGrid[i][j] = 1;
+    updateConstraints(i,j,1, FALSE);
+    if(!complexSolution())
+    {
+      undoMove(i,j,1);
+      constraintGrid[i][j] ^= ONE;
+    }
+    else
+    {
+      return 1;
+    }
+  }
+  else if (constraintGrid[i][j]&TWO)
+  {
+    theGrid[i][j] = 2;
+    updateConstraints(i,j,2, FALSE);
+    if(!complexSolution())
+    {
+      undoMove(i,j,2);
+      constraintGrid[i][j] ^= TWO;
+    }
+    else
+    {
+      return 1;
+    }
+  }
+  else if (constraintGrid[i][j]&THREE)
+  {
+    theGrid[i][j] = 3;
+    updateConstraints(i,j,3, FALSE);
+    if(!complexSolution())
+    {
+      undoMove(i,j,3);
+      constraintGrid[i][j] ^= THREE;
+    }
+    else
+    {
+      return 1;
+    }
+  }
+  else if (constraintGrid[i][j]&FOUR)
+  {
+    theGrid[i][j] = 4;
+    updateConstraints(i,j,4, FALSE);
+    if(!complexSolution())
+    {
+      undoMove(i,j,4);
+      constraintGrid[i][j] ^= FOUR;
+    }
+    else
+    {
+      return 1;
+    }
+  }
+  else if (constraintGrid[i][j]&FIVE)
+  {
+    theGrid[i][j] = 5;
+    updateConstraints(i,j,5, FALSE);
+    if(!complexSolution())
+    {
+      undoMove(i,j,5);
+      constraintGrid[i][j] ^= FIVE;
+    }
+    else
+    {
+      return 1;
+    }
+  }
+  else if (constraintGrid[i][j]&SIX)
+  {
+    theGrid[i][j] = 6;
+    updateConstraints(i,j,6, FALSE);
+    if(!complexSolution())
+    {
+      undoMove(i,j,6);
+      constraintGrid[i][j] ^= SIX;
+    }
+    else
+    {
+      return 1;
+    }
+  }
+  else if (constraintGrid[i][j]&SEVEN)
+  {
+    theGrid[i][j] = 7;
+    updateConstraints(i,j,7, FALSE);
+    if(!complexSolution())
+    {
+      undoMove(i,j,7);
+      constraintGrid[i][j] ^= SEVEN;
+    }
+    else
+    {
+      return 1;
+    }
+  }
+  else if (constraintGrid[i][j]&EIGHT)
+  {
+    theGrid[i][j] = 8;
+    updateConstraints(i,j,8, FALSE);
+    if(!complexSolution())
+    {
+      undoMove(i,j,8);
+      constraintGrid[i][j] ^= EIGHT;
+    }
+    else
+    {
+      return 1;
+    }
+  }
+  else if (constraintGrid[i][j]&NINE)
+  {
+    theGrid[i][j] = 9;
+    updateConstraints(i,j,9, FALSE);
+    if(!complexSolution())
+    {
+      undoMove(i,j,9);
+      constraintGrid[i][j] ^= NINE;
+    }
+    else
+    {
+      return 1;
+    }
+  }
+  else
+  {
+    printf("about to return false from complex\n");
+    return 0;
+  }
+
+  /*for (i = 0; i < 9; i++)
   {
     for(j=0;j<9;j++)
     {
@@ -408,7 +554,7 @@ int complexSolution()
         }
       }
     }
-  }
+  }*/
 }
 
 /*
