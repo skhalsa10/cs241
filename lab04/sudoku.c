@@ -401,6 +401,7 @@ int complexSolution()
         }
         else
         {
+          printf("about to return false from complex\n");
           return 0;
         }
       }
