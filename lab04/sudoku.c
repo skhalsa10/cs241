@@ -310,13 +310,14 @@ int complexSolution()
   {
     printf("entering ONE\n");
     theGrid[i][j] = 1;
-    printf("before restraints update%d\n", constraintGrid[i][j+1] );
+    printf("before restraints update i = 0 j = 1 %d\n", constraintGrid[i][j+1] );
     updateConstraints(i,j,1, FALSE);
-    printf("after uypdating constraints%d\n",constraintGrid[i][j+1] );
+    printf("after uypdating constraints i = 0 j = 1 %d\n",constraintGrid[i][j+1] );
     if(!complexSolution())
     {
       printf("complexSolution failed entering undoMove\n");
       undoMove(i,j,1);
+      printf("After undoMove i = 0 and j = 1: %d\n", constraintGrid[0][1] );
       constraintGrid[i][j] ^= ONE;
     }
     /*else
@@ -330,9 +331,11 @@ int complexSolution()
     printf("entering TWO\n");
     theGrid[i][j] = 2;
     updateConstraints(i,j,2, FALSE);
+        printf("After updateConstraints i = 0 and j = 1: %d\n", constraintGrid[0][1] );
     if(!complexSolution())
     {
       undoMove(i,j,2);
+      printf("After undoMove i = 0 and j = 1: %d\n", constraintGrid[0][1] );
       constraintGrid[i][j] ^= TWO;
     }
     /*else
@@ -345,9 +348,11 @@ int complexSolution()
     printf("entering THREE\n");
     theGrid[i][j] = 3;
     updateConstraints(i,j,3, FALSE);
+        printf("After updateConstraints i = 0 and j = 1: %d\n", constraintGrid[0][1] );
     if(!complexSolution())
     {
       undoMove(i,j,3);
+      printf("After undoMove i = 0 and j = 1: %d\n", constraintGrid[0][1] );
       constraintGrid[i][j] ^= THREE;
     }
     /*else
@@ -360,9 +365,11 @@ int complexSolution()
     printf("entering FOUR\n");
     theGrid[i][j] = 4;
     updateConstraints(i,j,4, FALSE);
+        printf("After updateConstraints i = 0 and j = 1: %d\n", constraintGrid[0][1] );
     if(!complexSolution())
     {
       undoMove(i,j,4);
+      printf("After undoMove i = 0 and j = 1: %d\n", constraintGrid[0][1] );
       constraintGrid[i][j] ^= FOUR;
     }
     /*else
@@ -375,9 +382,11 @@ int complexSolution()
     printf("entering FIVE\n");
     theGrid[i][j] = 5;
     updateConstraints(i,j,5, FALSE);
+        printf("After updateConstraints i = 0 and j = 1: %d\n", constraintGrid[0][1] );
     if(!complexSolution())
     {
       undoMove(i,j,5);
+      printf("After undoMove i = 0 and j = 1: %d\n", constraintGrid[0][1] );
       constraintGrid[i][j] ^= FIVE;
     }
     /*else
@@ -390,9 +399,11 @@ int complexSolution()
     printf("entering SIX\n");
     theGrid[i][j] = 6;
     updateConstraints(i,j,6, FALSE);
+        printf("After updateConstraints i = 0 and j = 1: %d\n", constraintGrid[0][1] );
     if(!complexSolution())
     {
       undoMove(i,j,6);
+      printf("After undoMove i = 0 and j = 1: %d\n", constraintGrid[0][1] );
       constraintGrid[i][j] ^= SIX;
     }
     /*else
@@ -405,9 +416,11 @@ int complexSolution()
     printf("entering SEVEN\n");
     theGrid[i][j] = 7;
     updateConstraints(i,j,7, FALSE);
+        printf("After updateConstraints i = 0 and j = 1: %d\n", constraintGrid[0][1] );
     if(!complexSolution())
     {
       undoMove(i,j,7);
+      printf("After undoMove i = 0 and j = 1: %d\n", constraintGrid[0][1] );
       constraintGrid[i][j] ^= SEVEN;
     }
     /*else
@@ -420,9 +433,11 @@ int complexSolution()
     printf("entering EIGHT\n");
     theGrid[i][j] = 8;
     updateConstraints(i,j,8, FALSE);
+        printf("After updateConstraints i = 0 and j = 1: %d\n", constraintGrid[0][1] );
     if(!complexSolution())
     {
       undoMove(i,j,8);
+      printf("After undoMove i = 0 and j = 1: %d\n", constraintGrid[0][1] );
       constraintGrid[i][j] ^= EIGHT;
     }
     /*else
@@ -435,9 +450,11 @@ int complexSolution()
     printf("entering NINE\n");
     theGrid[i][j] = 9;
     updateConstraints(i,j,9, FALSE);
+    printf("After updateConstraints i = 0 and j = 1: %d\n", constraintGrid[0][1] );
     if(!complexSolution())
     {
       undoMove(i,j,9);
+      printf("After undoMove i = 0 and j = 1: %d\n", constraintGrid[0][1] );
       constraintGrid[i][j] ^= NINE;
     }
     /*else
