@@ -317,11 +317,11 @@ int complexSolution()
       undoMove(i,j,1);
       constraintGrid[i][j] ^= ONE;
     }
-    else
+    /*else
     {
       printf("about to return 1?\n");
       return 1;
-    }
+    }*/
   }
   else if (constraintGrid[i][j]&TWO)
   {
@@ -333,10 +333,10 @@ int complexSolution()
       undoMove(i,j,2);
       constraintGrid[i][j] ^= TWO;
     }
-    else
+    /*else
     {
       return 1;
-    }
+    }*/
   }
   else if (constraintGrid[i][j]&THREE)
   {
@@ -348,10 +348,10 @@ int complexSolution()
       undoMove(i,j,3);
       constraintGrid[i][j] ^= THREE;
     }
-    else
+    /*else
     {
       return 1;
-    }
+    }*/
   }
   else if (constraintGrid[i][j]&FOUR)
   {
@@ -363,10 +363,10 @@ int complexSolution()
       undoMove(i,j,4);
       constraintGrid[i][j] ^= FOUR;
     }
-    else
+    /*else
     {
       return 1;
-    }
+    }*/
   }
   else if (constraintGrid[i][j]&FIVE)
   {
@@ -378,10 +378,10 @@ int complexSolution()
       undoMove(i,j,5);
       constraintGrid[i][j] ^= FIVE;
     }
-    else
+    /*else
     {
       return 1;
-    }
+    }*/
   }
   else if (constraintGrid[i][j]&SIX)
   {
@@ -393,10 +393,10 @@ int complexSolution()
       undoMove(i,j,6);
       constraintGrid[i][j] ^= SIX;
     }
-    else
+    /*else
     {
       return 1;
-    }
+    }*/
   }
   else if (constraintGrid[i][j]&SEVEN)
   {
@@ -408,10 +408,10 @@ int complexSolution()
       undoMove(i,j,7);
       constraintGrid[i][j] ^= SEVEN;
     }
-    else
+    /*else
     {
       return 1;
-    }
+    }*/
   }
   else if (constraintGrid[i][j]&EIGHT)
   {
@@ -423,10 +423,10 @@ int complexSolution()
       undoMove(i,j,8);
       constraintGrid[i][j] ^= EIGHT;
     }
-    else
+    /*else
     {
       return 1;
-    }
+    }*/
   }
   else if (constraintGrid[i][j]&NINE)
   {
@@ -438,16 +438,18 @@ int complexSolution()
       undoMove(i,j,9);
       constraintGrid[i][j] ^= NINE;
     }
-    else
+    /*else
     {
       return 1;
-    }
+    }*/
   }
   else
   {
     printf("about to return false from complex\n");
     return 0;
   }
+
+  return 1;
 }
 
 /*
