@@ -53,6 +53,8 @@ int errorLineTooLong = FALSE;
 int errorLineTooShort = FALSE;
 int errorNotNumeric = FALSE;
 int puzzleSolved = FALSE;
+int puzzleError = FALSE;
+int noSolution = FALSE;
 
 int main()
 {
@@ -65,6 +67,9 @@ int main()
   characters before '\n' error flag is turned on. */
   while((charStream = getchar()) != EOF)
   {
+    noSolution = FALSE;
+    puzzleError = FALSE;
+    puzzleSolved = FALSE;
     /*this will always only happen once
     but I want to break out of the set
     of instructions when certain criteria is met
@@ -72,26 +77,37 @@ int main()
     returns 0 */
     do
     {
-      if(!convertLineToGrid()) break;
+      if(!convertLineToGrid())
+      {
+        puzzleError = TRUE;
+        break;
+      }
       if(checkIfGridFull())
       {
-        puzzleSolved = FALSE;
         if(checkIfGridSolved())
         {
           puzzleSolved = TRUE;
         }
         break;
       }
-      checkIfGridLegal();
+      if(!checkIfGridLegal())
+      {
+        puzzleError = TRUE;
+        break;
+      }
       createConstraintGrid();
-      solvePuzzle();
+      if(solvePuzzle())
+      {
+        puzzleSolved = TRUE;
+      }
+      else
+      {
+        noSolution = TRUE;
+      }
     }
     while(0);
-    /*printResults();*/
+    printResults();
 
-    /*convertLineToGrid();
-    createConstraintGrid();
-    printf("solve puzzle: %d\n", solvePuzzle());*/
 
   }
 }
@@ -302,7 +318,7 @@ int complexSolution()
   }
   else if (constraintGrid[i][j]&TWO)
   {
-    printf("entering TWO\n");
+
     theGrid[i][j] = 2;
     updateConstraints(i,j,2, FALSE);
     if(!complexSolution())
@@ -317,7 +333,7 @@ int complexSolution()
   }
   else if (constraintGrid[i][j]&THREE)
   {
-    printf("entering THREE\n");
+
     theGrid[i][j] = 3;
     updateConstraints(i,j,3, FALSE);
     if(!complexSolution())
@@ -332,7 +348,7 @@ int complexSolution()
   }
   else if (constraintGrid[i][j]&FOUR)
   {
-    printf("entering FOUR\n");
+
     theGrid[i][j] = 4;
     updateConstraints(i,j,4, FALSE);
     if(!complexSolution())
@@ -347,7 +363,7 @@ int complexSolution()
   }
   else if (constraintGrid[i][j]&FIVE)
   {
-    printf("entering FIVE\n");
+
     theGrid[i][j] = 5;
     updateConstraints(i,j,5, FALSE);
     if(!complexSolution())
@@ -362,7 +378,7 @@ int complexSolution()
   }
   else if (constraintGrid[i][j]&SIX)
   {
-    printf("entering SIX\n");
+
     theGrid[i][j] = 6;
     updateConstraints(i,j,6, FALSE);
     if(!complexSolution())
@@ -377,7 +393,7 @@ int complexSolution()
   }
   else if (constraintGrid[i][j]&SEVEN)
   {
-    printf("entering SEVEN\n");
+
     theGrid[i][j] = 7;
     updateConstraints(i,j,7, FALSE);
     if(!complexSolution())
@@ -392,7 +408,6 @@ int complexSolution()
   }
   else if (constraintGrid[i][j]&EIGHT)
   {
-    printf("entering EIGHT\n");
     theGrid[i][j] = 8;
     updateConstraints(i,j,8, FALSE);
     if(!complexSolution())
@@ -407,7 +422,6 @@ int complexSolution()
   }
   else if (constraintGrid[i][j]&NINE)
   {
-    printf("entering NINE\n");
     theGrid[i][j] = 9;
     updateConstraints(i,j,9, FALSE);
     if(!complexSolution())
@@ -1177,4 +1191,25 @@ int convertLineToGrid()
 void printResults()
 {
   printf("%s\n", inputLine);
+  if(puzzleSolved)
+  {
+    int i = 0;
+    int j = 0;
+    for(i=0;i<9;i++)
+    {
+      for(j=0;j<9;j++)
+      {
+        printf("%d", theGrid[i][j]);
+      }
+    }
+    printf("\n");
+  }
+  if(noSolution)
+  {
+    printf("No solution\n");
+  }
+  if(puzzleError)
+  {
+    printf("Error\n");
+  }
 }
