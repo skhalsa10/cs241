@@ -267,6 +267,7 @@ int undoBoxConstraint(int boxRow, int boxColumn, int number)
 int complexSolution()
 {
   /*printf("complexSolution has been called\n");*/
+  if(!checkIfGridLegal()) return 0;
   int foundBlank = FALSE;
   int i = 0;
   int j = 0;
