@@ -216,9 +216,9 @@ int undoBoxConstraint(int boxRow, int boxColumn, int number)
 {
   int i = 0;
   int j = 0;
-  for(i = 0;i<3i++)
+  for(i = 0;i<3;i++)
   {
-    for(j=0;j<3j++)
+    for(j=0;j<3;j++)
     {
       if (theGrid[3*boxRow+i][3*boxColumn+j] >0)
       {
@@ -295,7 +295,7 @@ int complexSolution()
           }
           else
           {
-            return 1
+            return 1;
           }
         }
         else if (constraintGrid[i][j]&TWO)
@@ -309,7 +309,7 @@ int complexSolution()
           }
           else
           {
-            return 1
+            return 1;
           }
         }
         else if (constraintGrid[i][j]&THREE)
@@ -323,7 +323,7 @@ int complexSolution()
           }
           else
           {
-            return 1
+            return 1;
           }
         }
         else if (constraintGrid[i][j]&FOUR)
@@ -337,7 +337,7 @@ int complexSolution()
           }
           else
           {
-            return 1
+            return 1;
           }
         }
         else if (constraintGrid[i][j]&FIVE)
@@ -351,7 +351,7 @@ int complexSolution()
           }
           else
           {
-            return 1
+            return 1;
           }
         }
         else if (constraintGrid[i][j]&SIX)
@@ -365,7 +365,7 @@ int complexSolution()
           }
           else
           {
-            return 1
+            return 1;
           }
         }
         else if (constraintGrid[i][j]&SEVEN)
@@ -379,7 +379,7 @@ int complexSolution()
           }
           else
           {
-            return 1
+            return 1;
           }
         }
         else if (constraintGrid[i][j]&EIGHT)
@@ -393,7 +393,7 @@ int complexSolution()
           }
           else
           {
-            return 1
+            return 1;
           }
         }
         else if (constraintGrid[i][j]&NINE)
@@ -407,7 +407,7 @@ int complexSolution()
           }
           else
           {
-            return 1
+            return 1;
           }
         }
         else
