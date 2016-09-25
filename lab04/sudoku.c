@@ -128,7 +128,7 @@ int solvePuzzle()
 
 int undoMove(int inputRow,int inputColumn,int inputNumber)
 {
-  printf("undomove entered");
+  printf("undomove entered\n");
   theGrid[inputRow][inputColumn] = 0;
   undoRowConstraint(inputRow, inputNumber);
   undoColumnConstraint(inputRow, inputNumber);
@@ -285,7 +285,11 @@ int undoBoxConstraint(int boxRow, int boxColumn, int number)
 int complexSolution()
 {
   /*printf("complexSolution has been called\n");*/
-  if(!checkIfGridLegal()) return 0;
+  if(!checkIfGridLegal())
+  {
+    printf("gridnotlegal\n");
+    return 0;
+  }
   int foundBlank = FALSE;
   int i = 0;
   int j = 0;
@@ -309,13 +313,13 @@ int complexSolution()
     updateConstraints(i,j,1, FALSE);
     if(!complexSolution())
     {
-      printf("complexSolution failed entering undoMove");
+      printf("complexSolution failed entering undoMove\n");
       undoMove(i,j,1);
       constraintGrid[i][j] ^= ONE;
     }
     else
     {
-      printf("about to return 1?");
+      printf("about to return 1?\n");
       return 1;
     }
   }
