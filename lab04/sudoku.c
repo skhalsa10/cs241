@@ -110,6 +110,7 @@ int solvePuzzle()
 
 int undoMove(int inputRow,int inputColumn,int inputNumber)
 {
+  printf("undoMove entered\n");
   theGrid[inputRow][inputColumn] = 0;
   undoRowConstraint(inputRow, inputNumber);
   undoColumnConstraint(inputRow, inputNumber);
@@ -265,6 +266,7 @@ int undoBoxConstraint(int boxRow, int boxColumn, int number)
 */
 int complexSolution()
 {
+  printf("complexSolution has been called\n");
   int i = 0;
   int j = 0;
   for (i = 0; i < 9; i++)
