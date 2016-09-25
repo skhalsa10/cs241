@@ -110,7 +110,7 @@ int solvePuzzle()
   while(fillInSingleConstraints());
   if(!checkIfGridFull())
   {
-    return complexSolution();
+    /*return complexSolution();*/
   }
   return 1;
 }
