@@ -70,7 +70,7 @@ int main()
     of instructions when certain criteria is met
     like an error flag is turned on or a function
     returns 0 */
-    /*do
+    do
     {
       if(!convertLineToGrid()) break;
       if(checkIfGridFull())
@@ -86,11 +86,12 @@ int main()
       createConstraintGrid();
       solvePuzzle();
     }
-    while(0);*?
+    while(0);
     /*printResults();*/
-    convertLineToGrid();
+
+    /*convertLineToGrid();
     createConstraintGrid();
-    printf("solve puzzle: %d\n", solvePuzzle());
+    printf("solve puzzle: %d\n", solvePuzzle());*/
 
   }
 }
@@ -110,7 +111,7 @@ int solvePuzzle()
 
 int undoMove(int inputRow,int inputColumn,int inputNumber)
 {
-  printf("undoMove entered\n");
+
   theGrid[inputRow][inputColumn] = 0;
   undoRowConstraint(inputRow, inputNumber);
   undoColumnConstraint(inputRow, inputNumber);
@@ -283,10 +284,10 @@ int complexSolution()
     }
     if(foundBlank) break;
   }
-  printf("i: %d | j: %d\n", i, j);
+  /*printf("i: %d | j: %d\n", i, j);*/
   if(constraintGrid[i][j]&ONE)
   {
-    printf("entering ONE\n");
+    /*printf("entering ONE\n");*/
     theGrid[i][j] = 1;
     updateConstraints(i,j,1, FALSE);
     if(!complexSolution())
