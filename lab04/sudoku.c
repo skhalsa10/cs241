@@ -282,7 +282,7 @@ int complexSolution()
     }
     if(foundBlank) break;
   }
-
+  printf("i: %d | j: %d\n", i, j);
   if(constraintGrid[i][j]&ONE)
   {
     printf("entering ONE\n");
