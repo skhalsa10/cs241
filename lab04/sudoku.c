@@ -128,7 +128,7 @@ int solvePuzzle()
 
 int undoMove(int inputRow,int inputColumn,int inputNumber)
 {
-
+  printf("undomove entered");
   theGrid[inputRow][inputColumn] = 0;
   undoRowConstraint(inputRow, inputNumber);
   undoColumnConstraint(inputRow, inputNumber);
@@ -309,11 +309,13 @@ int complexSolution()
     updateConstraints(i,j,1, FALSE);
     if(!complexSolution())
     {
+      printf("complexSolution failed entering undoMove");
       undoMove(i,j,1);
       constraintGrid[i][j] ^= ONE;
     }
     else
     {
+      printf("about to return 1?");
       return 1;
     }
   }
