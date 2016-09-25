@@ -285,7 +285,7 @@ int undoBoxConstraint(int boxRow, int boxColumn, int number)
 */
 int complexSolution()
 {
-  printf("complexSolution has been called");
+  /*printf("complexSolution has been called");*/
   if(!checkIfGridLegal())
   {
     printf("gridnotlegal THIS SHOULD NEVER PRINT!!\n");
@@ -307,6 +307,7 @@ int complexSolution()
     if(foundBlank) break;
   }
   printf("i: %d | j: %d\n", i, j);
+  printf("constraintGrid[i][j]&ONE: %d\n", constraintGrid[i][j]&ONE);
   if(constraintGrid[i][j]&ONE)
   {
     printf("entering ONE\n");
@@ -327,6 +328,7 @@ int complexSolution()
       return 1;
     }*/
   }
+  printf("constraintGrid[i][j]&2: %d\n", constraintGrid[i][j]&TWO);
   if (constraintGrid[i][j]&TWO)
   {
     printf("entering TWO\n");
@@ -344,6 +346,7 @@ int complexSolution()
       return 1;
     }*/
   }
+  printf("constraintGrid[i][j]&THREE: %d\n", constraintGrid[i][j]&THREE);
   if (constraintGrid[i][j]&THREE)
   {
     printf("entering THREE\n");
@@ -361,6 +364,7 @@ int complexSolution()
       return 1;
     }*/
   }
+  printf("constraintGrid[i][j]&FOUR: %d\n", constraintGrid[i][j]&FOUR);
   if (constraintGrid[i][j]&FOUR)
   {
     printf("entering FOUR\n");
@@ -378,6 +382,7 @@ int complexSolution()
       return 1;
     }*/
   }
+  printf("constraintGrid[i][j]&FIVE: %d\n", constraintGrid[i][j]&FIVE);
   if (constraintGrid[i][j]&FIVE)
   {
     printf("entering FIVE\n");
@@ -395,6 +400,7 @@ int complexSolution()
       return 1;
     }*/
   }
+  printf("constraintGrid[i][j]&SIX: %d\n", constraintGrid[i][j]&SIX);
   if (constraintGrid[i][j]&SIX)
   {
     printf("entering SIX\n");
@@ -412,6 +418,7 @@ int complexSolution()
       return 1;
     }*/
   }
+  printf("constraintGrid[i][j]&SEVEN: %d\n", constraintGrid[i][j]&SEVEN);
   if (constraintGrid[i][j]&SEVEN)
   {
     printf("entering SEVEN\n");
@@ -429,6 +436,7 @@ int complexSolution()
       return 1;
     }*/
   }
+  printf("constraintGrid[i][j]&EIGHT: %d\n", constraintGrid[i][j]&EIGHT);
   if (constraintGrid[i][j]&EIGHT)
   {
     printf("entering EIGHT\n");
@@ -446,6 +454,7 @@ int complexSolution()
       return 1;
     }*/
   }
+  printf("constraintGrid[i][j]&NINE: %d\n", constraintGrid[i][j]&NINE);
   if (constraintGrid[i][j]&NINE)
   {
     printf("entering NINE\n");
