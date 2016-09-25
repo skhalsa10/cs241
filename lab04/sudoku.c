@@ -306,6 +306,11 @@ int complexSolution()
     }
     if(foundBlank) break;
   }
+  if((theGrid[i][j]==0)&&(constraintGrid[i][j] == 0))
+  {
+    printf("thegrid and constraingrid are ZERO returning unsuccessful");
+    return 0;
+  }
   printf("i: %d | j: %d\n", i, j);
   printf("constraintGrid[i][j]&ONE: %d\n", constraintGrid[i][j]&ONE);
   if(constraintGrid[i][j]&ONE)
