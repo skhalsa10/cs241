@@ -677,7 +677,7 @@ int updateConstraints(int inputRow, int inputColumn, int inputNumber, int notCom
   {
     constraintGrid[inputRow][inputColumn] = 0;
   }
-  else if ((theGrid[inputRow][inputColumn] != inputNumber)
+  else if (theGrid[inputRow][inputColumn] != inputNumber)
   {
     return 0;
   }
