@@ -323,7 +323,7 @@ int complexSolution()
       return 1;
     }*/
   }
-  else if (constraintGrid[i][j]&TWO)
+  if (constraintGrid[i][j]&TWO)
   {
     printf("entering TWO\n");
     theGrid[i][j] = 2;
@@ -338,7 +338,7 @@ int complexSolution()
       return 1;
     }*/
   }
-  else if (constraintGrid[i][j]&THREE)
+  if (constraintGrid[i][j]&THREE)
   {
     printf("entering THREE\n");
     theGrid[i][j] = 3;
@@ -353,7 +353,7 @@ int complexSolution()
       return 1;
     }*/
   }
-  else if (constraintGrid[i][j]&FOUR)
+  if (constraintGrid[i][j]&FOUR)
   {
     printf("entering FOUR\n");
     theGrid[i][j] = 4;
@@ -368,7 +368,7 @@ int complexSolution()
       return 1;
     }*/
   }
-  else if (constraintGrid[i][j]&FIVE)
+  if (constraintGrid[i][j]&FIVE)
   {
     printf("entering FIVE\n");
     theGrid[i][j] = 5;
@@ -383,7 +383,7 @@ int complexSolution()
       return 1;
     }*/
   }
-  else if (constraintGrid[i][j]&SIX)
+  if (constraintGrid[i][j]&SIX)
   {
     printf("entering SIX\n");
     theGrid[i][j] = 6;
@@ -398,7 +398,7 @@ int complexSolution()
       return 1;
     }*/
   }
-  else if (constraintGrid[i][j]&SEVEN)
+  if (constraintGrid[i][j]&SEVEN)
   {
     printf("entering SEVEN\n");
     theGrid[i][j] = 7;
@@ -413,7 +413,7 @@ int complexSolution()
       return 1;
     }*/
   }
-  else if (constraintGrid[i][j]&EIGHT)
+  if (constraintGrid[i][j]&EIGHT)
   {
     printf("entering EIGHT\n");
     theGrid[i][j] = 8;
@@ -428,7 +428,7 @@ int complexSolution()
       return 1;
     }*/
   }
-  else if (constraintGrid[i][j]&NINE)
+  if (constraintGrid[i][j]&NINE)
   {
     printf("entering NINE\n");
     theGrid[i][j] = 9;
@@ -443,7 +443,7 @@ int complexSolution()
       return 1;
     }*/
   }
-  else
+  if (constraintGrid[i][j] == 0)
   {
     printf("about to return false from complex\n");
     return 0;
