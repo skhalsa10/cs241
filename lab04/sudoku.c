@@ -310,7 +310,9 @@ int complexSolution()
   {
     printf("entering ONE\n");
     theGrid[i][j] = 1;
+    printf("before restraints update%d\n", constraintGrid[i][j+1] );
     updateConstraints(i,j,1, FALSE);
+    printf("after uypdating constraints%d\n",constraintGrid[i][j+1] );
     if(!complexSolution())
     {
       printf("complexSolution failed entering undoMove\n");
