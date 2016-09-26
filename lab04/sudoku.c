@@ -597,6 +597,9 @@ int tryNextSolution(int row, int column)
       turnOffConstraint(row,column,NINE);
       return 0;
     }
+
+    printf("this should never be reached");
+    return 0;
   }
 }
 /*
