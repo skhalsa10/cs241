@@ -100,6 +100,7 @@ int main()
       createConstraintGrid();
       if(solvePuzzle())
       {
+        printf("puzzleSolved");
         puzzleSolved = TRUE;
       }
       else
@@ -577,10 +578,12 @@ int tryNextSolution(int row, int column)
     isSuccess = complexSolution();
     if(isSuccess)
     {
+
       return isSuccess;
     }
     else
     {
+      printf
       theGrid[row][column] = 0;
       printConstraintGrid();
       createConstraintGrid(); /* could possibly speed up this step*/
