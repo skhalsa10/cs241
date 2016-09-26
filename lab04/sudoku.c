@@ -10,6 +10,7 @@
 #define SEVEN 64
 #define EIGHT 128
 #define NINE 256
+#define turnOnSimpleSolution 1
 
 
 /* declare all functions here */
@@ -40,6 +41,7 @@ int undoColumnConstraint(int column, int number);
 int undoBoxConstraint(int boxRow, int boxColumn, int number);
 int turnOffConstraint(int row, int column, int toTurnOff);
 void printConstraintGrid();
+int simpleSolution();
 
 /* 2d array i'll call theGrid */
 int theGrid[9][9];
@@ -114,6 +116,55 @@ int main()
   }
 }
 
+
+int simpleSolution()
+{
+  int openCell = FALSE;
+  int i = 0;
+  int j = 0;
+  for (i=0;i<9;i++)
+  {
+    for (j=0;j<9;j++)
+    {
+      if(theGrid[i][j] == 0)
+      {
+        openCell = TRUE;
+        break;
+      }
+
+    }
+    if(openCell)
+    {
+      break;
+    }
+  }
+
+  /* if there are no open cells left it means the puzzle is finally solved*/
+  if(openCell == FALSE)
+  {
+    return 1;
+  }
+
+  /*loop over ever possible solution plug it in check if legal
+  * if not legal try next move if it is legal call simple solution again.*/
+  int n = 1;
+  for(n=1;n<=9;n++)
+  {
+    theGrid[i][j] = n;
+    if(checkIfGridLegal)
+    {
+      if(simpleSolution())
+      {
+        return 1;
+      }
+    }
+    theGrid[i][j] = 0;
+
+  }
+
+  return 0;
+}
+
 /*
 * this is the brains on this program. it is the algorithm that solves the puzzle
 */
@@ -122,8 +173,16 @@ int solvePuzzle()
   while(fillInSingleConstraints());
   if(!checkIfGridFull())
   {
-    printConstraintGrid();
-    return complexSolution();
+    /*printConstraintGrid();*/
+    if(turnOnSimpleSolution)
+    {
+      return simpleSolution();
+    }
+    else
+    {
+      return complexSolution();
+    }
+
   }
   return 1;
 }
