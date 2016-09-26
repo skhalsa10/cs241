@@ -186,7 +186,7 @@ int solvePuzzle()
       return complexSolution();
     }*/
     printf("running complexSolution");
-    return complexSolution();
+    /*return complexSolution();*/
   }
   return 1;
 }
