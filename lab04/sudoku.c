@@ -583,7 +583,6 @@ int tryNextSolution(int row, int column)
     }
     else
     {
-      printf
       theGrid[row][column] = 0;
       printConstraintGrid();
       createConstraintGrid(); /* could possibly speed up this step*/
