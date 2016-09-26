@@ -269,9 +269,9 @@ int undoBoxConstraint(int boxRow, int boxColumn, int number)
 
 int turnOffConstraint(int row, int column, int toTurnOff)
 {
-  if(constraintGrid[row[column]&toTurnOff])
+  if(constraintGrid[row][column]&toTurnOff])
   {
-    constraintGrid[row[column] ^= toTurnOff
+    constraintGrid[row][column] ^= toTurnOff;
   }
   return 1;
 }
