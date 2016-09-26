@@ -363,7 +363,7 @@ void printConstraintGrid()
     printf("\n---------------------------\n");
     for(j=0;j<9;j++)
     {
-      printf("%3d|", constraintGrid[i][j]);
+      printf("%3d:%3d|",theGrid[i][j], constraintGrid[i][j]);
     }
 
   }
