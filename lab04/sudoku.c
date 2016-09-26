@@ -10,7 +10,7 @@
 #define SEVEN 64
 #define EIGHT 128
 #define NINE 256
-#define turnOnSimpleSolution 1
+#define turnOnSimpleSolution 0
 
 
 /* declare all functions here */
@@ -42,6 +42,7 @@ int undoBoxConstraint(int boxRow, int boxColumn, int number);
 int turnOffConstraint(int row, int column, int toTurnOff);
 void printConstraintGrid();
 int simpleSolution();
+int deleteFalseConstraints(int row, int column, int number);
 
 /* 2d array i'll call theGrid */
 int theGrid[9][9];
@@ -116,7 +117,7 @@ int main()
   }
 }
 
-
+/* this will be my backup solution if I cant get my constrain one to work*/
 int simpleSolution()
 {
   int openCell = FALSE;
@@ -151,7 +152,6 @@ int simpleSolution()
   for(n=1;n<=9;n++)
   {
     theGrid[i][j] = n;
-    printf("theGrid[%d][%d] = %d\n", i, j, theGrid[i][j]);
     if(checkIfGridLegal())
     {
       if(simpleSolution())
@@ -356,54 +356,159 @@ int turnOffConstraint(int row, int column, int toTurnOff)
 */
 int complexSolution()
 {
-  /*Find the next open cell */
+  int openCell = FALSE;
   int i = 0;
   int j = 0;
-  int openCell = FALSE;
-  int solutionFound;
-  for(i=0;i<9;i++)
+  for (i=0;i<9;i++)
   {
-    for(j=0;j<9;j++)
+    for (j=0;j<9;j++)
     {
-      if(theGrid[i][j]==0)
+      if(theGrid[i][j] == 0)
       {
-        if(constraintGrid[i][j] == 0)
-        {
-          /* if thegrid is 0 and the constraint is 0
-           there is an error the program is not behaving correctly*/
-           printf("serious error bro fix your shit!\n at %d:%d", i, j);
-          return 0;
-        }
         openCell = TRUE;
         break;
       }
+
     }
-    /* if an open cell was found break the outer loop*/
-    if(openCell == TRUE)
+    if(openCell)
     {
       break;
     }
   }
 
-  /*if the end of the 2d loop is met and no open cell is
- found then the puzzle is solved. this is the only place that can generate a return of 1*/
-  if(i == 8 && j == 8 && (openCell== FALSE) )
+  /* if there are no open cells left it means the puzzle is finally solved*/
+  if(openCell == FALSE)
   {
-    printf("\n\n\n\n\n\nsolutionfound\n\n\n\n\n\n");
     return 1;
   }
 
-  while(constraintGrid[i][j] != 0)
+  /*loop over ever possible solution plug it in check if legal
+  * if not legal try next move if it is legal call simple solution again.*/
+  int n = 1;
+  int nConversion = 0;
+  for(n=1;n<=9;n++)
   {
-    printf("|i:%d|j:%d|\n", i,j);
-    if(tryNextSolution(i,j))
+    /*might want to extract this switch statement into a function for readability*/
+    switch (n)
     {
-        solutionFound = TRUE;
-        break;
+      case 1:
+      nConversion = ONE;
+      break;
+      case 2:
+      nConversion = TWO;
+      break;
+      case 3:
+      nConversion = THREE;
+      break;
+      case 4:
+      nConversion = FOUR;
+      break;
+      case 5:
+      nConversion = FIVE;
+      break;
+      case 6:
+      nConversion = SIX;
+      break;
+      case 7:
+      nConversion = SEVEN;
+      break;
+      case 8:
+      nConversion = EIGHT;
+      break;
+      case 9:
+      nConversion = NINE;
+      break;
     }
+    if(constraintGrid[i][j] & nConversion)
+    {
+      theGrid[i][j] = n;
+      updateConstraints(i,j,n FALSE);
+      if(simpleSolution())
+      {
+        return 1;
+      }
+    }
+
+
+      /*if this is not successful undo move reset constraintgrid and delete proven false constraints*/
+    theGrid[i][j] = 0;
+    createConstraintGrid();
+    deleteFalseConstraints(i, j, n);
+
   }
-  if(solutionFound)printf("SOlution >>> HERE\n\nTHEGRID[%d][%d] = %d",i,j, theGrid[i][j] );
-  return solutionFound;
+
+  return 0;
+}
+
+int deleteFalseConstraints(int row, int column, int number)
+{
+  switch (number)
+  {
+    case 1:
+    turnOffConstraint(row,column,ONE);
+    return 1;
+    case 2:
+    turnOffConstraint(row,column,ONE);
+    turnOffConstraint(row,column,TWO);
+    return 1;
+    case 3:
+    turnOffConstraint(row,column,ONE);
+    turnOffConstraint(row,column,TWO);
+    turnOffConstraint(row,column,THREE);
+    return 1;
+    case 4:
+    turnOffConstraint(row,column,ONE);
+    turnOffConstraint(row,column,TWO);
+    turnOffConstraint(row,column,THREE);
+    turnOffConstraint(row,column,FOUR);
+    return 1;
+    case 5:
+    turnOffConstraint(row,column,ONE);
+    turnOffConstraint(row,column,TWO);
+    turnOffConstraint(row,column,THREE);
+    turnOffConstraint(row,column,FOUR);
+    turnOffConstraint(row,column,FIVE);
+    return 1;
+    case 6:
+    turnOffConstraint(row,column,ONE);
+    turnOffConstraint(row,column,TWO);
+    turnOffConstraint(row,column,THREE);
+    turnOffConstraint(row,column,FOUR);
+    turnOffConstraint(row,column,FIVE);
+    turnOffConstraint(row,column,SIX);
+    return 1;
+    case 7:
+    turnOffConstraint(row,column,ONE);
+    turnOffConstraint(row,column,TWO);
+    turnOffConstraint(row,column,THREE);
+    turnOffConstraint(row,column,FOUR);
+    turnOffConstraint(row,column,FIVE);
+    turnOffConstraint(row,column,SIX);
+    turnOffConstraint(row,column,SEVEN);
+    return 1;
+    case 8:
+    turnOffConstraint(row,column,ONE);
+    turnOffConstraint(row,column,TWO);
+    turnOffConstraint(row,column,THREE);
+    turnOffConstraint(row,column,FOUR);
+    turnOffConstraint(row,column,FIVE);
+    turnOffConstraint(row,column,SIX);
+    turnOffConstraint(row,column,SEVEN);
+    turnOffConstraint(row,column,EIGHT);
+    return 1;
+    case 9:
+    turnOffConstraint(row,column,ONE);
+    turnOffConstraint(row,column,TWO);
+    turnOffConstraint(row,column,THREE);
+    turnOffConstraint(row,column,FOUR);
+    turnOffConstraint(row,column,FIVE);
+    turnOffConstraint(row,column,SIX);
+    turnOffConstraint(row,column,SEVEN);
+    turnOffConstraint(row,column,EIGHT);
+    turnOffConstraint(row,column,NINE);
+    return 1;
+
+  }
 }
 
 void printConstraintGrid()
