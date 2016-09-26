@@ -342,7 +342,7 @@ int complexSolution()
         break;
     }
   }
-  if(solutionFound)printf("SOlution >>> HERE\n" );
+  if(solutionFound)printf("SOlution >>> HERE\n\nTHEGRID[%d][%d] = %d",i,j, theGrid[i][j] );
   return solutionFound;
 }
 
@@ -537,7 +537,6 @@ int tryNextSolution(int row, int column)
       turnOffConstraint(row,column,FIVE);
       turnOffConstraint(row,column,SIX);
       turnOffConstraint(row,column,SEVEN);
-      turnOffConstraint(row,column,EIGHT);
       return 0;
     }
   }
