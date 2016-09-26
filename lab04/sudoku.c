@@ -307,6 +307,9 @@ int complexSolution()
       {
         if(constraintGrid[i][j] == 0)
         {
+          /* if thegrid is 0 and the constraint is 0
+           there is an error the program is not behaving correctly*/
+           printf("serious error bro fix your shit!");
           return 0;
         }
         openCell = TRUE;
@@ -318,6 +321,13 @@ int complexSolution()
     {
       break;
     }
+  }
+
+  /*if the end of the 2d loop is met and no open cell is
+ found then the puzzle is solved. this is the only place that can generate a return of 1*/
+  if(i == 8 && j == 8 && (openCell== FALSE) )
+  {
+    return 1;
   }
 
   while(constraintGrid[i][j] != 0)
@@ -332,11 +342,11 @@ int complexSolution()
   if(solutionFound)
   {
     printf("solutionfound");
-    return 1;
+    return solutionFound;
   }
   else
   {
-      return 0;
+      return solutionFound;
   }
 }
 
@@ -344,15 +354,9 @@ int tryNextSolution(int row, int column)
 {
   int isSuccess = FALSE;
 
+  /*1*/
   if(constraintGrid[row][column]&ONE)
   {
-    isSuccess = FALSE;
-    if((row == 8) && (column ==8))
-    {
-      theGrid[row][column] = 1;
-      updateConstraints(row, column, 1, FALSE);
-      return 1;
-    }
     theGrid[row][column] = 1;
     updateConstraints(row, column, 1, FALSE);
     isSuccess = complexSolution();
@@ -368,15 +372,10 @@ int tryNextSolution(int row, int column)
       return 0;
     }
   }
+
+  /*2*/
   if(constraintGrid[row][column]&TWO)
   {
-    isSuccess = FALSE;
-    if((row == 8) && (column ==8))
-    {
-      theGrid[row][column] = 2;
-      updateConstraints(row, column, 2, FALSE);
-      return 1;
-    }
     theGrid[row][column] = 2;
     updateConstraints(row, column, 2, FALSE);
     isSuccess = complexSolution();
@@ -393,15 +392,10 @@ int tryNextSolution(int row, int column)
       return 0;
     }
   }
+
+  /*3*/
   if(constraintGrid[row][column]& THREE)
   {
-    isSuccess = FALSE;
-    if((row == 8) && (column ==8))
-    {
-      theGrid[row][column] = 3;
-      updateConstraints(row, column, 3, FALSE);
-      return 1;
-    }
     theGrid[row][column] = 3;
     updateConstraints(row, column, 3, FALSE);
     isSuccess = complexSolution();
@@ -419,15 +413,10 @@ int tryNextSolution(int row, int column)
       return 0;
     }
   }
+
+  /*4*/
   if(constraintGrid[row][column]& FOUR)
   {
-    isSuccess = FALSE;
-    if((row == 8) && (column ==8))
-    {
-      theGrid[row][column] = 4;
-      updateConstraints(row, column, 4, FALSE);
-      return 1;
-    }
     theGrid[row][column] = 4;
     updateConstraints(row, column, 4, FALSE);
     isSuccess = complexSolution();
@@ -446,15 +435,10 @@ int tryNextSolution(int row, int column)
       return 0;
     }
   }
+
+  /*5*/
   if(constraintGrid[row][column]& FIVE)
   {
-    isSuccess = FALSE;
-    if((row == 8) && (column ==8))
-    {
-      theGrid[row][column] = 5;
-      updateConstraints(row, column, 5, FALSE);
-      return 1;
-    }
     theGrid[row][column] = 5;
     updateConstraints(row, column, 5, FALSE);
     isSuccess = complexSolution();
@@ -474,15 +458,10 @@ int tryNextSolution(int row, int column)
       return 0;
     }
   }
+
+  /*6*/
   if(constraintGrid[row][column]& SIX)
   {
-    isSuccess = FALSE;
-    if((row == 8) && (column ==8))
-    {
-      theGrid[row][column] = 6;
-      updateConstraints(row, column, 6, FALSE);
-      return 1;
-    }
     theGrid[row][column] = 6;
     updateConstraints(row, column, 6, FALSE);
     isSuccess = complexSolution();
@@ -503,15 +482,10 @@ int tryNextSolution(int row, int column)
       return 0;
     }
   }
+
+  /*7*/
   if(constraintGrid[row][column]& SEVEN)
   {
-    isSuccess = FALSE;
-    if((row == 8) && (column ==8))
-    {
-      theGrid[row][column] = 7;
-      updateConstraints(row, column, 7, FALSE);
-      return 1;
-    }
     theGrid[row][column] = 7;
     updateConstraints(row, column, 7, FALSE);
     isSuccess = complexSolution();
@@ -534,15 +508,10 @@ int tryNextSolution(int row, int column)
       return 0;
     }
   }
+
+  /*8*/
   if(constraintGrid[row][column]& EIGHT)
   {
-    isSuccess = FALSE;
-    if((row == 8) && (column ==8))
-    {
-      theGrid[row][column] = 8;
-      updateConstraints(row, column, 8, FALSE);
-      return 1;
-    }
     theGrid[row][column] = 8;
     updateConstraints(row, column, 8, FALSE);
     isSuccess = complexSolution();
@@ -565,15 +534,10 @@ int tryNextSolution(int row, int column)
       return 0;
     }
   }
+
+  /*9*/
   if(constraintGrid[row][column]& NINE)
   {
-    isSuccess = FALSE;
-    if((row == 8) && (column ==8))
-    {
-      theGrid[row][column] = 9;
-      updateConstraints(row, column, 9, FALSE);
-      return 1;
-    }
     theGrid[row][column] = 9;
     updateConstraints(row, column, 9, FALSE);
     isSuccess = complexSolution();
