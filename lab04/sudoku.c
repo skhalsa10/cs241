@@ -382,8 +382,7 @@ int complexSolution()
     return 1;
   }
 
-  /*loop over ever possible solution plug it in check if legal
-  * if not legal try next move if it is legal call simple solution again.*/
+
   int n = 1;
   int nConversion = 0;
   for(n=1;n<=9;n++)
@@ -422,7 +421,7 @@ int complexSolution()
     if(constraintGrid[i][j] & nConversion)
     {
       theGrid[i][j] = n;
-      updateConstraints(i,j,n FALSE);
+      updateConstraints(i,j,n, FALSE);
       if(simpleSolution())
       {
         return 1;
