@@ -331,7 +331,7 @@ int complexSolution()
   }
   if(solutionFound)
   {
-    print("solutionfound");
+    printf("solutionfound");
     return 1;
   }
   else
