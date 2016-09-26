@@ -352,13 +352,14 @@ int complexSolution()
 
 void printConstraintGrid()
 {
+  printf("\n");
   int i = 0;
   int j = 0;
   for(i=0;i<9;i++)
   {
     for(j=0;j<9;j++)
     {
-      printf("%3d|", constraintGrid[i][j]);
+      printf("%3d|\n", constraintGrid[i][j]);
     }
     printf("---------------------------\n");
   }
