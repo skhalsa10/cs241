@@ -285,207 +285,271 @@ int undoBoxConstraint(int boxRow, int boxColumn, int number)
 */
 int complexSolution()
 {
-  /*printf("complexSolution has been called");*/
-  if(!checkIfGridLegal())
-  {
-    printf("gridnotlegal THIS SHOULD NEVER PRINT!!\n");
-    return 0;
-  }
-  int foundBlank = FALSE;
+  /*Find the next open cell */
   int i = 0;
   int j = 0;
-  for (i=0;i<9;i++)
+  int openCell = FALSE;
+  int solutionFound
+  for(i=0;i<9;i++)
   {
     for(j=0;j<9;j++)
     {
-      if (theGrid[i][j] == 0)
+      if(theGrid[i][j]==0)
       {
-        foundBlank = TRUE;
+        if(constraintGrid[i][j] == 0)
+        {
+          return 0;
+        }
+        openCell = TRUE;
         break;
       }
     }
-    if(foundBlank) break;
-  }
-  if((theGrid[i][j]==0)&&(constraintGrid[i][j] == 0))
-  {
-    printf("thegrid and constraingrid are ZERO returning unsuccessful");
-    return 0;
-  }
-  printf("i: %d | j: %d\n", i, j);
-  printf("constraintGrid[i][j]&ONE: %d\n", constraintGrid[i][j]&ONE);
-  if(constraintGrid[i][j]&ONE)
-  {
-    printf("entering ONE\n");
-    theGrid[i][j] = 1;
-    /*printf("before restraints update i = 0 j = 1 %d\n", constraintGrid[i][j+1] );*/
-    updateConstraints(i,j,1, FALSE);
-    /*printf("after uypdating constraints i = 0 j = 1 %d\n",constraintGrid[i][j+1] );*/
-    if(!complexSolution())
+    /* if an open cell was found break the outer loop*/
+    if(openCell == TRUE)
     {
-      /*printf("complexSolution failed entering undoMove\n");*/
-      undoMove(i,j,1);
-      /*printf("After undoMove i = 0 and j = 1: %d\n", constraintGrid[0][1] );*/
-      constraintGrid[i][j] ^= ONE;
+      break;
     }
-    /*else
-    {
-      printf("about to return 1?\n");
-      return 1;
-    }*/
-  }
-  printf("constraintGrid[i][j]&2: %d\n", constraintGrid[i][j]&TWO);
-  if (constraintGrid[i][j]&TWO)
-  {
-    printf("entering TWO\n");
-    theGrid[i][j] = 2;
-    updateConstraints(i,j,2, FALSE);
-        /*printf("After updateConstraints i = 0 and j = 1: %d\n", constraintGrid[0][1] );*/
-    if(!complexSolution())
-    {
-      undoMove(i,j,2);
-      /*printf("After undoMove i = 0 and j = 1: %d\n", constraintGrid[0][1] );*/
-      constraintGrid[i][j] ^= TWO;
-    }
-    /*else
-    {
-      return 1;
-    }*/
-  }
-  printf("constraintGrid[i][j]&THREE: %d\n", constraintGrid[i][j]&THREE);
-  if (constraintGrid[i][j]&THREE)
-  {
-    printf("entering THREE\n");
-    theGrid[i][j] = 3;
-    updateConstraints(i,j,3, FALSE);
-        /*printf("After updateConstraints i = 0 and j = 1: %d\n", constraintGrid[0][1] );*/
-    if(!complexSolution())
-    {
-      undoMove(i,j,3);
-      /*printf("After undoMove i = 0 and j = 1: %d\n", constraintGrid[0][1] );*/
-      constraintGrid[i][j] ^= THREE;
-    }
-    /*else
-    {
-      return 1;
-    }*/
-  }
-  printf("constraintGrid[i][j]&FOUR: %d\n", constraintGrid[i][j]&FOUR);
-  if (constraintGrid[i][j]&FOUR)
-  {
-    printf("entering FOUR\n");
-    theGrid[i][j] = 4;
-    updateConstraints(i,j,4, FALSE);
-        /*printf("After updateConstraints i = 0 and j = 1: %d\n", constraintGrid[0][1] );*/
-    if(!complexSolution())
-    {
-      undoMove(i,j,4);
-      /*printf("After undoMove i = 0 and j = 1: %d\n", constraintGrid[0][1] );*/
-      constraintGrid[i][j] ^= FOUR;
-    }
-    /*else
-    {
-      return 1;
-    }*/
-  }
-  printf("constraintGrid[i][j]&FIVE: %d\n", constraintGrid[i][j]&FIVE);
-  if (constraintGrid[i][j]&FIVE)
-  {
-    printf("entering FIVE\n");
-    theGrid[i][j] = 5;
-    updateConstraints(i,j,5, FALSE);
-      /*  printf("After updateConstraints i = 0 and j = 1: %d\n", constraintGrid[0][1] );*/
-    if(!complexSolution())
-    {
-      undoMove(i,j,5);
-      /*printf("After undoMove i = 0 and j = 1: %d\n", constraintGrid[0][1] );*/
-      constraintGrid[i][j] ^= FIVE;
-    }
-    /*else
-    {
-      return 1;
-    }*/
-  }
-  printf("constraintGrid[i][j]&SIX: %d\n", constraintGrid[i][j]&SIX);
-  if (constraintGrid[i][j]&SIX)
-  {
-    printf("entering SIX\n");
-    theGrid[i][j] = 6;
-    updateConstraints(i,j,6, FALSE);
-      /*  printf("After updateConstraints i = 0 and j = 1: %d\n", constraintGrid[0][1] );*/
-    if(!complexSolution())
-    {
-      undoMove(i,j,6);
-      /*printf("After undoMove i = 0 and j = 1: %d\n", constraintGrid[0][1] );*/
-      constraintGrid[i][j] ^= SIX;
-    }
-    /*else
-    {
-      return 1;
-    }*/
-  }
-  printf("constraintGrid[i][j]&SEVEN: %d\n", constraintGrid[i][j]&SEVEN);
-  if (constraintGrid[i][j]&SEVEN)
-  {
-    printf("entering SEVEN\n");
-    theGrid[i][j] = 7;
-    updateConstraints(i,j,7, FALSE);
-        /*printf("After updateConstraints i = 0 and j = 1: %d\n", constraintGrid[0][1] );*/
-    if(!complexSolution())
-    {
-      undoMove(i,j,7);
-      /*printf("After undoMove i = 0 and j = 1: %d\n", constraintGrid[0][1] );*/
-      constraintGrid[i][j] ^= SEVEN;
-    }
-    /*else
-    {
-      return 1;
-    }*/
-  }
-  printf("constraintGrid[i][j]&EIGHT: %d\n", constraintGrid[i][j]&EIGHT);
-  if (constraintGrid[i][j]&EIGHT)
-  {
-    printf("entering EIGHT\n");
-    theGrid[i][j] = 8;
-    updateConstraints(i,j,8, FALSE);
-        /*printf("After updateConstraints i = 0 and j = 1: %d\n", constraintGrid[0][1] );*/
-    if(!complexSolution())
-    {
-      undoMove(i,j,8);
-      /*printf("After undoMove i = 0 and j = 1: %d\n", constraintGrid[0][1] );*/
-      constraintGrid[i][j] ^= EIGHT;
-    }
-    /*else
-    {
-      return 1;
-    }*/
-  }
-  printf("constraintGrid[i][j]&NINE: %d\n", constraintGrid[i][j]&NINE);
-  if (constraintGrid[i][j]&NINE)
-  {
-    printf("entering NINE\n");
-    theGrid[i][j] = 9;
-    updateConstraints(i,j,9, FALSE);
-    /*printf("After updateConstraints i = 0 and j = 1: %d\n", constraintGrid[0][1] );*/
-    if(!complexSolution())
-    {
-      undoMove(i,j,9);
-    /*  printf("After undoMove i = 0 and j = 1: %d\n", constraintGrid[0][1] );*/
-      constraintGrid[i][j] ^= NINE;
-    }
-    /*else
-    {
-      return 1;
-    }*/
-  }
-  if (constraintGrid[i][j] == 0)
-  {
-    printf("about to return false from complex\n");
-    return 0;
   }
 
-  return 1;
+  while(constraintGrid[i][j] != 0)
+  {
+    if(tryNextSolution(i,j))
+    {
+        solutionFound = TRUE;
+        break;
+    }
+  }
+  if(solutionFound)
+  {
+    return 1;
+  }
+  else
+  {
+      return 0;
+  }
 }
 
+int tryNextSolution(int row, int column)
+{
+  int isSuccess = FALSE;
+
+  if(constraintGrid[row][column]&ONE)
+  {
+    isSuccess = FALSE;
+    if((row == 8) && (column ==8))
+    {
+      theGrid[row][column] = 1;
+      updateConstraints(row, column, 1, FALSE);
+      return 1;
+    }
+    theGrid[row][column] = 1;
+    updateConstraints(row, column, 1, FALSE);
+    isSuccess = complexSolution();
+    if(isSuccess)
+    {
+      return isSuccess;
+    }
+    else
+    {
+      theGrid[row][column] = 0;
+      createConstraintGrid(); /* could possibly speed up this step*/
+      constraintGrid[row][column]  ^= ONE;
+      return 0;
+    }
+  }
+  if(constraintGrid[row][column]&TWO)
+  {
+    isSuccess = FALSE;
+    if((row == 8) && (column ==8))
+    {
+      theGrid[row][column] = 2;
+      updateConstraints(row, column, 2, FALSE);
+      return 1;
+    }
+    theGrid[row][column] = 2;
+    updateConstraints(row, column, 2, FALSE);
+    isSuccess = complexSolution();
+    if(isSuccess)
+    {
+      return isSuccess;
+    }
+    else
+    {
+      theGrid[row][column] = 0;
+      createConstraintGrid(); /* could possibly speed up this step*/
+      constraintGrid[row][column]  ^= (ONE|TWO);
+      return 0;
+    }
+  }
+  if(constraintGrid[row][column]& THREE)
+  {
+    isSuccess = FALSE;
+    if((row == 8) && (column ==8))
+    {
+      theGrid[row][column] = 3;
+      updateConstraints(row, column, 3, FALSE);
+      return 1;
+    }
+    theGrid[row][column] = 3;
+    updateConstraints(row, column, 3, FALSE);
+    isSuccess = complexSolution();
+    if(isSuccess)
+    {
+      return isSuccess;
+    }
+    else
+    {
+      theGrid[row][column] = 0;
+      createConstraintGrid(); /* could possibly speed up this step*/
+      constraintGrid[row][column]  ^= (ONE|TWO|THREE);
+      return 0;
+    }
+  }
+  if(constraintGrid[row][column]& FOUR)
+  {
+    isSuccess = FALSE;
+    if((row == 8) && (column ==8))
+    {
+      theGrid[row][column] = 4;
+      updateConstraints(row, column, 4, FALSE);
+      return 1;
+    }
+    theGrid[row][column] = 4;
+    updateConstraints(row, column, 4, FALSE);
+    isSuccess = complexSolution();
+    if(isSuccess)
+    {
+      return isSuccess;
+    }
+    else
+    {
+      theGrid[row][column] = 0;
+      createConstraintGrid(); /* could possibly speed up this step*/
+      constraintGrid[row][column]  ^= (ONE|TWO|THREE|FOUR);
+      return 0;
+    }
+  }
+  if(constraintGrid[row][column]& FIVE)
+  {
+    isSuccess = FALSE;
+    if((row == 8) && (column ==8))
+    {
+      theGrid[row][column] = 5;
+      updateConstraints(row, column, 5, FALSE);
+      return 1;
+    }
+    theGrid[row][column] = 5;
+    updateConstraints(row, column, 5, FALSE);
+    isSuccess = complexSolution();
+    if(isSuccess)
+    {
+      return isSuccess;
+    }
+    else
+    {
+      theGrid[row][column] = 0;
+      createConstraintGrid(); /* could possibly speed up this step*/
+      constraintGrid[row][column]  ^= (ONE|TWO|THREE|FOUR|FIVE);
+      return 0;
+    }
+  }
+  if(constraintGrid[row][column]& SIX)
+  {
+    isSuccess = FALSE;
+    if((row == 8) && (column ==8))
+    {
+      theGrid[row][column] = 6;
+      updateConstraints(row, column, 6, FALSE);
+      return 1;
+    }
+    theGrid[row][column] = 6;
+    updateConstraints(row, column, 6, FALSE);
+    isSuccess = complexSolution();
+    if(isSuccess)
+    {
+      return isSuccess;
+    }
+    else
+    {
+      theGrid[row][column] = 0;
+      createConstraintGrid(); /* could possibly speed up this step*/
+      constraintGrid[row][column]  ^= (ONE|TWO|THREE|FOUR|FIVE|SIX);
+      return 0;
+    }
+  }
+  if(constraintGrid[row][column]& SEVEN)
+  {
+    isSuccess = FALSE;
+    if((row == 8) && (column ==8))
+    {
+      theGrid[row][column] = 7;
+      updateConstraints(row, column, 7, FALSE);
+      return 1;
+    }
+    theGrid[row][column] = 7;
+    updateConstraints(row, column, 7, FALSE);
+    isSuccess = complexSolution();
+    if(isSuccess)
+    {
+      return isSuccess;
+    }
+    else
+    {
+      theGrid[row][column] = 0;
+      createConstraintGrid(); /* could possibly speed up this step*/
+      constraintGrid[row][column]  ^= (ONE|TWO|THREE|FOUR|FIVE|SIX|SEVEN);
+      return 0;
+    }
+  }
+  if(constraintGrid[row][column]& EIGHT)
+  {
+    isSuccess = FALSE;
+    if((row == 8) && (column ==8))
+    {
+      theGrid[row][column] = 8;
+      updateConstraints(row, column, 8, FALSE);
+      return 1;
+    }
+    theGrid[row][column] = 8;
+    updateConstraints(row, column, 8, FALSE);
+    isSuccess = complexSolution();
+    if(isSuccess)
+    {
+      return isSuccess;
+    }
+    else
+    {
+      theGrid[row][column] = 0;
+      createConstraintGrid(); /* could possibly speed up this step*/
+      constraintGrid[row][column]  ^= (ONE|TWO|THREE|FOUR|FIVE|SIX|SEVEN|EIGHT);
+      return 0;
+    }
+  }
+  if(constraintGrid[row][column]& NINE)
+  {
+    isSuccess = FALSE;
+    if((row == 8) && (column ==8))
+    {
+      theGrid[row][column] = 9;
+      updateConstraints(row, column, 9, FALSE);
+      return 1;
+    }
+    theGrid[row][column] = 9;
+    updateConstraints(row, column, 9, FALSE);
+    isSuccess = complexSolution();
+    if(isSuccess)
+    {
+      return isSuccess;
+    }
+    else
+    {
+      theGrid[row][column] = 0;
+      createConstraintGrid(); /* could possibly speed up this step*/
+      constraintGrid[row][column]  ^= (ONE|TWO|THREE|FOUR|FIVE|SIX|SEVEN|EIGHT|NINE);
+      return 0;
+    }
+  }
+}
 /*
 * This function loops through constraintGrid if a cell has one possible solution
 * fill in theGrid
