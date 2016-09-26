@@ -174,19 +174,17 @@ int solvePuzzle()
   while(fillInSingleConstraints());
   if(!checkIfGridFull())
   {
-    /*printConstraintGrid();
+    printConstraintGrid();
     if(turnOnSimpleSolution)
     {
-      printf("performing simple solution");
+      printf("performing simple solution\n");
       return simpleSolution();
     }
     else
     {
-      printf("running complexSolution");
+      printf("running complexSolution\n");
       return complexSolution();
-    }*/
-    printf("running complexSolution\n");
-    return complexSolution();
+    }
   }
   return 1;
 }
@@ -195,10 +193,10 @@ int undoMove(int inputRow,int inputColumn,int inputNumber)
 {
   printf("undomove entered\n");
   theGrid[inputRow][inputColumn] = 0;
-  createConstraintGrid();
-  /*undoRowConstraint(inputRow, inputNumber);
+  /*createConstraintGrid();*/
+  undoRowConstraint(inputRow, inputNumber);
   undoColumnConstraint(inputRow, inputNumber);
-  undoBoxConstraint((inputRow/3), (inputColumn/3), inputNumber);*/
+  undoBoxConstraint((inputRow/3), (inputColumn/3), inputNumber);
   return 1;
 }
 
@@ -434,7 +432,8 @@ int complexSolution()
 
       /*if this is not successful undo move reset constraintgrid and delete proven false constraints*/
     theGrid[i][j] = 0;
-    createConstraintGrid();
+    undoMove(i,j,n);
+    /*createConstraintGrid();*/
     deleteFalseConstraints(i, j, n);
 
   }
