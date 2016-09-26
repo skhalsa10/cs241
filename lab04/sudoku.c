@@ -350,6 +350,20 @@ int complexSolution()
   }
 }
 
+void printConstraintGrid()
+{
+  int i = 0;
+  int j = 0;
+  for(i=0;i<9;i++)
+  {
+    for(j=0;j<9;j++)
+    {
+      printf("%3d|", constraintGrid[i][j]);
+    }
+    printf("---------------------------\n");
+  }
+}
+
 int tryNextSolution(int row, int column)
 {
   int isSuccess = FALSE;
@@ -367,7 +381,9 @@ int tryNextSolution(int row, int column)
     else
     {
       theGrid[row][column] = 0;
+      printConstraintGrid();
       createConstraintGrid(); /* could possibly speed up this step*/
+      printConstraintGrid();
       turnOffConstraint(row,column,ONE);
       return 0;
     }
@@ -386,7 +402,9 @@ int tryNextSolution(int row, int column)
     else
     {
       theGrid[row][column] = 0;
+      printConstraintGrid();
       createConstraintGrid(); /* could possibly speed up this step*/
+      printConstraintGrid();
       turnOffConstraint(row,column,ONE);
       turnOffConstraint(row,column,TWO);
       return 0;
@@ -406,7 +424,9 @@ int tryNextSolution(int row, int column)
     else
     {
       theGrid[row][column] = 0;
+      printConstraintGrid();
       createConstraintGrid(); /* could possibly speed up this step*/
+      printConstraintGrid();
       turnOffConstraint(row,column,ONE);
       turnOffConstraint(row,column,TWO);
       turnOffConstraint(row,column,THREE);
@@ -427,7 +447,9 @@ int tryNextSolution(int row, int column)
     else
     {
       theGrid[row][column] = 0;
+      printConstraintGrid();
       createConstraintGrid(); /* could possibly speed up this step*/
+      printConstraintGrid();
       turnOffConstraint(row,column,ONE);
       turnOffConstraint(row,column,TWO);
       turnOffConstraint(row,column,THREE);
@@ -449,7 +471,9 @@ int tryNextSolution(int row, int column)
     else
     {
       theGrid[row][column] = 0;
+      printConstraintGrid();
       createConstraintGrid(); /* could possibly speed up this step*/
+      printConstraintGrid();
       turnOffConstraint(row,column,ONE);
       turnOffConstraint(row,column,TWO);
       turnOffConstraint(row,column,THREE);
@@ -472,7 +496,9 @@ int tryNextSolution(int row, int column)
     else
     {
       theGrid[row][column] = 0;
+      printConstraintGrid();
       createConstraintGrid(); /* could possibly speed up this step*/
+      printConstraintGrid();
       turnOffConstraint(row,column,ONE);
       turnOffConstraint(row,column,TWO);
       turnOffConstraint(row,column,THREE);
@@ -496,7 +522,9 @@ int tryNextSolution(int row, int column)
     else
     {
       theGrid[row][column] = 0;
+      printConstraintGrid();
       createConstraintGrid(); /* could possibly speed up this step*/
+      printConstraintGrid();
       turnOffConstraint(row,column,ONE);
       turnOffConstraint(row,column,TWO);
       turnOffConstraint(row,column,THREE);
@@ -522,7 +550,9 @@ int tryNextSolution(int row, int column)
     else
     {
       theGrid[row][column] = 0;
+      printConstraintGrid();
       createConstraintGrid(); /* could possibly speed up this step*/
+      printConstraintGrid();
       turnOffConstraint(row,column,ONE);
       turnOffConstraint(row,column,TWO);
       turnOffConstraint(row,column,THREE);
@@ -548,7 +578,9 @@ int tryNextSolution(int row, int column)
     else
     {
       theGrid[row][column] = 0;
+      printConstraintGrid();
       createConstraintGrid(); /* could possibly speed up this step*/
+      printConstraintGrid();
       turnOffConstraint(row,column,ONE);
       turnOffConstraint(row,column,TWO);
       turnOffConstraint(row,column,THREE);
