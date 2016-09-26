@@ -38,7 +38,7 @@ int complexSolution();
 int undoRowConstraint(int row, int number);
 int undoColumnConstraint(int column, int number);
 int undoBoxConstraint(int boxRow, int boxColumn, int number);
-
+int turnOffConstraint(int row, int column, int toTurnOff);
 
 /* 2d array i'll call theGrid */
 int theGrid[9][9];
@@ -266,6 +266,15 @@ int undoBoxConstraint(int boxRow, int boxColumn, int number)
   }
   return 1;
 }
+
+int turnOffConstraint(int row, int column, int toTurnOff)
+{
+  if(constraintGrid[row[column]&toTurnOff])
+  {
+    constraintGrid[row[column] ^= toTurnOff
+  }
+  return 1;
+}
 /*
 * This will go to each open cell  and go throgh possible
 * solutions and pick a random one usoing recursion it will call itself
@@ -354,7 +363,7 @@ int tryNextSolution(int row, int column)
     {
       theGrid[row][column] = 0;
       createConstraintGrid(); /* could possibly speed up this step*/
-      constraintGrid[row][column]  ^= ONE;
+      turnOffConstraint(row,column,ONE);
       return 0;
     }
   }
@@ -378,7 +387,8 @@ int tryNextSolution(int row, int column)
     {
       theGrid[row][column] = 0;
       createConstraintGrid(); /* could possibly speed up this step*/
-      constraintGrid[row][column]  ^= (ONE|TWO);
+      turnOffConstraint(row,column,ONE);
+      turnOffConstraint(row,column,TWO);
       return 0;
     }
   }
@@ -402,7 +412,9 @@ int tryNextSolution(int row, int column)
     {
       theGrid[row][column] = 0;
       createConstraintGrid(); /* could possibly speed up this step*/
-      constraintGrid[row][column]  ^= (ONE|TWO|THREE);
+      turnOffConstraint(row,column,ONE);
+      turnOffConstraint(row,column,TWO);
+      turnOffConstraint(row,column,THREE);
       return 0;
     }
   }
@@ -426,7 +438,10 @@ int tryNextSolution(int row, int column)
     {
       theGrid[row][column] = 0;
       createConstraintGrid(); /* could possibly speed up this step*/
-      constraintGrid[row][column]  ^= (ONE|TWO|THREE|FOUR);
+      turnOffConstraint(row,column,ONE);
+      turnOffConstraint(row,column,TWO);
+      turnOffConstraint(row,column,THREE);
+      turnOffConstraint(row,column,FOUR);
       return 0;
     }
   }
@@ -450,7 +465,11 @@ int tryNextSolution(int row, int column)
     {
       theGrid[row][column] = 0;
       createConstraintGrid(); /* could possibly speed up this step*/
-      constraintGrid[row][column]  ^= (ONE|TWO|THREE|FOUR|FIVE);
+      turnOffConstraint(row,column,ONE);
+      turnOffConstraint(row,column,TWO);
+      turnOffConstraint(row,column,THREE);
+      turnOffConstraint(row,column,FOUR);
+      turnOffConstraint(row,column,FIVE);
       return 0;
     }
   }
@@ -474,7 +493,12 @@ int tryNextSolution(int row, int column)
     {
       theGrid[row][column] = 0;
       createConstraintGrid(); /* could possibly speed up this step*/
-      constraintGrid[row][column]  ^= (ONE|TWO|THREE|FOUR|FIVE|SIX);
+      turnOffConstraint(row,column,ONE);
+      turnOffConstraint(row,column,TWO);
+      turnOffConstraint(row,column,THREE);
+      turnOffConstraint(row,column,FOUR);
+      turnOffConstraint(row,column,FIVE);
+      turnOffConstraint(row,column,SIX);
       return 0;
     }
   }
@@ -498,7 +522,14 @@ int tryNextSolution(int row, int column)
     {
       theGrid[row][column] = 0;
       createConstraintGrid(); /* could possibly speed up this step*/
-      constraintGrid[row][column]  ^= (ONE|TWO|THREE|FOUR|FIVE|SIX|SEVEN);
+      turnOffConstraint(row,column,ONE);
+      turnOffConstraint(row,column,TWO);
+      turnOffConstraint(row,column,THREE);
+      turnOffConstraint(row,column,FOUR);
+      turnOffConstraint(row,column,FIVE);
+      turnOffConstraint(row,column,SIX);
+      turnOffConstraint(row,column,SEVEN);
+      turnOffConstraint(row,column,EIGHT);
       return 0;
     }
   }
@@ -522,7 +553,14 @@ int tryNextSolution(int row, int column)
     {
       theGrid[row][column] = 0;
       createConstraintGrid(); /* could possibly speed up this step*/
-      constraintGrid[row][column]  ^= (ONE|TWO|THREE|FOUR|FIVE|SIX|SEVEN|EIGHT);
+      turnOffConstraint(row,column,ONE);
+      turnOffConstraint(row,column,TWO);
+      turnOffConstraint(row,column,THREE);
+      turnOffConstraint(row,column,FOUR);
+      turnOffConstraint(row,column,FIVE);
+      turnOffConstraint(row,column,SIX);
+      turnOffConstraint(row,column,SEVEN);
+      turnOffConstraint(row,column,EIGHT);
       return 0;
     }
   }
@@ -546,7 +584,15 @@ int tryNextSolution(int row, int column)
     {
       theGrid[row][column] = 0;
       createConstraintGrid(); /* could possibly speed up this step*/
-      constraintGrid[row][column]  ^= (ONE|TWO|THREE|FOUR|FIVE|SIX|SEVEN|EIGHT|NINE);
+      turnOffConstraint(row,column,ONE);
+      turnOffConstraint(row,column,TWO);
+      turnOffConstraint(row,column,THREE);
+      turnOffConstraint(row,column,FOUR);
+      turnOffConstraint(row,column,FIVE);
+      turnOffConstraint(row,column,SIX);
+      turnOffConstraint(row,column,SEVEN);
+      turnOffConstraint(row,column,EIGHT);
+      turnOffConstraint(row,column,NINE);
       return 0;
     }
   }
