@@ -177,6 +177,7 @@ int solvePuzzle()
     /*printConstraintGrid();*/
     if(turnOnSimpleSolution)
     {
+      printf("performing simple solution");
       return simpleSolution();
     }
     else
