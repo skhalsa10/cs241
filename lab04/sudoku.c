@@ -39,6 +39,7 @@ int undoRowConstraint(int row, int number);
 int undoColumnConstraint(int column, int number);
 int undoBoxConstraint(int boxRow, int boxColumn, int number);
 int turnOffConstraint(int row, int column, int toTurnOff);
+void printConstraintGrid();
 
 /* 2d array i'll call theGrid */
 int theGrid[9][9];
