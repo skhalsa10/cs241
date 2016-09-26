@@ -121,6 +121,7 @@ int solvePuzzle()
   while(fillInSingleConstraints());
   if(!checkIfGridFull())
   {
+    printConstraintGrid();
     return complexSolution();
   }
   return 1;
