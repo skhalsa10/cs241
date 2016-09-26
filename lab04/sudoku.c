@@ -150,6 +150,7 @@ int simpleSolution()
   int n = 1;
   for(n=1;n<=9;n++)
   {
+    printf("theGrid[%d][%d] = %d\n", i, j, theGrid[i][j]);
     theGrid[i][j] = n;
     if(checkIfGridLegal())
     {
