@@ -100,7 +100,6 @@ int main()
       createConstraintGrid();
       if(solvePuzzle())
       {
-        printf("puzzleSolved");
         puzzleSolved = TRUE;
       }
       else
@@ -336,7 +335,7 @@ int complexSolution()
 
   while(constraintGrid[i][j] != 0)
   {
-    /*printf("|i:%d|j:%d|\n", i,j);*/
+    printf("|i:%d|j:%d|\n", i,j);
     if(tryNextSolution(i,j))
     {
         solutionFound = TRUE;
