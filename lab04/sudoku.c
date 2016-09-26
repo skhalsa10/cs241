@@ -151,7 +151,7 @@ int simpleSolution()
   for(n=1;n<=9;n++)
   {
     theGrid[i][j] = n;
-    if(checkIfGridLegal)
+    if(checkIfGridLegal())
     {
       if(simpleSolution())
       {
