@@ -309,7 +309,7 @@ int complexSolution()
         {
           /* if thegrid is 0 and the constraint is 0
            there is an error the program is not behaving correctly*/
-           printf("serious error bro fix your shit!");
+           printf("serious error bro fix your shit!\n at %d:%d", i, j);
           return 0;
         }
         openCell = TRUE;
@@ -327,6 +327,7 @@ int complexSolution()
  found then the puzzle is solved. this is the only place that can generate a return of 1*/
   if(i == 8 && j == 8 && (openCell== FALSE) )
   {
+    printf("solutionfound");
     return 1;
   }
 
@@ -341,7 +342,6 @@ int complexSolution()
   }
   if(solutionFound)
   {
-    printf("solutionfound");
     return solutionFound;
   }
   else
