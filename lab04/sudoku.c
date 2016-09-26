@@ -329,7 +329,7 @@ int complexSolution()
  found then the puzzle is solved. this is the only place that can generate a return of 1*/
   if(i == 8 && j == 8 && (openCell== FALSE) )
   {
-    printf("solutionfound");
+    printf("\n\n\n\n\n\nsolutionfound\n\n\n\n\n\n");
     return 1;
   }
 
@@ -342,14 +342,8 @@ int complexSolution()
         break;
     }
   }
-  if(solutionFound)
-  {
-    return solutionFound;
-  }
-  else
-  {
-      return solutionFound;
-  }
+  if(solutionFound)printf("SOlution >>> HERE\n" );
+  return solutionFound;
 }
 
 void printConstraintGrid()
@@ -380,14 +374,15 @@ int tryNextSolution(int row, int column)
     isSuccess = complexSolution();
     if(isSuccess)
     {
+      printf("isSuccess from 1: %d\n", isSuccess);
       return isSuccess;
     }
     else
     {
       theGrid[row][column] = 0;
-      printConstraintGrid();
+      /*printConstraintGrid();*/
       createConstraintGrid(); /* could possibly speed up this step*/
-      printConstraintGrid();
+      /*printConstraintGrid();*/
       turnOffConstraint(row,column,ONE);
       return 0;
     }
@@ -401,14 +396,15 @@ int tryNextSolution(int row, int column)
     isSuccess = complexSolution();
     if(isSuccess)
     {
+      printf("isSuccess from 2: %d\n", isSuccess);
       return isSuccess;
     }
     else
     {
       theGrid[row][column] = 0;
-      printConstraintGrid();
+      /*printConstraintGrid();*/
       createConstraintGrid(); /* could possibly speed up this step*/
-      printConstraintGrid();
+      /*printConstraintGrid();*/
       turnOffConstraint(row,column,ONE);
       turnOffConstraint(row,column,TWO);
       return 0;
@@ -423,14 +419,15 @@ int tryNextSolution(int row, int column)
     isSuccess = complexSolution();
     if(isSuccess)
     {
+      printf("isSuccess from 3: %d\n", isSuccess);
       return isSuccess;
     }
     else
     {
       theGrid[row][column] = 0;
-      printConstraintGrid();
+      /*printConstraintGrid();*/
       createConstraintGrid(); /* could possibly speed up this step*/
-      printConstraintGrid();
+      /*printConstraintGrid();*/
       turnOffConstraint(row,column,ONE);
       turnOffConstraint(row,column,TWO);
       turnOffConstraint(row,column,THREE);
@@ -446,14 +443,15 @@ int tryNextSolution(int row, int column)
     isSuccess = complexSolution();
     if(isSuccess)
     {
+      printf("isSuccess from 4: %d\n", isSuccess);
       return isSuccess;
     }
     else
     {
       theGrid[row][column] = 0;
-      printConstraintGrid();
+      /*printConstraintGrid();*/
       createConstraintGrid(); /* could possibly speed up this step*/
-      printConstraintGrid();
+      /*printConstraintGrid();*/
       turnOffConstraint(row,column,ONE);
       turnOffConstraint(row,column,TWO);
       turnOffConstraint(row,column,THREE);
@@ -470,14 +468,15 @@ int tryNextSolution(int row, int column)
     isSuccess = complexSolution();
     if(isSuccess)
     {
+      printf("isSuccess from 5: %d\n", isSuccess);
       return isSuccess;
     }
     else
     {
       theGrid[row][column] = 0;
-      printConstraintGrid();
+      /*printConstraintGrid();*/
       createConstraintGrid(); /* could possibly speed up this step*/
-      printConstraintGrid();
+      /*printConstraintGrid();*/
       turnOffConstraint(row,column,ONE);
       turnOffConstraint(row,column,TWO);
       turnOffConstraint(row,column,THREE);
@@ -495,14 +494,15 @@ int tryNextSolution(int row, int column)
     isSuccess = complexSolution();
     if(isSuccess)
     {
+      printf("isSuccess from 6: %d\n", isSuccess);
       return isSuccess;
     }
     else
     {
       theGrid[row][column] = 0;
-      printConstraintGrid();
+      /*printConstraintGrid();*/
       createConstraintGrid(); /* could possibly speed up this step*/
-      printConstraintGrid();
+      /*printConstraintGrid();*/
       turnOffConstraint(row,column,ONE);
       turnOffConstraint(row,column,TWO);
       turnOffConstraint(row,column,THREE);
@@ -521,14 +521,15 @@ int tryNextSolution(int row, int column)
     isSuccess = complexSolution();
     if(isSuccess)
     {
+      printf("isSuccess from 7: %d\n", isSuccess);
       return isSuccess;
     }
     else
     {
       theGrid[row][column] = 0;
-      printConstraintGrid();
+      /*printConstraintGrid();*/
       createConstraintGrid(); /* could possibly speed up this step*/
-      printConstraintGrid();
+      /*printConstraintGrid();*/
       turnOffConstraint(row,column,ONE);
       turnOffConstraint(row,column,TWO);
       turnOffConstraint(row,column,THREE);
@@ -549,14 +550,15 @@ int tryNextSolution(int row, int column)
     isSuccess = complexSolution();
     if(isSuccess)
     {
+      printf("isSuccess from 8: %d\n", isSuccess);
       return isSuccess;
     }
     else
     {
       theGrid[row][column] = 0;
-      printConstraintGrid();
+      /*printConstraintGrid();*/
       createConstraintGrid(); /* could possibly speed up this step*/
-      printConstraintGrid();
+      /*printConstraintGrid();*/
       turnOffConstraint(row,column,ONE);
       turnOffConstraint(row,column,TWO);
       turnOffConstraint(row,column,THREE);
@@ -577,15 +579,15 @@ int tryNextSolution(int row, int column)
     isSuccess = complexSolution();
     if(isSuccess)
     {
-
+      printf("isSuccess from 9: %d\n", isSuccess);
       return isSuccess;
     }
     else
     {
       theGrid[row][column] = 0;
-      printConstraintGrid();
+      /*printConstraintGrid();*/
       createConstraintGrid(); /* could possibly speed up this step*/
-      printConstraintGrid();
+      /*printConstraintGrid();*/
       turnOffConstraint(row,column,ONE);
       turnOffConstraint(row,column,TWO);
       turnOffConstraint(row,column,THREE);
