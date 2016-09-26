@@ -313,6 +313,7 @@ int complexSolution()
 
   while(constraintGrid[i][j] != 0)
   {
+    printf("i:%d|j:%d", i,j);
     if(tryNextSolution(i,j))
     {
         solutionFound = TRUE;
