@@ -174,7 +174,7 @@ int solvePuzzle()
   while(fillInSingleConstraints());
   if(!checkIfGridFull())
   {
-    /*printConstraintGrid();*/
+    printConstraintGrid();
     if(turnOnSimpleSolution)
     {
       printf("performing simple solution");
