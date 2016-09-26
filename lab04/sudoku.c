@@ -174,7 +174,7 @@ int solvePuzzle()
   while(fillInSingleConstraints());
   if(!checkIfGridFull())
   {
-    printConstraintGrid();
+    /*printConstraintGrid();
     if(turnOnSimpleSolution)
     {
       printf("performing simple solution");
@@ -184,8 +184,8 @@ int solvePuzzle()
     {
       printf("running complexSolution");
       return complexSolution();
-    }
-
+    }*/
+    complexSolution();
   }
   return 1;
 }
