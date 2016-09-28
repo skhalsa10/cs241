@@ -43,6 +43,7 @@ int turnOffConstraint(int row, int column, int toTurnOff);
 void printConstraintGrid();
 int simpleSolution();
 int deleteFalseConstraints(int row, int column, int number);
+int howManySolutions(int row, int column);
 
 /* 2d array i'll call theGrid */
 int theGrid[9][9];
@@ -338,6 +339,24 @@ int turnOffConstraint(int row, int column, int toTurnOff)
   }
   return 1;
 }
+
+int howManySolutions(int row,int column)
+{
+  int counter = 0;
+
+  if(constraintGrid[row][column]&ONE) counter++;
+  if(constraintGrid[row][column]&TWO) counter++;
+  if(constraintGrid[row][column]&THREE) counter++;
+  if(constraintGrid[row][column]&FOUR) counter++;
+  if(constraintGrid[row][column]&FIVE) counter++;
+  if(constraintGrid[row][column]&SIX) counter++;
+  if(constraintGrid[row][column]&SEVEN) counter++;
+  if(constraintGrid[row][column]&EIGHT) counter++;
+  if(constraintGrid[row][column]&NINE) counter++;
+
+  return counter;
+}
+
 /*
 * This will go to each open cell  and go throgh possible
 * solutions and pick a random one usoing recursion it will call itself
@@ -357,6 +376,28 @@ int turnOffConstraint(int row, int column, int toTurnOff)
 */
 int complexSolution()
 {
+  /* I want to put this findopen cell step into a function
+  but think i need to learn structs to return multiple values
+  which I havent learned yet so I can come update later*/
+  int cellWithOneR = -1;
+  int cellWithTwoR = -1;
+  int cellWithThreeR = -1;
+  int cellWithFourR = -1;
+  int cellWithFiveR = -1;
+  int cellWithSixR = -1;
+  int cellWithSevenR = -1;
+  int cellWithEightR = -1;
+  int cellWithNineR = -1;
+  int cellWithOneC = -1;
+  int cellWithTwoC = -1;
+  int cellWithThreeC = -1;
+  int cellWithFourC = -1;
+  int cellWithFiveC = -1;
+  int cellWithSixC = -1;
+  int cellWithSevenC = -1;
+  int cellWithEightC = -1;
+  int cellWithNineC = -1;
+
   int openCell = FALSE;
   int i = 0;
   int j = 0;
@@ -364,17 +405,106 @@ int complexSolution()
   {
     for (j=0;j<9;j++)
     {
-      if(theGrid[i][j] == 0)
-      {
+      /*set array location arrays that hold the
+      value of a cell with n number of possible solutions*/
+      switch (howManySolutions(i,j)) {
+        case 1:
         openCell = TRUE;
+        cellWithOneR = i;
+        cellWithOneC = j;
+        break;
+        case 2:
+        openCell = TRUE;
+        cellWithTwoR = i;
+        cellWithTwoC = j;
+        break;
+        case 3:
+        openCell = TRUE;
+        cellWithThreeR = i;
+        cellWithThreeC = j;
+        break;
+        case 4:
+        openCell = TRUE;
+        cellWithFourR = i;
+        cellWithFourC = j;
+        break;
+        case 5:
+        openCell = TRUE;
+        cellWithFiveR = i;
+        cellWithFiveC = j;
+        break;
+        case 6:
+        openCell = TRUE;
+        cellWithSixR = i;
+        cellWithSixC = j;
+        break;
+        case 7:
+        openCell = TRUE;
+        cellWithSevenR = i;
+        cellWithSevenC = j;
+        break;
+        case 8:
+        openCell = TRUE;
+        cellWithEightR = i;
+        cellWithEightC = j;
+        break;
+        case 9:
+        openCell = TRUE;
+        cellWithNineR = i;
+        cellWithNineC = j;
         break;
       }
+    }
+  }
 
-    }
-    if(openCell)
+  if(openCell)
+  {
+    if(cellWithOneR >=0 && cellWithOneC >=0)
     {
-      break;
+      i = cellWithOneR;
+      j = cellWithOneC;
     }
+    else if(cellWithTwoR >=0 && cellWithTwoC >=0)
+    {
+      i = cellWithTwoR;
+      j = cellWithTwoC;
+    }
+    else if(cellWithThreeR >=0 && cellWithThreeC >=0)
+    {
+      i = cellWithThreeR;
+      j = cellWithThreeC;
+    }
+    else if(cellWithFourR >=0 && cellWithFourC >=0)
+    {
+      i = cellWithFourR;
+      j = cellWithFourC;
+    }
+    else if(cellWithFiveR >=0 && cellWithFiveC >=0)
+    {
+      i = cellWithFiveR;
+      j = cellWithFiveC;
+    }
+    else if(cellWithSixR >=0 && cellWithSixC >=0)
+    {
+      i = cellWithSixR;
+      j = cellWithSixC;
+    }
+    else if(cellWithSevenR >=0 && cellWithSevenC >=0)
+    {
+      i = cellWithSevenR;
+      j = cellWithSevenC;
+    }
+    else if(cellWithEightR >=0 && cellWithEightC >=0)
+    {
+      i = cellWithEightR;
+      j = cellWithEightC;
+    }
+    else if(cellWithNineR >=0 && cellWithNineC >=0)
+    {
+      i = cellWithNineR;
+      j = cellWithNineC;
+    }
+
   }
 
   /* if there are no open cells left it means the puzzle is finally solved*/
