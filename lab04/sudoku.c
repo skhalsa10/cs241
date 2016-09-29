@@ -227,10 +227,10 @@ int undoMove(int inputRow,int inputColumn,int inputNumber)
 {
   printf("undomove entered\n");
   theGrid[inputRow][inputColumn] = 0;
-  createConstraintGrid();
-  /*undoRowConstraint(inputRow, inputNumber);
+  /*createConstraintGrid();*/
+  undoRowConstraint(inputRow, inputNumber);
   undoColumnConstraint(inputRow, inputNumber);
-  undoBoxConstraint((inputRow/3), (inputColumn/3), inputNumber);*/
+  undoBoxConstraint((inputRow/3), (inputColumn/3), inputNumber);
   return 1;
 }
 
