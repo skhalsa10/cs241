@@ -10,15 +10,15 @@
 #define SEVEN 64
 #define EIGHT 128
 #define NINE 256
-#define turnOnSimpleSolution 0
+#define ISSIMPLESOLUTIONON 0
 
 
 /* declare all functions here */
 int convertLineToGrid();
-int checkIfGridLegal();/*still need to create*/
+int checkIfGridLegal();
 int checkIfGridFull();
 int checkIfGridSolved();
-int createConstraintGrid();/*still need to create*/
+int createConstraintGrid();
 void printResults();
 int solvePuzzle();
 int everyRowContainsEveryNumber();
@@ -118,7 +118,20 @@ int main()
   }
 }
 
-/* this will be my backup solution if I cant get my constrain one to work*/
+/****************************************************
+*
+* This function returns 1 if puzzle has a Solution
+* and has been solved. It return 0 if there is no solution
+*
+* This is the simple backtracking solution:
+* First it picks an open cell
+* and loops over numbers 1 through 9  it tries a number
+* checks if it the board is still legal(doesnt violate rules of game)
+* if it is legal it calls itself.
+* if not legal it undoes move and tries the next number
+*
+* REMARK: this takes about 3min 20 sec to finish single.in
+*****************************************************/
 int simpleSolution()
 {
   int openCell = FALSE;
@@ -168,7 +181,16 @@ int simpleSolution()
 }
 
 /*
-* this is the brains on this program. it is the algorithm that solves the puzzle
+* This function returns 1 if puzzle is solved or 0 if no solution
+*
+* this function takes a strategic approach to solving. it uses the
+* initial constrain grid first attepts to solve by filling in all
+* squares that have only one option if it fills up the grid is now full
+* the puzzle is solved return 1
+*
+* if the grid is not full then perform a more rigourous technique
+* if the simple solution is switch on from define then perform this algorithm
+* else th complexSolution is run which will have its return function returned.
 */
 int solvePuzzle()
 {
@@ -176,7 +198,7 @@ int solvePuzzle()
   if(!checkIfGridFull())
   {
     printConstraintGrid();
-    if(turnOnSimpleSolution)
+    if(ISSIMPLESOLUTIONON)
     {
       printf("performing simple solution\n");
       return simpleSolution();
@@ -190,17 +212,40 @@ int solvePuzzle()
   return 1;
 }
 
+
+/************************************
+* Parameters:
+* inputRow is the row index of the "currentCell"
+* inputColumn is the column index of the "currentCell"
+* inputNumber is the number we are readding to the
+* appropriate list of available constraints
+***************************************
+*  this function calls other smaller helper functions that
+* perform undos for the row the column and the box
+****************************************/
 int undoMove(int inputRow,int inputColumn,int inputNumber)
 {
   printf("undomove entered\n");
   theGrid[inputRow][inputColumn] = 0;
-  /*createConstraintGrid();*/
-  undoRowConstraint(inputRow, inputNumber);
+  createConstraintGrid();
+  /*undoRowConstraint(inputRow, inputNumber);
   undoColumnConstraint(inputRow, inputNumber);
-  undoBoxConstraint((inputRow/3), (inputColumn/3), inputNumber);
+  undoBoxConstraint((inputRow/3), (inputColumn/3), inputNumber);*/
   return 1;
 }
 
+/**************************************************************
+* Parameters:
+* int row - the row that will be iterated over
+* int number - the number to add back as a constraintGrid
+***************************************************************
+* Returns 1 if successful and 0 if there is an error
+***************************************************************
+*  this function just loops over every cell in row and adds
+* Number Back in as a possible solution.
+*
+* Is this adding steps that do not need to be done?
+**************************************************************/
 int undoRowConstraint(int row, int number)
 {
   int j = 0;
