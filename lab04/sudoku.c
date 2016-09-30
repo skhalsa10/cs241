@@ -230,7 +230,7 @@ int undoMove(int inputRow,int inputColumn,int inputNumber)
   /*createConstraintGrid();*/
   undoRowConstraint(inputRow, inputNumber);
   undoColumnConstraint(inputRow, inputNumber);
-  undoBoxConstraint((inputRow/3), (inputColumn/3), inputNumber);
+  undoBoxConstraint((inputRow/3), (inputColumn/3), inputNumber);g
   return 1;
 }
 
@@ -288,6 +288,13 @@ int undoRowConstraint(int row, int number)
   return 1;
 }
 
+/*****************************************************************
+*Parameters:
+* int column: column that will have constrains readded
+* int number: number to re add to constraint list
+****************************************************************
+*this function re adds the number as an available solution to the column
+*****************************************************************/
 int undoColumnConstraint(int column, int number)
 {
   int i = 0;
@@ -329,7 +336,16 @@ int undoColumnConstraint(int column, int number)
   }
   return 1;
 }
-
+/*****************************************************************
+* parameters:
+* int boxRow: row index to cell
+* int boxcolumn: column index to cell
+* int number: number to readd as possible solutions
+****************************************************************
+*this function readds the number to the box as a solutions
+* note it should be eliminated from the current cell in question
+* after the fact as a failed solution
+*****************************************************************/
 int undoBoxConstraint(int boxRow, int boxColumn, int number)
 {
   int i = 0;
@@ -376,6 +392,14 @@ int undoBoxConstraint(int boxRow, int boxColumn, int number)
   return 1;
 }
 
+/*****************************************************************
+* parameters:
+* int row: index to cell
+* int column: index to cell
+* int toTurnOff: number that will be eliminated from constrain info at cell
+*****************************************************************
+*this function will eliminate number at given cell of available solutions
+*****************************************************************/
 int turnOffConstraint(int row, int column, int toTurnOff)
 {
   if(constraintGrid[row][column]&toTurnOff)
@@ -385,6 +409,13 @@ int turnOffConstraint(int row, int column, int toTurnOff)
   return 1;
 }
 
+/*****************************************************************
+parameters:
+int row: row index of cell in question
+int column: column index of cell in question
+****************************************************************
+* this function returns how many possible solutions are left
+*****************************************************************/
 int howManySolutions(int row,int column)
 {
   int counter = 0;
@@ -402,23 +433,44 @@ int howManySolutions(int row,int column)
   return counter;
 }
 
-/*
-* This will go to each open cell  and go throgh possible
-* solutions and pick a random one usoing recursion it will call itself
-* if after it callis itself if it gets a 0 back it will
-* revert the change and undo the constrain propogation
+/*****************************************************************
+* This function is the complex enhanced solving algorithm:
+* I am very dissapointed in the spead of this.  I am getting 2min 30 sec currently
+* the single.in puzzle supposidly can be solved in 4 tenths of a second
+* so something is obviously wrong.
 *
-* Just so I dont forget my idea for later to speed up
-* for super complex solutions after propogating several answers  there should become
-* sinlge solutions maybe I can run through my simplesolution algorithm but I wont know
-* what was propagted by the single solution so if i try this there will
-* need to be a snap shot taken of data this might be a terrible idea and the over
-* head might  extend the time it takes to solve.
-*
-* maybe I take a snapshot and attempt to finish solving the snapshot
-* if succesfful could luck out but this might be pointless as i add N steps
-* for potential success when This is guarenteed
-*/
+* Algorithm:
+* Select an open cell with the least amount of choices. if there is no more
+* return 1 the puzzle is solved.
+* or continue...
+* select the first available choices in list of constraints plug it in and start at beginning
+* if theGrid contains no solution but the constraint grid is empty or
+* allconstraints have been tried with no success return 0.
+*****************************************************************
+* possible ways to improve:
+* 1. make a copy of the constraint grid ever call to the complex solution
+*    if this fails there will be no need to undo failed attempts
+*    i could probably call a helper function at the beginning of the complex
+     that duplicates the constrainGrid the question is what will cost less
+     the 81 steps to duplicate the grid or the random steps it take to
+     undo failed attempts. it is worth testing. I may be able to reintroduce
+     the idea of filling in single constraints during each iteration as I dont have to
+     worry about backtracking after the fact
+* 2. This i know for a fact will increase speed. if I use the idea of preemptive sets
+     There is a theorem around this so it will be proven to work.
+     a preemptive set is  a list of M number of numbers 2<=m<=8 with a list of m cells
+     with a property that only numbers from the set can occupy those cells
+     this means we can aliminate it from other cells.
+     so if i had the list of possible solutions as 57 i would need this exact set in
+     of possible number in exactly two cells because there are two numbers in the set
+     if it was 138 we would need this exact set in 3 cells
+     if we find a preemptive set like 57 for example if the m cells are in the same row
+     column or box  then it can be eliminated from the rest of the cells
+     in the row column or box. After this is done it may immediately open
+     single constrain possibility these steps can be repeated and should in theory
+     eliminate MANY wrong answers from needing to be guessed.
+
+*****************************************************************/
 int complexSolution()
 {
   /* I want to put this findopen cell step into a function
@@ -616,6 +668,13 @@ int complexSolution()
   return 0;
 }
 
+/*****************************************************************
+*parameters:
+* int row: row index of the cell that should delete constraint from choices
+int column: column index of cell
+int number: number of sulution being deleted from possible options.
+*
+*****************************************************************/
 int deleteFalseConstraints(int row, int column, int number)
 {
   switch (number)
@@ -687,6 +746,9 @@ int deleteFalseConstraints(int row, int column, int number)
   }
 }
 
+/*****************************************************************
+* this functions prints the constraintGrid
+*****************************************************************/
 void printConstraintGrid()
 {
   printf("\n");
@@ -703,6 +765,15 @@ void printConstraintGrid()
   }
 }
 
+/*****************************************************************
+* parameters:
+* int row: the index of the cell in question
+* int column: index to the cell in question
+*****************************************************************
+* this function goes down the list of currunt solutions in
+* the constraing and tries them one by one this will only work
+* if the wrong constrains get deleted before this is called
+8****************************************************************/
 int tryNextSolution(int row, int column)
 {
   int isSuccess = FALSE;
@@ -944,11 +1015,13 @@ int tryNextSolution(int row, int column)
     return 0;
   }
 }
-/*
-* This function loops through constraintGrid if a cell has one possible solution
-* fill in theGrid
-* will return 1 if it made a change other wise it will return 0 if no changes were made
-*/
+
+/*****************************************************************
+* This function loops through constraintGrid if a cell
+* has one possible solution fill in theGrid
+* will return 1 if it made a change other wise
+* it will return 0 if no changes were made
+*****************************************************************/
 int fillInSingleConstraints()
 {
   int changeMade = FALSE;
@@ -1011,11 +1084,12 @@ int fillInSingleConstraints()
   return changeMade;
 }
 
-/*this function checks the board that is input to make sure it doesnt
+/*****************************************************************
+* this function checks the board that is input to make sure it doesnt
 * violate rules of sudoku. It will check to confirm  that a numbers
 * doesnt appear twice in any row column or box if it does the input
 * is invalid returns 1 if board is valid other wise return 0
-*/
+*****************************************************************/
 int checkIfGridLegal()
 {
   int i = 0;
@@ -1035,9 +1109,13 @@ int checkIfGridLegal()
   return 1;
 }
 
-/*
+/****************************************************************
+* parameters:
+* int row: the row that is being checked for duplicate numbers
+* int number: the number in question
+*****************************************************************
 * function will return 1 if more then one number exists in row
-*/
+*****************************************************************/
 int checkRowDuplicateN(int row, int number)
 {
   int numberCounter = 0;
@@ -1059,9 +1137,13 @@ int checkRowDuplicateN(int row, int number)
   }
 }
 
-/*
+/****************************************************************
+* Parameters:
+* int column: the column being checked for duplicate number
+* int number: the num,ber in question
+******************************************************************
 * this funtion returns 1 if column contains more then one number
-*/
+*****************************************************************/
 int checkColumnDuplicateN(int column, int number)
 {
   int numberCounter = 0;
@@ -1083,9 +1165,14 @@ int checkColumnDuplicateN(int column, int number)
   }
 }
 
-/*
+/**************************************************************
+* Parameters:
+* int boxRow: index for boxRow
+* int boxcolumn: index for box column
+* int number: number being checked if it is duplicated
+***************************************************************
 * this functions returns 1 if a box contains duplicate number
-*/
+***************************************************************/
 int checkBoxDuplicateN(int boxRow, int boxColumn, int number)
 {
   int numberCounter = 0;
@@ -1115,17 +1202,12 @@ int checkBoxDuplicateN(int boxRow, int boxColumn, int number)
   }
 }
 
-/*
-* My initial thought to attack this function is to assign
-* a value to each square that explains what moves are legal.
-* if a square can contain all 9 numbers it would be
-* represented by 11111111 i can use & to check if available
-* or | to add it. if I use up a value i can ^ to get it out of the list
-*
-* I still need some logic to check if a move is valid.
-* This helper method needs to be made first.
-*
-*/
+/***********************************************************************
+* This function assigns a number to each constraingrid location.
+* based on the following: 111111111 this number means all possible numbers
+* 1 through 9 can exist in this location. 000000000 this number means
+* it should already have a solution in the same location in the grid
+**********************************************************************/
 int createConstraintGrid()
 {
   int i = 0;
@@ -1157,10 +1239,16 @@ int createConstraintGrid()
   return 1;
 }
 
-/*
-*this function eliminates all usability at cell location for all numbers
-*and propogates constrains for rest of board for that number
-*/
+/*************************************************************************
+* Parameters:
+* int inputRow: the index where the number exists
+* int inputcolumn: the index where the number exists
+* int inputNumber: the number in question
+* int cotComplexCall: currently needs to be eliminated
+**************************************************************************
+* this function eliminates all usability at cell location for all numbers
+* and propogates constrains for rest of board for that number
+*************************************************************************/
 int updateConstraints(int inputRow, int inputColumn, int inputNumber, int notComplexCall)
 {
   if(theGrid[inputRow][inputColumn] == inputNumber)
@@ -1177,9 +1265,13 @@ int updateConstraints(int inputRow, int inputColumn, int inputNumber, int notCom
   return 1;
 }
 
-/*
+/***********************************************************
+* Parameters:
+* int row: the row to elimate the number from
+* int number: the number to eliminates
+************************************************************
 *this eliminates number from usability in row.
-*/
+************************************************************/
 int updateRowConstraints(int row, int number)
 {
   int j = 0;
@@ -1222,9 +1314,13 @@ int updateRowConstraints(int row, int number)
   return 1;
 }
 
-/*
+/*************************************************************
+* parameters:
+* int column this is the column the number will be eliminated from
+* int number: the number to eliminate
+**************************************************************
 * this eliminates number from usabiolity in column
-*/
+**************************************************************/
 int updateColumnConstraints(int column, int number)
 {
   int i = 0;
@@ -1267,9 +1363,15 @@ int updateColumnConstraints(int column, int number)
   return 1;
 }
 
-/*
-*this function eliminates number from usability in box
-*/
+/**************************************************************
+* Parameters:
+* int boxRow: is the index used to point to box row
+* int boxCOlumn: this is the index used for the box column
+* int number: this is the number that we have proven cant be
+* in the box and will delete from all grids
+****************************************************************
+* this function eliminates number from usability in box
+****************************************************************/
 int updateBoxConstraints(int boxRow, int boxColumn, int number)
 {
   int i = 0;
@@ -1316,17 +1418,9 @@ int updateBoxConstraints(int boxRow, int boxColumn, int number)
 }
 
 /*
-* I am thinking about using some sort of
-* propositional satisfiability to assert
-* that the puzzle is solved. still researching.
-this will use recursive calls to check the truth
-value of 9*9*9 = 729 logical tests. This is a logic puzzle.
-i feel. the goal of sudoku fro this perspective is to find a solution
-for logical values. I feel there is a way to solve the puzzle this way
-but I havent figured it out yet
-I will build a check the performs the following check
-(rowContainsEveryNumber()&columnContainsEverNumber()&boxContainsEveryNumber())
-return 0 if false and true otherwise
+* this function checks to see if the puzzle is solved which
+* by definition means every row, column, and box contains
+* every number.
 */
 int checkIfGridSolved()
 {
@@ -1336,6 +1430,10 @@ int checkIfGridSolved()
   return (everyRowContainsEveryNumber()&&columnContainsEverNumber()&&boxContainsEveryNumber());
 }
 
+/***********************************************************
+* this function checks every row to
+* see if it contains every number
+************************************************************/
 int everyRowContainsEveryNumber()
 {
   int truthValue = 1;
@@ -1351,7 +1449,12 @@ int everyRowContainsEveryNumber()
   }
   return truthValue;
 }
+
 /*
+*parameters:
+* int row: to be iterated over
+* int number to check if it is in row
+************************************************************
 * this function returns nonZero if the row contains n number
 */
 int rowContainsNNumber(int row, int number)
@@ -1366,6 +1469,7 @@ int rowContainsNNumber(int row, int number)
   }
   return containsNumber;
 }
+
 /*
 * this functions checks all
 * columns to see if they contain all numbers
@@ -1385,9 +1489,14 @@ int columnContainsEverNumber()
   }
   return truthValue;
 }
-/*
+
+/********************************************************************
+* Parameters:
+* int column: the column that will be interated over
+* int number: the number that will be checked if it is in the column
+**********************************************************************
 *this function checks if a column cantains 1 number
-*/
+*********************************************************************/
 int columnContainsNNumber(int column, int number)
 {
   int containsNumber = 0;
@@ -1400,9 +1509,10 @@ int columnContainsNNumber(int column, int number)
   return containsNumber;
 }
 
-/*
-* this functions checks 3 by 3 box to see if it contains every number
-*/
+/********************************************************************
+* this functions checks EVERY 3 by 3 box to see if it contains every number
+*It utilized boxContainsNNumber and gives it every number
+*******************************************************************/
 int boxContainsEveryNumber()
 {
   int truthValue = 1;
@@ -1423,9 +1533,14 @@ int boxContainsEveryNumber()
   return truthValue;
 }
 
-/*
+/*************************************************************
+* Parameters:
+* int boxRow: this will be an offset and mutliplied by THREE
+* int boxColumn: this is an offset and miltiplied by 3
+* int number: number in question
+**************************************************************
 * check to see if a given box contains a given number
-*/
+**************************************************************/
 int boxContainsNNumber(int boxRow, int boxColumn, int number)
 {
   int containsNumber = 0;
@@ -1442,12 +1557,12 @@ int boxContainsNNumber(int boxRow, int boxColumn, int number)
   return containsNumber;
 }
 
-/*
+/*************************************************************
 * This function just loops through theGrid
 * if it makes it to the end it means it is
 * full and return 1
 * returns 0 if not full
-*/
+**************************************************************/
 int checkIfGridFull()
 {
   int i = 0;
@@ -1463,11 +1578,13 @@ int checkIfGridFull()
 }
 
 
-/*
+/****************************************************************
 * this function converts one line at a time into a puzzle to solve
 * this function garuntees the to set the charStream to \n or EOF
 * if there is an error it will return 0 otherwise 1.
-**/
+* it will trun on boolean flags for different errors however the
+* spec doesnt ask for what is failing.
+*****************************************************************/
 int convertLineToGrid()
 {
   /*reinitialize error flags to false to start  off function*/
@@ -1554,6 +1671,11 @@ int convertLineToGrid()
   }
 }
 
+/*************************************************************
+*
+* This function just prints what is expected to the console
+*
+*************************************************************/
 void printResults()
 {
   printf("%s\n", inputLine);
