@@ -232,7 +232,7 @@ int howManySolutions(int row,int column, unsigned int constraintGridToCheck[][9]
   {
     if(constraintGridToCheck[row][column]&NUM2MASK(i)) counter++;
   }*/
-
+  /* im going to keep these ugly lines because it performs faster..*/
   if(constraintGridToCheck[row][column]&ONE) counter++;
   if(constraintGridToCheck[row][column]&TWO) counter++;
   if(constraintGridToCheck[row][column]&THREE) counter++;
@@ -497,8 +497,9 @@ printf("localConstraintGrid[i][j]: %d\n", localConstraintGrid[i][j]);*/
   nConversion = 0;
   for(n=1;n<=9;n++)
   {
+    nConversion = NUM2MASK(i);
     /*might want to extract this switch statement into a function for readability*/
-    switch (n)
+  /*switch (n)
     {
       case 1:
       nConversion = ONE;
@@ -527,7 +528,7 @@ printf("localConstraintGrid[i][j]: %d\n", localConstraintGrid[i][j]);*/
       case 9:
       nConversion = NINE;
       break;
-    }
+    }*/
     /*printf("localConstraintGrid[%d][%d] = %d \n",i, j, localConstraintGrid[i][j]);
     printf("nConversion = %d\n", nConversion);
     printf("localConstraintGrid[i][j]&nConversion = %d\n", localConstraintGrid[i][j]&nConversion);*/
