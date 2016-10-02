@@ -496,6 +496,7 @@ int complexSolution(int i, int j, int n, unsigned int originalConstraintGrid[][9
 *****************************************************************/
 int fillInSingleConstraints()
 {
+  int n;
   int changeMade = FALSE;
   int i = 0;
   int j = 0;
@@ -503,7 +504,16 @@ int fillInSingleConstraints()
   {
     for(j=0;j<9;j++)
     {
-      switch (constraintGrid[i][j])
+      for(n=1;n<=9;n++)
+      {
+        if(constraintGrid[i][j] == NUM2MASK(n))
+        {
+          theGrid[i][j] = n;
+          updateConstraints(i,j,n, constraintGrid);
+          changeMade = TRUE;
+        }
+      }
+      /*switch (constraintGrid[i][j])
       {
         case ONE:
         theGrid[i][j] = 1;
@@ -550,7 +560,7 @@ int fillInSingleConstraints()
         updateConstraints(i,j,9, constraintGrid);
         changeMade = TRUE;
         break;
-      }
+      }*/
     }
   }
   return changeMade;
