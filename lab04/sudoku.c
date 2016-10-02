@@ -96,7 +96,6 @@ int main()
     {
       if(!convertLineToGrid())
       {
-
         puzzleError = TRUE;
         break;
       }
@@ -124,10 +123,7 @@ int main()
       }
     }
     while(0);
-
     printResults();
-
-
   }
   return 1;
 }
@@ -227,22 +223,7 @@ int solvePuzzle()
 }
 
 
-/*****************************************************************
-* parameters:
-* int row: index to cell
-* int column: index to cell
-* int toTurnOff: number that will be eliminated from constrain info at cell
-*****************************************************************
-*this function will eliminate number at given cell of available solutions
-*****************************************************************/
-int turnOffConstraint(int row, int column, int toTurnOff)
-{
-  if(constraintGrid[row][column]&toTurnOff)
-  {
-    constraintGrid[row][column] ^= toTurnOff;
-  }
-  return 1;
-}
+
 
 /*****************************************************************
 parameters:
