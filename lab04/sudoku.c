@@ -1194,9 +1194,7 @@ int convertLineToGrid()
       /*if it makes it this far than we have nonnumeric char*/
       else
       {
-        count++;
         errorNotNumeric = TRUE;
-        count++;
         break;
       }
       count++;
