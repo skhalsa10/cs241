@@ -712,8 +712,8 @@ int updateRowConstraints(int row, int number, unsigned int constraintGridToUpdat
   int j = 0;
   for(j = 0; j < 9; j++)
   {
-    if(constraintGridToUpdate[row][j] > 0)
-    {
+    /*if(constraintGridToUpdate[row][j] > 0)
+    {*/
       constraintGridToUpdate[row][j] &= (~NUM2MASK(number));
       /*switch (number)
       {
@@ -746,7 +746,7 @@ int updateRowConstraints(int row, int number, unsigned int constraintGridToUpdat
         break;
       }
       */
-    }
+    /*}*/
   }
   return 1;
 }
