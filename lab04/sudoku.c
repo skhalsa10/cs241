@@ -1157,7 +1157,8 @@ int checkIfGridFull()
 *****************************************************************/
 int convertLineToGrid()
 {
-  /* loop over line and copt to theGrid*/
+  /* i gave to declare this up here for some
+   reason before any other types of code*/
   int i;
   int count;
   int j;
@@ -1174,7 +1175,6 @@ int convertLineToGrid()
   {
     for (j = 0; j < 9; j++)
     {
-
       inputLine[count]= charStream;
 
       if(charStream == '.')
@@ -1196,6 +1196,7 @@ int convertLineToGrid()
       {
         count++;
         errorNotNumeric = TRUE;
+        count++;
         break;
       }
       count++;
