@@ -513,54 +513,6 @@ int fillInSingleConstraints()
           changeMade = TRUE;
         }
       }
-      /*switch (constraintGrid[i][j])
-      {
-        case ONE:
-        theGrid[i][j] = 1;
-        updateConstraints(i,j,1, constraintGrid);
-        changeMade = TRUE;
-        break;
-        case TWO:
-        theGrid[i][j] = 2;
-        updateConstraints(i,j,2, constraintGrid);
-        changeMade = TRUE;
-        break;
-        case THREE:
-        theGrid[i][j] = 3;
-        updateConstraints(i,j,3, constraintGrid);
-        changeMade = TRUE;
-        break;
-        case FOUR:
-        theGrid[i][j] = 4;
-        updateConstraints(i,j,4, constraintGrid);
-        changeMade = TRUE;
-        break;
-        case FIVE:
-        theGrid[i][j] = 5;
-        updateConstraints(i,j,5, constraintGrid);
-        changeMade = TRUE;
-        break;
-        case SIX:
-        theGrid[i][j] = 6;
-        updateConstraints(i,j,6, constraintGrid);
-        changeMade = TRUE;
-        break;
-        case SEVEN:
-        theGrid[i][j] = 7;
-        updateConstraints(i,j,7, constraintGrid);
-        changeMade = TRUE;
-        break;
-        case EIGHT:
-        theGrid[i][j] = 8;
-        updateConstraints(i,j,8, constraintGrid);
-        changeMade = TRUE;
-        break;
-        case NINE:
-        theGrid[i][j] = 9;
-        updateConstraints(i,j,9, constraintGrid);
-        changeMade = TRUE;
-        break;
-      }*/
     }
   }
   return changeMade;
@@ -762,7 +714,8 @@ int updateRowConstraints(int row, int number, unsigned int constraintGridToUpdat
   {
     if(constraintGridToUpdate[row][j] > 0)
     {
-      switch (number)
+      constraintGridToUpdate[row][j]&(~NUM2MASK(number));
+      /*switch (number)
       {
         case 1:
         if(constraintGridToUpdate[row][j] & ONE) constraintGridToUpdate[row][j] ^= ONE;
@@ -792,6 +745,7 @@ int updateRowConstraints(int row, int number, unsigned int constraintGridToUpdat
         if(constraintGridToUpdate[row][j] & NINE) constraintGridToUpdate[row][j] ^= NINE;
         break;
       }
+      */
     }
   }
   return 1;
