@@ -712,41 +712,7 @@ int updateRowConstraints(int row, int number, unsigned int constraintGridToUpdat
   int j = 0;
   for(j = 0; j < 9; j++)
   {
-    /*if(constraintGridToUpdate[row][j] > 0)
-    {*/
       constraintGridToUpdate[row][j] &= (~NUM2MASK(number));
-      /*switch (number)
-      {
-        case 1:
-        if(constraintGridToUpdate[row][j] & ONE) constraintGridToUpdate[row][j] ^= ONE;
-        break;
-        case 2:
-        if(constraintGridToUpdate[row][j] & TWO) constraintGridToUpdate[row][j] ^= TWO;
-        break;
-        case 3:
-        if(constraintGridToUpdate[row][j] & THREE) constraintGridToUpdate[row][j] ^= THREE;
-        break;
-        case 4:
-        if(constraintGridToUpdate[row][j] & FOUR) constraintGridToUpdate[row][j] ^= FOUR;
-        break;
-        case 5:
-        if(constraintGridToUpdate[row][j] & FIVE) constraintGridToUpdate[row][j] ^= FIVE;
-        break;
-        case 6:
-        if(constraintGridToUpdate[row][j] & SIX) constraintGridToUpdate[row][j] ^= SIX;
-        break;
-        case 7:
-        if(constraintGridToUpdate[row][j] & SEVEN) constraintGridToUpdate[row][j] ^= SEVEN;
-        break;
-        case 8:
-        if(constraintGridToUpdate[row][j] & EIGHT) constraintGridToUpdate[row][j] ^= EIGHT;
-        break;
-        case 9:
-        if(constraintGridToUpdate[row][j] & NINE) constraintGridToUpdate[row][j] ^= NINE;
-        break;
-      }
-      */
-    /*}*/
   }
   return 1;
 }
@@ -763,7 +729,8 @@ int updateColumnConstraints(int column, int number, unsigned int constraintGridT
   int i = 0;
   for(i = 0; i < 9; i++)
   {
-    if(constraintGrid[i][column] > 0)
+    constraintGridToUpdate[i][column] &= (~NUM2MASK(number));
+    /*if(constraintGrid[i][column] > 0)
     {
       switch (number)
       {
@@ -795,7 +762,7 @@ int updateColumnConstraints(int column, int number, unsigned int constraintGridT
         if(constraintGridToUpdate[i][column] & NINE) constraintGridToUpdate[i][column] ^= NINE;
         break;
       }
-    }
+    }*/
   }
   return 1;
 }
