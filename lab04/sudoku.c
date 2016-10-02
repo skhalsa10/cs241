@@ -274,14 +274,6 @@ int copyConstraints(unsigned int copyToThisGrid[][9], unsigned int fromThisGrid[
 * allconstraints have been tried with no success return 0.
 *****************************************************************
 * possible ways to improve:
-* 1. make a copy of the constraint grid ever call to the complex solution
-*    if this fails there will be no need to undo failed attempts
-*    i could probably call a helper function at the beginning of the complex
-     that duplicates the constrainGrid the question is what will cost less
-     the 81 steps to duplicate the grid or the random steps it take to
-     undo failed attempts. it is worth testing. I may be able to reintroduce
-     the idea of filling in single constraints during each iteration as I dont have to
-     worry about backtracking after the fact
 * 2. This i know for a fact will increase speed. if I use the idea of preemptive sets
      There is a theorem around this so it will be proven to work.
      a preemptive set is  a list of M number of numbers 2<=m<=8 with a list of m cells
@@ -294,10 +286,10 @@ int copyConstraints(unsigned int copyToThisGrid[][9], unsigned int fromThisGrid[
      column or box  then it can be eliminated from the rest of the cells
      in the row column or box. After this is done it may immediately open
      single constrain possibility these steps can be repeated and should in theory
-     eliminate MANY wrong answers from needing to be guessed.
-
+     eliminate MANY wrong answers from needing to be guessed. dont want to get to
+     much into this as I have a working product that should get an A I will come back
+     to this when I have time.
 *****************************************************************/
-
 int complexSolution(int i, int j, int n, unsigned int originalConstraintGrid[][9])
 {
   int nConversion;
@@ -331,11 +323,6 @@ int complexSolution(int i, int j, int n, unsigned int originalConstraintGrid[][9
   {
     updateConstraints(i,j,n,localConstraintGrid);
   }
-
-  /*while(fillInSingleConstraints());*/
-
-
-
   /*printf("after localConstraintGrid[%d][%d]: %d\n", i, j, localConstraintGrid[i][j] );
   printf("after localConstraintGrid[0][1]: %d\n", localConstraintGrid[0][1] );
   printf("after theGrid[0][1]: %d\n", theGrid[0][1] );*/
@@ -345,142 +332,134 @@ int complexSolution(int i, int j, int n, unsigned int originalConstraintGrid[][9
   j = 0;
   if(CELLSELECTION ==0)
   {
-  for (i=0;i<9;i++)
-  {
-    for (j=0;j<9;j++)
+    for (i=0;i<9;i++)
     {
-      if(theGrid[i][j] == 0)
+      for (j=0;j<9;j++)
       {
-        openCell = TRUE;
-        break;
-      }
-
-    }
-    if(openCell)
-    {
-      break;
-    }
-  }
-}
-
-if(CELLSELECTION ==1)
-{
-  /******************************************************************************************/
-  /*this for just sents variables above to an index that hold x amount of solutions*/
-  for(i=0;i<9;i++)
-  {
-    for(j=0;j<9;j++)
-    {
-      if (theGrid[i][j]==0)
-      {
-        if(localConstraintGrid[i][j]==0) return 0;
-        openCell = TRUE;
-        switch (howManySolutions(i,j,localConstraintGrid))
+        if(theGrid[i][j] == 0)
         {
-          case 1:
-          cellWithOneR = i;
-          cellWithOneC = j;
-
-          break;
-          case 2:
-          cellWithTwoR = i;
-          cellWithTwoC = j;
-
-          break;
-          case 3:
-          cellWithThreeR = i;
-          cellWithThreeC = j;
-
-          break;
-          case 4:
-          cellWithFourR = i;
-          cellWithFourC = j;
-          break;
-          case 5:
-          cellWithFiveR = i;
-          cellWithFiveC = j;
-          break;
-          case 6:
-          cellWithSixR = i;
-          cellWithSixC = j;
-          break;
-          case 7:
-          cellWithSevenR = i;
-          cellWithSevenC = j;
-          break;
-          case 8:
-          cellWithEightR = i;
-          cellWithEightC = j;
-          break;
-          case 9:
-          cellWithNineR = i;
-          cellWithNineC = j;
+          openCell = TRUE;
           break;
         }
       }
+      if(openCell)
+      {
+        break;
+      }
+    }
+  }
 
+  if(CELLSELECTION ==1)
+  {
+    /******************************************************************************************/
+    /*this for just sents variables above to an index that hold x amount of solutions*/
+    for(i=0;i<9;i++)
+    {
+      for(j=0;j<9;j++)
+      {
+        if (theGrid[i][j]==0)
+        {
+          if(localConstraintGrid[i][j]==0) return 0;
+          openCell = TRUE;
+          switch (howManySolutions(i,j,localConstraintGrid))
+          {
+            case 1:
+            cellWithOneR = i;
+            cellWithOneC = j;
+
+            break;
+            case 2:
+            cellWithTwoR = i;
+            cellWithTwoC = j;
+
+            break;
+            case 3:
+            cellWithThreeR = i;
+            cellWithThreeC = j;
+
+            break;
+            case 4:
+            cellWithFourR = i;
+            cellWithFourC = j;
+            break;
+            case 5:
+            cellWithFiveR = i;
+            cellWithFiveC = j;
+            break;
+            case 6:
+            cellWithSixR = i;
+            cellWithSixC = j;
+            break;
+            case 7:
+            cellWithSevenR = i;
+            cellWithSevenC = j;
+            break;
+            case 8:
+            cellWithEightR = i;
+            cellWithEightC = j;
+            break;
+            case 9:
+            cellWithNineR = i;
+            cellWithNineC = j;
+            break;
+          }
+        }
+      }
     }
 
+    /*a terrible hack to set i and j to the variable of lowest magnitude*/
+    if((cellWithOneR>=0)&&(cellWithOneC>=0))
+    {
+      i = cellWithOneR;
+      j = cellWithOneC;
+    }
+    else if((cellWithTwoR>=0)&&(cellWithTwoC>=0))
+    {
+      i = cellWithTwoR;
+      j = cellWithTwoC;
+    }
+    else if((cellWithThreeR>=0)&&(cellWithThreeC>=0))
+    {
+      i = cellWithThreeR;
+      j = cellWithThreeC;
+    }
+    else if((cellWithFourR>=0)&&(cellWithFourC>=0))
+    {
+      i = cellWithFourR;
+      j = cellWithFourC;
+    }
+    else if((cellWithFiveR>=0)&&(cellWithFiveC>=0))
+    {
+      i = cellWithFiveR;
+      j = cellWithFiveC;
+    }
+    else if((cellWithSixR>=0)&&(cellWithSixC>=0))
+    {
+      i = cellWithSixR;
+      j = cellWithSixC;
+    }
+    else if((cellWithSevenR>=0)&&(cellWithSevenC>=0))
+    {
+      i = cellWithSevenR;
+      j = cellWithSevenC;
+    }
+    else if((cellWithEightR>=0)&&(cellWithEightC>=0))
+    {
+      i = cellWithEightR;
+      j = cellWithEightC;
+    }
+    else if((cellWithNineR>=0)&&(cellWithNineC>=0))
+    {
+      i = cellWithNineR;
+      j = cellWithNineC;
+    }
   }
-
-  /*a terrible hack to set i and j to the variable of lowest magnitude*/
-  if((cellWithOneR>=0)&&(cellWithOneC>=0))
-  {
-    i = cellWithOneR;
-    j = cellWithOneC;
-  }
-  else if((cellWithTwoR>=0)&&(cellWithTwoC>=0))
-  {
-    i = cellWithTwoR;
-    j = cellWithTwoC;
-  }
-  else if((cellWithThreeR>=0)&&(cellWithThreeC>=0))
-  {
-    i = cellWithThreeR;
-    j = cellWithThreeC;
-  }
-  else if((cellWithFourR>=0)&&(cellWithFourC>=0))
-  {
-    i = cellWithFourR;
-    j = cellWithFourC;
-  }
-  else if((cellWithFiveR>=0)&&(cellWithFiveC>=0))
-  {
-    i = cellWithFiveR;
-    j = cellWithFiveC;
-  }
-  else if((cellWithSixR>=0)&&(cellWithSixC>=0))
-  {
-    i = cellWithSixR;
-    j = cellWithSixC;
-  }
-  else if((cellWithSevenR>=0)&&(cellWithSevenC>=0))
-  {
-    i = cellWithSevenR;
-    j = cellWithSevenC;
-  }
-  else if((cellWithEightR>=0)&&(cellWithEightC>=0))
-  {
-    i = cellWithEightR;
-    j = cellWithEightC;
-  }
-  else if((cellWithNineR>=0)&&(cellWithNineC>=0))
-  {
-    i = cellWithNineR;
-    j = cellWithNineC;
-  }
-}
-/*
-printf("i: %d, j: %d\n",i, j );
-printf("localConstraintGrid[i][j]: %d\n", localConstraintGrid[i][j]);*/
-/*************************************************************************************************/
-
+  /****************************************************************************/
   /* if there are no open cells left it means the puzzle is finally solved*/
   if(openCell == FALSE)
   {
     return 1;
   }
-
   /* if this open cell has 0 solutions based on
   constraint grid or if the grid is not legal then error return 0*/
   if((localConstraintGrid[i][j] == 0))
@@ -488,9 +467,6 @@ printf("localConstraintGrid[i][j]: %d\n", localConstraintGrid[i][j]);*/
     return 0;
 
   }
-
-
-
   /*loop over ever possible solution plug it in check if legal
   * if not legal try next move if it is legal call complexSolution again.*/
   n = 1;
@@ -498,40 +474,6 @@ printf("localConstraintGrid[i][j]: %d\n", localConstraintGrid[i][j]);*/
   for(n=1;n<=9;n++)
   {
     nConversion = NUM2MASK(n);
-    /*might want to extract this switch statement into a function for readability*/
-  /*switch (n)
-    {
-      case 1:
-      nConversion = ONE;
-      break;
-      case 2:
-      nConversion = TWO;
-      break;
-      case 3:
-      nConversion = THREE;
-      break;
-      case 4:
-      nConversion = FOUR;
-      break;
-      case 5:
-      nConversion = FIVE;
-      break;
-      case 6:
-      nConversion = SIX;
-      break;
-      case 7:
-      nConversion = SEVEN;
-      break;
-      case 8:
-      nConversion = EIGHT;
-      break;
-      case 9:
-      nConversion = NINE;
-      break;
-    }*/
-    /*printf("localConstraintGrid[%d][%d] = %d \n",i, j, localConstraintGrid[i][j]);
-    printf("nConversion = %d\n", nConversion);
-    printf("localConstraintGrid[i][j]&nConversion = %d\n", localConstraintGrid[i][j]&nConversion);*/
     if(localConstraintGrid[i][j]&nConversion)
     {
       theGrid[i][j] = n;
@@ -539,15 +481,12 @@ printf("localConstraintGrid[i][j]: %d\n", localConstraintGrid[i][j]);*/
         {
           return 1;
         }
-
     }
     theGrid[i][j] = 0;
 
   }
-
   return 0;
 }
-
 
 /*****************************************************************
 * This function loops through constraintGrid if a cell
