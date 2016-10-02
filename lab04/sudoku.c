@@ -497,7 +497,7 @@ printf("localConstraintGrid[i][j]: %d\n", localConstraintGrid[i][j]);*/
   nConversion = 0;
   for(n=1;n<=9;n++)
   {
-    nConversion = NUM2MASK(i);
+    nConversion = NUM2MASK(n);
     /*might want to extract this switch statement into a function for readability*/
   /*switch (n)
     {
