@@ -10,7 +10,9 @@
 #define SEVEN 64
 #define EIGHT 128
 #define NINE 256
+#define CELLSELECTION 1
 #define ISSIMPLESOLUTIONON 0
+#define DEBUG 0
 
 
 /* declare all functions here */
@@ -30,20 +32,17 @@ int boxContainsNNumber(int boxRow, int boxColumn, int number);
 int checkRowDuplicateN(int row, int number);
 int checkColumnDuplicateN(int column, int number);
 int checkBoxDuplicateN(int boxRow, int boxColumn, int number);
-int updateConstraints(int inputRow, int inputColumn, int inputNumber, int notComplexCall);
-int updateRowConstraints(int row, int number);
-int updateColumnConstraints(int column, int number);
-int updateBoxConstraints(int boxRow, int boxColumn, int number);
+int updateConstraints(int inputRow, int inputColumn, int inputNumber, unsigned int constraintGridToUpdate[][9]);
+int updateRowConstraints(int row, int number,unsigned int constraintGridToUpdate[][9]);
+int updateColumnConstraints(int column, int number, unsigned int constraintGridToUpdate[][9]);
+int updateBoxConstraints(int boxRow, int boxColumn, int number, unsigned int constraintGridToUpdate[][9]);
 int fillInSingleConstraints();
-int complexSolution();
-int undoRowConstraint(int row, int number);
-int undoColumnConstraint(int column, int number);
-int undoBoxConstraint(int boxRow, int boxColumn, int number);
+int complexSolution(int i, int j, int n, unsigned int originalConstraintGrid[][9]);
 int turnOffConstraint(int row, int column, int toTurnOff);
 void printConstraintGrid();
 int simpleSolution();
-int deleteFalseConstraints(int row, int column, int number);
-int howManySolutions(int row, int column);
+int howManySolutions(int row, int column, unsigned int constraintGridToCheck[][9] );
+int copyConstraints(unsigned int copyToThisGrid[][9], unsigned int fromThisGrid[][9]);
 
 /* 2d array i'll call theGrid */
 int theGrid[9][9];
@@ -80,6 +79,8 @@ int main()
     of instructions when certain criteria is met
     like an error flag is turned on or a function
     returns 0 */
+
+
     do
     {
       if(!convertLineToGrid())
@@ -112,10 +113,12 @@ int main()
       }
     }
     while(0);
+
     printResults();
 
 
   }
+  return 1;
 }
 
 /****************************************************
@@ -134,6 +137,7 @@ int main()
 *****************************************************/
 int simpleSolution()
 {
+  int n;
   int openCell = FALSE;
   int i = 0;
   int j = 0;
@@ -162,7 +166,7 @@ int simpleSolution()
 
   /*loop over ever possible solution plug it in check if legal
   * if not legal try next move if it is legal call simple solution again.*/
-  int n = 1;
+  n = 1;
   for(n=1;n<=9;n++)
   {
     theGrid[i][j] = n;
@@ -182,7 +186,7 @@ int simpleSolution()
 
 /*
 * This function returns 1 if puzzle is solved or 0 if no solution
-*
+*unsigned int
 * this function takes a strategic approach to solving. it uses the
 * initial constrain grid first attepts to solve by filling in all
 * squares that have only one option if it fills up the grid is now full
@@ -197,200 +201,20 @@ int solvePuzzle()
   while(fillInSingleConstraints());
   if(!checkIfGridFull())
   {
-    printConstraintGrid();
     if(ISSIMPLESOLUTIONON)
     {
-      printf("performing simple solution\n");
+      /*printf("performing simple solution\n");*/
       return simpleSolution();
     }
     else
     {
-      printf("running complexSolution\n");
-      return complexSolution();
+      /*printf("running complexSolution\n");*/
+      return complexSolution(-1,-1,-1, constraintGrid);
     }
   }
   return 1;
 }
 
-
-/************************************
-* Parameters:
-* inputRow is the row index of the "currentCell"
-* inputColumn is the column index of the "currentCell"
-* inputNumber is the number we are readding to the
-* appropriate list of available constraints
-***************************************
-*  this function calls other smaller helper functions that
-* perform undos for the row the column and the box
-****************************************/
-int undoMove(int inputRow,int inputColumn,int inputNumber)
-{
-  printf("undomove entered\n");
-  theGrid[inputRow][inputColumn] = 0;
-  /*createConstraintGrid();*/
-  undoRowConstraint(inputRow, inputNumber);
-  undoColumnConstraint(inputRow, inputNumber);
-  undoBoxConstraint((inputRow/3), (inputColumn/3), inputNumber);
-  return 1;
-}
-
-/**************************************************************
-* Parameters:
-* int row - the row that will be iterated over
-* int number - the number to add back as a constraintGrid
-***************************************************************
-* Returns 1 if successful and 0 if there is an error
-***************************************************************
-*  this function just loops over every cell in row and adds
-* Number Back in as a possible solution.
-*
-* Is this adding steps that do not need to be done?
-**************************************************************/
-int undoRowConstraint(int row, int number)
-{
-  int j = 0;
-  for (j=0;j<9;j++)
-  {
-    if (theGrid[row][j] >0)
-    {
-      switch (number)
-      {
-        case 1:
-        constraintGrid[row][j] |= ONE;
-        break;
-        case 2:
-          constraintGrid[row][j] |= TWO;
-        break;
-        case 3:
-          constraintGrid[row][j] |= THREE;
-        break;
-        case 4:
-          constraintGrid[row][j] |= FOUR;
-        break;
-        case 5:
-          constraintGrid[row][j] |= FIVE;
-        break;
-        case 6:
-          constraintGrid[row][j] |= SIX;
-        break;
-        case 7:
-          constraintGrid[row][j] |= SEVEN;
-        break;
-        case 8:
-          constraintGrid[row][j] |= EIGHT;
-        break;
-        case 9:
-          constraintGrid[row][j] |= NINE;
-        break;
-      }
-    }
-  }
-  return 1;
-}
-
-/*****************************************************************
-*Parameters:
-* int column: column that will have constrains readded
-* int number: number to re add to constraint list
-****************************************************************
-*this function re adds the number as an available solution to the column
-*****************************************************************/
-int undoColumnConstraint(int column, int number)
-{
-  int i = 0;
-  for (i=0;i<9;i++)
-  {
-    if (theGrid[i][column] >0)
-    {
-      switch (number)
-      {
-        case 1:
-        constraintGrid[i][column] |= ONE;
-        break;
-        case 2:
-          constraintGrid[i][column] |= TWO;
-        break;
-        case 3:
-          constraintGrid[i][column] |= THREE;
-        break;
-        case 4:
-          constraintGrid[i][column] |= FOUR;
-        break;
-        case 5:
-          constraintGrid[i][column] |= FIVE;
-        break;
-        case 6:
-          constraintGrid[i][column] |= SIX;
-        break;
-        case 7:
-          constraintGrid[i][column] |= SEVEN;
-        break;
-        case 8:
-          constraintGrid[i][column] |= EIGHT;
-        break;
-        case 9:
-          constraintGrid[i][column] |= NINE;
-        break;
-      }
-    }
-  }
-  return 1;
-}
-/*****************************************************************
-* parameters:
-* int boxRow: row index to cell
-* int boxcolumn: column index to cell
-* int number: number to readd as possible solutions
-****************************************************************
-*this function readds the number to the box as a solutions
-* note it should be eliminated from the current cell in question
-* after the fact as a failed solution
-*****************************************************************/
-int undoBoxConstraint(int boxRow, int boxColumn, int number)
-{
-  int i = 0;
-  int j = 0;
-  for(i = 0;i<3;i++)
-  {
-    for(j=0;j<3;j++)
-    {
-      if (theGrid[3*boxRow+i][3*boxColumn+j] >0)
-      {
-        switch (number)
-        {
-          case 1:
-          constraintGrid[3*boxRow+i][3*boxColumn+j] |= ONE;
-          break;
-          case 2:
-            constraintGrid[3*boxRow+i][3*boxColumn+j] |= TWO;
-          break;
-          case 3:
-            constraintGrid[3*boxRow+i][3*boxColumn+j] |= THREE;
-          break;
-          case 4:
-            constraintGrid[3*boxRow+i][3*boxColumn+j] |= FOUR;
-          break;
-          case 5:
-            constraintGrid[3*boxRow+i][3*boxColumn+j] |= FIVE;
-          break;
-          case 6:
-            constraintGrid[3*boxRow+i][3*boxColumn+j] |= SIX;
-          break;
-          case 7:
-            constraintGrid[3*boxRow+i][3*boxColumn+j] |= SEVEN;
-          break;
-          case 8:
-            constraintGrid[3*boxRow+i][3*boxColumn+j] |= EIGHT;
-          break;
-          case 9:
-            constraintGrid[3*boxRow+i][3*boxColumn+j] |= NINE;
-          break;
-        }
-      }
-    }
-  }
-  return 1;
-}
 
 /*****************************************************************
 * parameters:
@@ -416,23 +240,36 @@ int column: column index of cell in question
 ****************************************************************
 * this function returns how many possible solutions are left
 *****************************************************************/
-int howManySolutions(int row,int column)
+int howManySolutions(int row,int column, unsigned int constraintGridToCheck[][9])
 {
   int counter = 0;
 
-  if(constraintGrid[row][column]&ONE) counter++;
-  if(constraintGrid[row][column]&TWO) counter++;
-  if(constraintGrid[row][column]&THREE) counter++;
-  if(constraintGrid[row][column]&FOUR) counter++;
-  if(constraintGrid[row][column]&FIVE) counter++;
-  if(constraintGrid[row][column]&SIX) counter++;
-  if(constraintGrid[row][column]&SEVEN) counter++;
-  if(constraintGrid[row][column]&EIGHT) counter++;
-  if(constraintGrid[row][column]&NINE) counter++;
+  if(constraintGridToCheck[row][column]&ONE) counter++;
+  if(constraintGridToCheck[row][column]&TWO) counter++;
+  if(constraintGridToCheck[row][column]&THREE) counter++;
+  if(constraintGridToCheck[row][column]&FOUR) counter++;
+  if(constraintGridToCheck[row][column]&FIVE) counter++;
+  if(constraintGridToCheck[row][column]&SIX) counter++;
+  if(constraintGridToCheck[row][column]&SEVEN) counter++;
+  if(constraintGridToCheck[row][column]&EIGHT) counter++;
+  if(constraintGridToCheck[row][column]&NINE) counter++;
 
   return counter;
 }
 
+int copyConstraints(unsigned int copyToThisGrid[][9], unsigned int fromThisGrid[][9])
+{
+  int i = 0;
+  int j = 0;
+  for(i = 0; i<9;i++)
+  {
+    for(j=0;j<9;j++)
+    {
+      copyToThisGrid[i][j] = fromThisGrid[i][j];
+    }
+  }
+  return 1;
+}
 /*****************************************************************
 * This function is the complex enhanced solving algorithm:
 * I am very dissapointed in the spead of this.  I am getting 2min 30 sec currently
@@ -471,11 +308,13 @@ int howManySolutions(int row,int column)
      eliminate MANY wrong answers from needing to be guessed.
 
 *****************************************************************/
-int complexSolution()
+
+int complexSolution(int i, int j, int n, unsigned int originalConstraintGrid[][9])
 {
-  /* I want to put this findopen cell step into a function
-  but think i need to learn structs to return multiple values
-  which I havent learned yet so I can come update later*/
+  int nConversion;
+  int openCell;
+  /* this next set of really long code will find the
+   cell with the least amount of possible solutions*/
   int cellWithOneR = -1;
   int cellWithTwoR = -1;
   int cellWithThreeR = -1;
@@ -494,115 +333,158 @@ int complexSolution()
   int cellWithSevenC = -1;
   int cellWithEightC = -1;
   int cellWithNineC = -1;
+  /*printf("i: %d j: %d n: %d \n",i,j,n);*/
+  unsigned int localConstraintGrid[9][9];
 
-  int openCell = FALSE;
-  int i = 0;
-  int j = 0;
+  copyConstraints(localConstraintGrid, originalConstraintGrid);
+  /*printf("before localConstraintGrid[%d][%d]: %d\n", i, j, localConstraintGrid[i][j] );*/
+  if(n>=0)
+  {
+    updateConstraints(i,j,n,localConstraintGrid);
+  }
+
+  /*while(fillInSingleConstraints());*/
+
+
+
+  /*printf("after localConstraintGrid[%d][%d]: %d\n", i, j, localConstraintGrid[i][j] );
+  printf("after localConstraintGrid[0][1]: %d\n", localConstraintGrid[0][1] );
+  printf("after theGrid[0][1]: %d\n", theGrid[0][1] );*/
+
+  openCell = FALSE;
+  i = 0;
+  j = 0;
+  if(CELLSELECTION ==0)
+  {
   for (i=0;i<9;i++)
   {
     for (j=0;j<9;j++)
     {
-      /*set array location arrays that hold the
-      value of a cell with n number of possible solutions*/
-      switch (howManySolutions(i,j)) {
-        case 1:
+      if(theGrid[i][j] == 0)
+      {
         openCell = TRUE;
-        cellWithOneR = i;
-        cellWithOneC = j;
-        break;
-        case 2:
-        openCell = TRUE;
-        cellWithTwoR = i;
-        cellWithTwoC = j;
-        break;
-        case 3:
-        openCell = TRUE;
-        cellWithThreeR = i;
-        cellWithThreeC = j;
-        break;
-        case 4:
-        openCell = TRUE;
-        cellWithFourR = i;
-        cellWithFourC = j;
-        break;
-        case 5:
-        openCell = TRUE;
-        cellWithFiveR = i;
-        cellWithFiveC = j;
-        break;
-        case 6:
-        openCell = TRUE;
-        cellWithSixR = i;
-        cellWithSixC = j;
-        break;
-        case 7:
-        openCell = TRUE;
-        cellWithSevenR = i;
-        cellWithSevenC = j;
-        break;
-        case 8:
-        openCell = TRUE;
-        cellWithEightR = i;
-        cellWithEightC = j;
-        break;
-        case 9:
-        openCell = TRUE;
-        cellWithNineR = i;
-        cellWithNineC = j;
         break;
       }
+
+    }
+    if(openCell)
+    {
+      break;
     }
   }
+}
 
-  if(openCell)
+if(CELLSELECTION ==1)
+{
+  /******************************************************************************************/
+  /*this for just sents variables above to an index that hold x amount of solutions*/
+  for(i=0;i<9;i++)
   {
-    if(cellWithOneR >=0 && cellWithOneC >=0)
+    for(j=0;j<9;j++)
     {
-      i = cellWithOneR;
-      j = cellWithOneC;
-    }
-    else if(cellWithTwoR >=0 && cellWithTwoC >=0)
-    {
-      i = cellWithTwoR;
-      j = cellWithTwoC;
-    }
-    else if(cellWithThreeR >=0 && cellWithThreeC >=0)
-    {
-      i = cellWithThreeR;
-      j = cellWithThreeC;
-    }
-    else if(cellWithFourR >=0 && cellWithFourC >=0)
-    {
-      i = cellWithFourR;
-      j = cellWithFourC;
-    }
-    else if(cellWithFiveR >=0 && cellWithFiveC >=0)
-    {
-      i = cellWithFiveR;
-      j = cellWithFiveC;
-    }
-    else if(cellWithSixR >=0 && cellWithSixC >=0)
-    {
-      i = cellWithSixR;
-      j = cellWithSixC;
-    }
-    else if(cellWithSevenR >=0 && cellWithSevenC >=0)
-    {
-      i = cellWithSevenR;
-      j = cellWithSevenC;
-    }
-    else if(cellWithEightR >=0 && cellWithEightC >=0)
-    {
-      i = cellWithEightR;
-      j = cellWithEightC;
-    }
-    else if(cellWithNineR >=0 && cellWithNineC >=0)
-    {
-      i = cellWithNineR;
-      j = cellWithNineC;
+      if (theGrid[i][j]==0)
+      {
+        if(localConstraintGrid[i][j]==0) return 0;
+        openCell = TRUE;
+        switch (howManySolutions(i,j,localConstraintGrid))
+        {
+          case 1:
+          cellWithOneR = i;
+          cellWithOneC = j;
+
+          break;
+          case 2:
+          cellWithTwoR = i;
+          cellWithTwoC = j;
+
+          break;
+          case 3:
+          cellWithThreeR = i;
+          cellWithThreeC = j;
+
+          break;
+          case 4:
+          cellWithFourR = i;
+          cellWithFourC = j;
+          break;
+          case 5:
+          cellWithFiveR = i;
+          cellWithFiveC = j;
+          break;
+          case 6:
+          cellWithSixR = i;
+          cellWithSixC = j;
+          break;
+          case 7:
+          cellWithSevenR = i;
+          cellWithSevenC = j;
+          break;
+          case 8:
+          cellWithEightR = i;
+          cellWithEightC = j;
+          break;
+          case 9:
+          cellWithNineR = i;
+          cellWithNineC = j;
+          break;
+        }
+      }
+
     }
 
   }
+
+  /*a terrible hack to set i and j to the variable of lowest magnitude*/
+  if((cellWithOneR>=0)&&(cellWithOneC>=0))
+  {
+    i = cellWithOneR;
+    j = cellWithOneC;
+  }
+  else if((cellWithTwoR>=0)&&(cellWithTwoC>=0))
+  {
+    i = cellWithTwoR;
+    j = cellWithTwoC;
+  }
+  else if((cellWithThreeR>=0)&&(cellWithThreeC>=0))
+  {
+    i = cellWithThreeR;
+    j = cellWithThreeC;
+  }
+  else if((cellWithFourR>=0)&&(cellWithFourC>=0))
+  {
+    i = cellWithFourR;
+    j = cellWithFourC;
+  }
+  else if((cellWithFiveR>=0)&&(cellWithFiveC>=0))
+  {
+    i = cellWithFiveR;
+    j = cellWithFiveC;
+  }
+  else if((cellWithSixR>=0)&&(cellWithSixC>=0))
+  {
+    i = cellWithSixR;
+    j = cellWithSixC;
+  }
+  else if((cellWithSevenR>=0)&&(cellWithSevenC>=0))
+  {
+    i = cellWithSevenR;
+    j = cellWithSevenC;
+  }
+  else if((cellWithEightR>=0)&&(cellWithEightC>=0))
+  {
+    i = cellWithEightR;
+    j = cellWithEightC;
+  }
+  else if((cellWithNineR>=0)&&(cellWithNineC>=0))
+  {
+    i = cellWithNineR;
+    j = cellWithNineC;
+  }
+}
+/*
+printf("i: %d, j: %d\n",i, j );
+printf("localConstraintGrid[i][j]: %d\n", localConstraintGrid[i][j]);*/
+/*************************************************************************************************/
 
   /* if there are no open cells left it means the puzzle is finally solved*/
   if(openCell == FALSE)
@@ -610,9 +492,20 @@ int complexSolution()
     return 1;
   }
 
+  /* if this open cell has 0 solutions based on
+  constraint grid or if the grid is not legal then error return 0*/
+  if((localConstraintGrid[i][j] == 0))
+  {
+    return 0;
 
-  int n = 1;
-  int nConversion = 0;
+  }
+
+
+
+  /*loop over ever possible solution plug it in check if legal
+  * if not legal try next move if it is legal call complexSolution again.*/
+  n = 1;
+  nConversion = 0;
   for(n=1;n<=9;n++)
   {
     /*might want to extract this switch statement into a function for readability*/
@@ -646,114 +539,36 @@ int complexSolution()
       nConversion = NINE;
       break;
     }
-    if(constraintGrid[i][j] & nConversion)
+    /*printf("localConstraintGrid[%d][%d] = %d \n",i, j, localConstraintGrid[i][j]);
+    printf("nConversion = %d\n", nConversion);
+    printf("localConstraintGrid[i][j]&nConversion = %d\n", localConstraintGrid[i][j]&nConversion);*/
+    if(localConstraintGrid[i][j]&nConversion)
     {
       theGrid[i][j] = n;
-      updateConstraints(i,j,n, FALSE);
-      if(simpleSolution())
-      {
-        return 1;
-      }
+        if(complexSolution(i,j,n,localConstraintGrid))
+        {
+          return 1;
+        }
+
     }
-
-
-      /*if this is not successful undo move reset constraintgrid and delete proven false constraints*/
     theGrid[i][j] = 0;
-    undoMove(i,j,n);
-    /*createConstraintGrid();*/
-    deleteFalseConstraints(i, j, n);
 
   }
 
   return 0;
 }
 
-/*****************************************************************
-*parameters:
-* int row: row index of the cell that should delete constraint from choices
-int column: column index of cell
-int number: number of sulution being deleted from possible options.
-*
-*****************************************************************/
-int deleteFalseConstraints(int row, int column, int number)
-{
-  switch (number)
-  {
-    case 1:
-    turnOffConstraint(row,column,ONE);
-    return 1;
-    case 2:
-    turnOffConstraint(row,column,ONE);
-    turnOffConstraint(row,column,TWO);
-    return 1;
-    case 3:
-    turnOffConstraint(row,column,ONE);
-    turnOffConstraint(row,column,TWO);
-    turnOffConstraint(row,column,THREE);
-    return 1;
-    case 4:
-    turnOffConstraint(row,column,ONE);
-    turnOffConstraint(row,column,TWO);
-    turnOffConstraint(row,column,THREE);
-    turnOffConstraint(row,column,FOUR);
-    return 1;
-    case 5:
-    turnOffConstraint(row,column,ONE);
-    turnOffConstraint(row,column,TWO);
-    turnOffConstraint(row,column,THREE);
-    turnOffConstraint(row,column,FOUR);
-    turnOffConstraint(row,column,FIVE);
-    return 1;
-    case 6:
-    turnOffConstraint(row,column,ONE);
-    turnOffConstraint(row,column,TWO);
-    turnOffConstraint(row,column,THREE);
-    turnOffConstraint(row,column,FOUR);
-    turnOffConstraint(row,column,FIVE);
-    turnOffConstraint(row,column,SIX);
-    return 1;
-    case 7:
-    turnOffConstraint(row,column,ONE);
-    turnOffConstraint(row,column,TWO);
-    turnOffConstraint(row,column,THREE);
-    turnOffConstraint(row,column,FOUR);
-    turnOffConstraint(row,column,FIVE);
-    turnOffConstraint(row,column,SIX);
-    turnOffConstraint(row,column,SEVEN);
-    return 1;
-    case 8:
-    turnOffConstraint(row,column,ONE);
-    turnOffConstraint(row,column,TWO);
-    turnOffConstraint(row,column,THREE);
-    turnOffConstraint(row,column,FOUR);
-    turnOffConstraint(row,column,FIVE);
-    turnOffConstraint(row,column,SIX);
-    turnOffConstraint(row,column,SEVEN);
-    turnOffConstraint(row,column,EIGHT);
-    return 1;
-    case 9:
-    turnOffConstraint(row,column,ONE);
-    turnOffConstraint(row,column,TWO);
-    turnOffConstraint(row,column,THREE);
-    turnOffConstraint(row,column,FOUR);
-    turnOffConstraint(row,column,FIVE);
-    turnOffConstraint(row,column,SIX);
-    turnOffConstraint(row,column,SEVEN);
-    turnOffConstraint(row,column,EIGHT);
-    turnOffConstraint(row,column,NINE);
-    return 1;
 
-  }
-}
 
 /*****************************************************************
 * this functions prints the constraintGrid
 *****************************************************************/
 void printConstraintGrid()
 {
-  printf("\n");
+
   int i = 0;
   int j = 0;
+  printf("\n");
   for(i=0;i<9;i++)
   {
     printf("\n---------------------------\n");
@@ -765,256 +580,6 @@ void printConstraintGrid()
   }
 }
 
-/*****************************************************************
-* parameters:
-* int row: the index of the cell in question
-* int column: index to the cell in question
-*****************************************************************
-* this function goes down the list of currunt solutions in
-* the constraing and tries them one by one this will only work
-* if the wrong constrains get deleted before this is called
-8****************************************************************/
-int tryNextSolution(int row, int column)
-{
-  int isSuccess = FALSE;
-
-  /*1*/
-  if(constraintGrid[row][column]&ONE)
-  {
-    theGrid[row][column] = 1;
-    updateConstraints(row, column, 1, FALSE);
-    isSuccess = complexSolution();
-    if(isSuccess)
-    {
-      printf("isSuccess from 1: %d\n", isSuccess);
-      return isSuccess;
-    }
-    else
-    {
-      theGrid[row][column] = 0;
-      /*printConstraintGrid();*/
-      createConstraintGrid(); /* could possibly speed up this step*/
-      /*printConstraintGrid();*/
-      turnOffConstraint(row,column,ONE);
-      return 0;
-    }
-  }
-
-  /*2*/
-  if(constraintGrid[row][column]&TWO)
-  {
-    theGrid[row][column] = 2;
-    updateConstraints(row, column, 2, FALSE);
-    isSuccess = complexSolution();
-    if(isSuccess)
-    {
-      printf("isSuccess from 2: %d\n", isSuccess);
-      return isSuccess;
-    }
-    else
-    {
-      theGrid[row][column] = 0;
-      /*printConstraintGrid();*/
-      createConstraintGrid(); /* could possibly speed up this step*/
-      /*printConstraintGrid();*/
-      turnOffConstraint(row,column,ONE);
-      turnOffConstraint(row,column,TWO);
-      return 0;
-    }
-  }
-
-  /*3*/
-  if(constraintGrid[row][column]& THREE)
-  {
-    theGrid[row][column] = 3;
-    updateConstraints(row, column, 3, FALSE);
-    isSuccess = complexSolution();
-    if(isSuccess)
-    {
-      printf("isSuccess from 3: %d\n", isSuccess);
-      return isSuccess;
-    }
-    else
-    {
-      theGrid[row][column] = 0;
-      /*printConstraintGrid();*/
-      createConstraintGrid(); /* could possibly speed up this step*/
-      /*printConstraintGrid();*/
-      turnOffConstraint(row,column,ONE);
-      turnOffConstraint(row,column,TWO);
-      turnOffConstraint(row,column,THREE);
-      return 0;
-    }
-  }
-
-  /*4*/
-  if(constraintGrid[row][column]& FOUR)
-  {
-    theGrid[row][column] = 4;
-    updateConstraints(row, column, 4, FALSE);
-    isSuccess = complexSolution();
-    if(isSuccess)
-    {
-      printf("isSuccess from 4: %d\n", isSuccess);
-      return isSuccess;
-    }
-    else
-    {
-      theGrid[row][column] = 0;
-      /*printConstraintGrid();*/
-      createConstraintGrid(); /* could possibly speed up this step*/
-      /*printConstraintGrid();*/
-      turnOffConstraint(row,column,ONE);
-      turnOffConstraint(row,column,TWO);
-      turnOffConstraint(row,column,THREE);
-      turnOffConstraint(row,column,FOUR);
-      return 0;
-    }
-  }
-
-  /*5*/
-  if(constraintGrid[row][column]& FIVE)
-  {
-    theGrid[row][column] = 5;
-    updateConstraints(row, column, 5, FALSE);
-    isSuccess = complexSolution();
-    if(isSuccess)
-    {
-      printf("isSuccess from 5: %d\n", isSuccess);
-      return isSuccess;
-    }
-    else
-    {
-      theGrid[row][column] = 0;
-      /*printConstraintGrid();*/
-      createConstraintGrid(); /* could possibly speed up this step*/
-      /*printConstraintGrid();*/
-      turnOffConstraint(row,column,ONE);
-      turnOffConstraint(row,column,TWO);
-      turnOffConstraint(row,column,THREE);
-      turnOffConstraint(row,column,FOUR);
-      turnOffConstraint(row,column,FIVE);
-      return 0;
-    }
-  }
-
-  /*6*/
-  if(constraintGrid[row][column]& SIX)
-  {
-    theGrid[row][column] = 6;
-    updateConstraints(row, column, 6, FALSE);
-    isSuccess = complexSolution();
-    if(isSuccess)
-    {
-      printf("isSuccess from 6: %d\n", isSuccess);
-      return isSuccess;
-    }
-    else
-    {
-      theGrid[row][column] = 0;
-      /*printConstraintGrid();*/
-      createConstraintGrid(); /* could possibly speed up this step*/
-      /*printConstraintGrid();*/
-      turnOffConstraint(row,column,ONE);
-      turnOffConstraint(row,column,TWO);
-      turnOffConstraint(row,column,THREE);
-      turnOffConstraint(row,column,FOUR);
-      turnOffConstraint(row,column,FIVE);
-      turnOffConstraint(row,column,SIX);
-      return 0;
-    }
-  }
-
-  /*7*/
-  if(constraintGrid[row][column]& SEVEN)
-  {
-    theGrid[row][column] = 7;
-    updateConstraints(row, column, 7, FALSE);
-    isSuccess = complexSolution();
-    if(isSuccess)
-    {
-      printf("isSuccess from 7: %d\n", isSuccess);
-      return isSuccess;
-    }
-    else
-    {
-      theGrid[row][column] = 0;
-      /*printConstraintGrid();*/
-      createConstraintGrid(); /* could possibly speed up this step*/
-      /*printConstraintGrid();*/
-      turnOffConstraint(row,column,ONE);
-      turnOffConstraint(row,column,TWO);
-      turnOffConstraint(row,column,THREE);
-      turnOffConstraint(row,column,FOUR);
-      turnOffConstraint(row,column,FIVE);
-      turnOffConstraint(row,column,SIX);
-      turnOffConstraint(row,column,SEVEN);
-      return 0;
-    }
-  }
-
-  /*8*/
-  if(constraintGrid[row][column]& EIGHT)
-  {
-    theGrid[row][column] = 8;
-    updateConstraints(row, column, 8, FALSE);
-    isSuccess = complexSolution();
-    if(isSuccess)
-    {
-      printf("isSuccess from 8: %d\n", isSuccess);
-      return isSuccess;
-    }
-    else
-    {
-      theGrid[row][column] = 0;
-      /*printConstraintGrid();*/
-      createConstraintGrid(); /* could possibly speed up this step*/
-      /*printConstraintGrid();*/
-      turnOffConstraint(row,column,ONE);
-      turnOffConstraint(row,column,TWO);
-      turnOffConstraint(row,column,THREE);
-      turnOffConstraint(row,column,FOUR);
-      turnOffConstraint(row,column,FIVE);
-      turnOffConstraint(row,column,SIX);
-      turnOffConstraint(row,column,SEVEN);
-      turnOffConstraint(row,column,EIGHT);
-      return 0;
-    }
-  }
-
-  /*9*/
-  if(constraintGrid[row][column]& NINE)
-  {
-    theGrid[row][column] = 9;
-    updateConstraints(row, column, 9, FALSE);
-    isSuccess = complexSolution();
-    if(isSuccess)
-    {
-      printf("isSuccess from 9: %d\n", isSuccess);
-      return isSuccess;
-    }
-    else
-    {
-      theGrid[row][column] = 0;
-      /*printConstraintGrid();*/
-      createConstraintGrid(); /* could possibly speed up this step*/
-      /*printConstraintGrid();*/
-      turnOffConstraint(row,column,ONE);
-      turnOffConstraint(row,column,TWO);
-      turnOffConstraint(row,column,THREE);
-      turnOffConstraint(row,column,FOUR);
-      turnOffConstraint(row,column,FIVE);
-      turnOffConstraint(row,column,SIX);
-      turnOffConstraint(row,column,SEVEN);
-      turnOffConstraint(row,column,EIGHT);
-      turnOffConstraint(row,column,NINE);
-      return 0;
-    }
-
-    printf("this should never be reached");
-    return 0;
-  }
-}
 
 /*****************************************************************
 * This function loops through constraintGrid if a cell
@@ -1035,47 +600,47 @@ int fillInSingleConstraints()
       {
         case ONE:
         theGrid[i][j] = 1;
-        updateConstraints(i,j,1, TRUE);
+        updateConstraints(i,j,1, constraintGrid);
         changeMade = TRUE;
         break;
         case TWO:
         theGrid[i][j] = 2;
-        updateConstraints(i,j,2, TRUE);
+        updateConstraints(i,j,2, constraintGrid);
         changeMade = TRUE;
         break;
         case THREE:
         theGrid[i][j] = 3;
-        updateConstraints(i,j,3, TRUE);
+        updateConstraints(i,j,3, constraintGrid);
         changeMade = TRUE;
         break;
         case FOUR:
         theGrid[i][j] = 4;
-        updateConstraints(i,j,4, TRUE);
+        updateConstraints(i,j,4, constraintGrid);
         changeMade = TRUE;
         break;
         case FIVE:
         theGrid[i][j] = 5;
-        updateConstraints(i,j,5, TRUE);
+        updateConstraints(i,j,5, constraintGrid);
         changeMade = TRUE;
         break;
         case SIX:
         theGrid[i][j] = 6;
-        updateConstraints(i,j,6, TRUE);
+        updateConstraints(i,j,6, constraintGrid);
         changeMade = TRUE;
         break;
         case SEVEN:
         theGrid[i][j] = 7;
-        updateConstraints(i,j,7, TRUE);
+        updateConstraints(i,j,7, constraintGrid);
         changeMade = TRUE;
         break;
         case EIGHT:
         theGrid[i][j] = 8;
-        updateConstraints(i,j,8, TRUE);
+        updateConstraints(i,j,8, constraintGrid);
         changeMade = TRUE;
         break;
         case NINE:
         theGrid[i][j] = 9;
-        updateConstraints(i,j,9, TRUE);
+        updateConstraints(i,j,9, constraintGrid);
         changeMade = TRUE;
         break;
       }
@@ -1232,7 +797,7 @@ int createConstraintGrid()
     {
       if (theGrid[i][j] > 0)
       {
-        updateConstraints(i, j, theGrid[i][j], TRUE);
+        updateConstraints(i, j, theGrid[i][j], constraintGrid);
       }
     }
   }
@@ -1249,19 +814,20 @@ int createConstraintGrid()
 * this function eliminates all usability at cell location for all numbers
 * and propogates constrains for rest of board for that number
 *************************************************************************/
-int updateConstraints(int inputRow, int inputColumn, int inputNumber, int notComplexCall)
+int updateConstraints(int inputRow, int inputColumn, int inputNumber, unsigned int constraintGridToUpdate[][9])
 {
   if(theGrid[inputRow][inputColumn] == inputNumber)
   {
-    constraintGrid[inputRow][inputColumn] = 0;
+    constraintGridToUpdate[inputRow][inputColumn] = 0;
   }
   else if (theGrid[inputRow][inputColumn] != inputNumber)
   {
+    printf("returning 0 from update constraints");
     return 0;
   }
-  updateRowConstraints(inputRow, inputNumber);
-  updateColumnConstraints(inputColumn, inputNumber);
-  updateBoxConstraints((inputRow/3),(inputColumn/3), inputNumber);
+  updateRowConstraints(inputRow, inputNumber, constraintGridToUpdate);
+  updateColumnConstraints(inputColumn, inputNumber, constraintGridToUpdate);
+  updateBoxConstraints((inputRow/3),(inputColumn/3), inputNumber, constraintGridToUpdate);
   return 1;
 }
 
@@ -1272,41 +838,41 @@ int updateConstraints(int inputRow, int inputColumn, int inputNumber, int notCom
 ************************************************************
 *this eliminates number from usability in row.
 ************************************************************/
-int updateRowConstraints(int row, int number)
+int updateRowConstraints(int row, int number, unsigned int constraintGridToUpdate[][9])
 {
   int j = 0;
   for(j = 0; j < 9; j++)
   {
-    if(constraintGrid[row][j] > 0)
+    if(constraintGridToUpdate[row][j] > 0)
     {
       switch (number)
       {
         case 1:
-        if(constraintGrid[row][j] & ONE) constraintGrid[row][j] ^= ONE;
+        if(constraintGridToUpdate[row][j] & ONE) constraintGridToUpdate[row][j] ^= ONE;
         break;
         case 2:
-        if(constraintGrid[row][j] & TWO) constraintGrid[row][j] ^= TWO;
+        if(constraintGridToUpdate[row][j] & TWO) constraintGridToUpdate[row][j] ^= TWO;
         break;
         case 3:
-        if(constraintGrid[row][j] & THREE) constraintGrid[row][j] ^= THREE;
+        if(constraintGridToUpdate[row][j] & THREE) constraintGridToUpdate[row][j] ^= THREE;
         break;
         case 4:
-        if(constraintGrid[row][j] & FOUR) constraintGrid[row][j] ^= FOUR;
+        if(constraintGridToUpdate[row][j] & FOUR) constraintGridToUpdate[row][j] ^= FOUR;
         break;
         case 5:
-        if(constraintGrid[row][j] & FIVE) constraintGrid[row][j] ^= FIVE;
+        if(constraintGridToUpdate[row][j] & FIVE) constraintGridToUpdate[row][j] ^= FIVE;
         break;
         case 6:
-        if(constraintGrid[row][j] & SIX) constraintGrid[row][j] ^= SIX;
+        if(constraintGridToUpdate[row][j] & SIX) constraintGridToUpdate[row][j] ^= SIX;
         break;
         case 7:
-        if(constraintGrid[row][j] & SEVEN) constraintGrid[row][j] ^= SEVEN;
+        if(constraintGridToUpdate[row][j] & SEVEN) constraintGridToUpdate[row][j] ^= SEVEN;
         break;
         case 8:
-        if(constraintGrid[row][j] & EIGHT) constraintGrid[row][j] ^= EIGHT;
+        if(constraintGridToUpdate[row][j] & EIGHT) constraintGridToUpdate[row][j] ^= EIGHT;
         break;
         case 9:
-        if(constraintGrid[row][j] & NINE) constraintGrid[row][j] ^= NINE;
+        if(constraintGridToUpdate[row][j] & NINE) constraintGridToUpdate[row][j] ^= NINE;
         break;
       }
     }
@@ -1321,7 +887,7 @@ int updateRowConstraints(int row, int number)
 **************************************************************
 * this eliminates number from usabiolity in column
 **************************************************************/
-int updateColumnConstraints(int column, int number)
+int updateColumnConstraints(int column, int number, unsigned int constraintGridToUpdate[][9])
 {
   int i = 0;
   for(i = 0; i < 9; i++)
@@ -1331,31 +897,31 @@ int updateColumnConstraints(int column, int number)
       switch (number)
       {
         case 1:
-        if(constraintGrid[i][column] & ONE) constraintGrid[i][column] ^= ONE;
+        if(constraintGridToUpdate[i][column] & ONE) constraintGridToUpdate[i][column] ^= ONE;
         break;
         case 2:
-        if(constraintGrid[i][column] & TWO) constraintGrid[i][column] ^= TWO;
+        if(constraintGridToUpdate[i][column] & TWO) constraintGridToUpdate[i][column] ^= TWO;
         break;
         case 3:
-        if(constraintGrid[i][column] & THREE) constraintGrid[i][column] ^= THREE;
+        if(constraintGridToUpdate[i][column] & THREE) constraintGridToUpdate[i][column] ^= THREE;
         break;
         case 4:
-        if(constraintGrid[i][column] & FOUR) constraintGrid[i][column] ^= FOUR;
+        if(constraintGridToUpdate[i][column] & FOUR) constraintGridToUpdate[i][column] ^= FOUR;
         break;
         case 5:
-        if(constraintGrid[i][column] & FIVE) constraintGrid[i][column] ^= FIVE;
+        if(constraintGridToUpdate[i][column] & FIVE) constraintGridToUpdate[i][column] ^= FIVE;
         break;
         case 6:
-        if(constraintGrid[i][column] & SIX) constraintGrid[i][column] ^= SIX;
+        if(constraintGridToUpdate[i][column] & SIX) constraintGridToUpdate[i][column] ^= SIX;
         break;
         case 7:
-        if(constraintGrid[i][column] & SEVEN) constraintGrid[i][column] ^= SEVEN;
+        if(constraintGridToUpdate[i][column] & SEVEN) constraintGridToUpdate[i][column] ^= SEVEN;
         break;
         case 8:
-        if(constraintGrid[i][column] & EIGHT) constraintGrid[i][column] ^= EIGHT;
+        if(constraintGridToUpdate[i][column] & EIGHT) constraintGridToUpdate[i][column] ^= EIGHT;
         break;
         case 9:
-        if(constraintGrid[i][column] & NINE) constraintGrid[i][column] ^= NINE;
+        if(constraintGridToUpdate[i][column] & NINE) constraintGridToUpdate[i][column] ^= NINE;
         break;
       }
     }
@@ -1372,7 +938,7 @@ int updateColumnConstraints(int column, int number)
 ****************************************************************
 * this function eliminates number from usability in box
 ****************************************************************/
-int updateBoxConstraints(int boxRow, int boxColumn, int number)
+int updateBoxConstraints(int boxRow, int boxColumn, int number, unsigned int constraintGridToUpdate[][9])
 {
   int i = 0;
   int j = 0;
@@ -1380,41 +946,45 @@ int updateBoxConstraints(int boxRow, int boxColumn, int number)
   {
     for(j = 0; j <3; j++)
     {
-      if(constraintGrid[(3*boxRow + i)][3*boxColumn+j] > 0)
+      if(constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] > 0)
       {
         switch (number)
         {
           case 1:
-          if(constraintGrid[(3*boxRow + i)][3*boxColumn+j] & ONE) constraintGrid[(3*boxRow + i)][3*boxColumn+j] ^= ONE;
+          if(constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] & ONE)
+          {
+            constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] ^= ONE;
+          }
           break;
           case 2:
-          if(constraintGrid[(3*boxRow + i)][3*boxColumn+j] & TWO) constraintGrid[(3*boxRow + i)][3*boxColumn+j] ^= TWO;
+          if(constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] & TWO) constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] ^= TWO;
           break;
           case 3:
-          if(constraintGrid[(3*boxRow + i)][3*boxColumn+j] & THREE) constraintGrid[(3*boxRow + i)][3*boxColumn+j] ^= THREE;
+          if(constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] & THREE) constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] ^= THREE;
           break;
           case 4:
-          if(constraintGrid[(3*boxRow + i)][3*boxColumn+j] & FOUR) constraintGrid[(3*boxRow + i)][3*boxColumn+j] ^= FOUR;
+          if(constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] & FOUR) constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] ^= FOUR;
           break;
           case 5:
-          if(constraintGrid[(3*boxRow + i)][3*boxColumn+j] & FIVE) constraintGrid[(3*boxRow + i)][3*boxColumn+j] ^= FIVE;
+          if(constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] & FIVE) constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] ^= FIVE;
           break;
           case 6:
-          if(constraintGrid[(3*boxRow + i)][3*boxColumn+j] & SIX) constraintGrid[(3*boxRow + i)][3*boxColumn+j] ^= SIX;
+          if(constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] & SIX) constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] ^= SIX;
           break;
           case 7:
-          if(constraintGrid[(3*boxRow + i)][3*boxColumn+j] & SEVEN) constraintGrid[(3*boxRow + i)][3*boxColumn+j] ^= SEVEN;
+          if(constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] & SEVEN) constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] ^= SEVEN;
           break;
           case 8:
-          if(constraintGrid[(3*boxRow + i)][3*boxColumn+j] & EIGHT) constraintGrid[(3*boxRow + i)][3*boxColumn+j] ^= EIGHT;
+          if(constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] & EIGHT) constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] ^= EIGHT;
           break;
           case 9:
-          if(constraintGrid[(3*boxRow + i)][3*boxColumn+j] & NINE) constraintGrid[(3*boxRow + i)][3*boxColumn+j] ^= NINE;
+          if(constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] & NINE) constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] ^= NINE;
           break;
         }
       }
     }
   }
+  return 1;
 }
 
 /*
@@ -1587,15 +1157,19 @@ int checkIfGridFull()
 *****************************************************************/
 int convertLineToGrid()
 {
+  /* loop over line and copt to theGrid*/
+  int i;
+  int count;
+  int j;
   /*reinitialize error flags to false to start  off function*/
   errorLineTooShort = FALSE;
   errorNotNumeric = FALSE;
   errorLineTooLong = FALSE;
 
   /* loop over line and copt to theGrid*/
-  int i = 0;
-  int count = 0;
-  int j = 0;
+  i = 0;
+  count = 0;
+  j = 0;
   for(i = 0; i < 9; i++)
   {
     for (j = 0; j < 9; j++)
