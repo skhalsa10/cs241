@@ -714,7 +714,7 @@ int updateRowConstraints(int row, int number, unsigned int constraintGridToUpdat
   {
     if(constraintGridToUpdate[row][j] > 0)
     {
-      constraintGridToUpdate[row][j]&(~NUM2MASK(number));
+      constraintGridToUpdate[row][j] &= (~NUM2MASK(number));
       /*switch (number)
       {
         case 1:
