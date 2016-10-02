@@ -24,6 +24,7 @@
 #define CELLSELECTION 1
 #define ISSIMPLESOLUTIONON 0
 #define DEBUG 0
+#define NUM2MASK(x) (1 << (x-1))
 
 
 /* declare all functions here */
@@ -88,8 +89,6 @@ int main()
     of instructions when certain criteria is met
     like an error flag is turned on or a function
     returns 0 */
-
-
     do
     {
       if(!convertLineToGrid())
@@ -155,20 +154,17 @@ int simpleSolution()
         openCell = TRUE;
         break;
       }
-
     }
     if(openCell)
     {
       break;
     }
   }
-
   /* if there are no open cells left it means the puzzle is finally solved*/
   if(openCell == FALSE)
   {
     return 1;
   }
-
   /*loop over ever possible solution plug it in check if legal
   * if not legal try next move if it is legal call simple solution again.*/
   n = 1;
@@ -183,9 +179,7 @@ int simpleSolution()
       }
     }
     theGrid[i][j] = 0;
-
   }
-
   return 0;
 }
 
@@ -232,9 +226,14 @@ int column: column index of cell in question
 *****************************************************************/
 int howManySolutions(int row,int column, unsigned int constraintGridToCheck[][9])
 {
+  int i;
   int counter = 0;
+  for(i = 1;i <=9; i++)
+  {
+    if(constraintGridToCheck[row][column]&NUM2MASK(i)) counter++;
+  }
 
-  if(constraintGridToCheck[row][column]&ONE) counter++;
+  /*if(constraintGridToCheck[row][column]&ONE) counter++;
   if(constraintGridToCheck[row][column]&TWO) counter++;
   if(constraintGridToCheck[row][column]&THREE) counter++;
   if(constraintGridToCheck[row][column]&FOUR) counter++;
@@ -242,7 +241,7 @@ int howManySolutions(int row,int column, unsigned int constraintGridToCheck[][9]
   if(constraintGridToCheck[row][column]&SIX) counter++;
   if(constraintGridToCheck[row][column]&SEVEN) counter++;
   if(constraintGridToCheck[row][column]&EIGHT) counter++;
-  if(constraintGridToCheck[row][column]&NINE) counter++;
+  if(constraintGridToCheck[row][column]&NINE) counter++;*/
 
   return counter;
 }
