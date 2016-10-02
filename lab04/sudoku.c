@@ -49,8 +49,6 @@ int updateColumnConstraints(int column, int number, unsigned int constraintGridT
 int updateBoxConstraints(int boxRow, int boxColumn, int number, unsigned int constraintGridToUpdate[][9]);
 int fillInSingleConstraints();
 int complexSolution(int i, int j, int n, unsigned int originalConstraintGrid[][9]);
-int turnOffConstraint(int row, int column, int toTurnOff);
-void printConstraintGrid();
 int simpleSolution();
 int howManySolutions(int row, int column, unsigned int constraintGridToCheck[][9] );
 int copyConstraints(unsigned int copyToThisGrid[][9], unsigned int fromThisGrid[][9]);
@@ -548,28 +546,6 @@ printf("localConstraintGrid[i][j]: %d\n", localConstraintGrid[i][j]);*/
   }
 
   return 0;
-}
-
-
-
-/*****************************************************************
-* this functions prints the constraintGrid
-*****************************************************************/
-void printConstraintGrid()
-{
-
-  int i = 0;
-  int j = 0;
-  printf("\n");
-  for(i=0;i<9;i++)
-  {
-    printf("\n---------------------------\n");
-    for(j=0;j<9;j++)
-    {
-      printf("%3d:%3d|",theGrid[i][j], constraintGrid[i][j]);
-    }
-
-  }
 }
 
 
