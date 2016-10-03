@@ -232,7 +232,7 @@ int howManySolutions(int row,int column, unsigned int constraintGridToCheck[][9]
   {
     if(constraintGridToCheck[row][column]&NUM2MASK(i)) counter++;
   }*/
-  /* im going to keep these ugly lines because it performs faster... 
+  /* im going to keep these ugly lines because it performs faster...
   the if statements must be cheaper then the loop with only 9 checks*/
   if(constraintGridToCheck[row][column]&ONE) counter++;
   if(constraintGridToCheck[row][column]&TWO) counter++;
