@@ -226,13 +226,14 @@ int column: column index of cell in question
 *****************************************************************/
 int howManySolutions(int row,int column, unsigned int constraintGridToCheck[][9])
 {
-  int i;
+  /*int i;*/
   int counter = 0;
-  for(i = 1;i <=9; i++)
+  /*for(i = 1;i <=9; i++)
   {
     if(constraintGridToCheck[row][column]&NUM2MASK(i)) counter++;
-  }
-  /* im going to keep these ugly lines because it performs faster..
+  }*/
+  /* im going to keep these ugly lines because it performs faster... 
+  the if statements must be cheaper then the loop with only 9 checks*/
   if(constraintGridToCheck[row][column]&ONE) counter++;
   if(constraintGridToCheck[row][column]&TWO) counter++;
   if(constraintGridToCheck[row][column]&THREE) counter++;
@@ -241,7 +242,7 @@ int howManySolutions(int row,int column, unsigned int constraintGridToCheck[][9]
   if(constraintGridToCheck[row][column]&SIX) counter++;
   if(constraintGridToCheck[row][column]&SEVEN) counter++;
   if(constraintGridToCheck[row][column]&EIGHT) counter++;
-  if(constraintGridToCheck[row][column]&NINE) counter++;*/
+  if(constraintGridToCheck[row][column]&NINE) counter++;
 
   return counter;
 }
