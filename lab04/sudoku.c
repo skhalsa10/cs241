@@ -730,39 +730,6 @@ int updateColumnConstraints(int column, int number, unsigned int constraintGridT
   for(i = 0; i < 9; i++)
   {
     constraintGridToUpdate[i][column] &= (~NUM2MASK(number));
-    /*if(constraintGrid[i][column] > 0)
-    {
-      switch (number)
-      {
-        case 1:
-        if(constraintGridToUpdate[i][column] & ONE) constraintGridToUpdate[i][column] ^= ONE;
-        break;
-        case 2:
-        if(constraintGridToUpdate[i][column] & TWO) constraintGridToUpdate[i][column] ^= TWO;
-        break;
-        case 3:
-        if(constraintGridToUpdate[i][column] & THREE) constraintGridToUpdate[i][column] ^= THREE;
-        break;
-        case 4:
-        if(constraintGridToUpdate[i][column] & FOUR) constraintGridToUpdate[i][column] ^= FOUR;
-        break;
-        case 5:
-        if(constraintGridToUpdate[i][column] & FIVE) constraintGridToUpdate[i][column] ^= FIVE;
-        break;
-        case 6:
-        if(constraintGridToUpdate[i][column] & SIX) constraintGridToUpdate[i][column] ^= SIX;
-        break;
-        case 7:
-        if(constraintGridToUpdate[i][column] & SEVEN) constraintGridToUpdate[i][column] ^= SEVEN;
-        break;
-        case 8:
-        if(constraintGridToUpdate[i][column] & EIGHT) constraintGridToUpdate[i][column] ^= EIGHT;
-        break;
-        case 9:
-        if(constraintGridToUpdate[i][column] & NINE) constraintGridToUpdate[i][column] ^= NINE;
-        break;
-      }
-    }*/
   }
   return 1;
 }
@@ -784,7 +751,8 @@ int updateBoxConstraints(int boxRow, int boxColumn, int number, unsigned int con
   {
     for(j = 0; j <3; j++)
     {
-      if(constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] > 0)
+      constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] &= (~NUM2MASK(number));
+      /*if(constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] > 0)
       {
         switch (number)
         {
@@ -819,7 +787,7 @@ int updateBoxConstraints(int boxRow, int boxColumn, int number, unsigned int con
           if(constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] & NINE) constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] ^= NINE;
           break;
         }
-      }
+      }*/
     }
   }
   return 1;
