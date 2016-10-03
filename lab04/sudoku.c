@@ -226,13 +226,13 @@ int column: column index of cell in question
 *****************************************************************/
 int howManySolutions(int row,int column, unsigned int constraintGridToCheck[][9])
 {
-  /*int i;*/
+  int i;
   int counter = 0;
-  /*for(i = 1;i <=9; i++)
+  for(i = 1;i <=9; i++)
   {
     if(constraintGridToCheck[row][column]&NUM2MASK(i)) counter++;
-  }*/
-  /* im going to keep these ugly lines because it performs faster..*/
+  }
+  /* im going to keep these ugly lines because it performs faster..
   if(constraintGridToCheck[row][column]&ONE) counter++;
   if(constraintGridToCheck[row][column]&TWO) counter++;
   if(constraintGridToCheck[row][column]&THREE) counter++;
@@ -241,7 +241,7 @@ int howManySolutions(int row,int column, unsigned int constraintGridToCheck[][9]
   if(constraintGridToCheck[row][column]&SIX) counter++;
   if(constraintGridToCheck[row][column]&SEVEN) counter++;
   if(constraintGridToCheck[row][column]&EIGHT) counter++;
-  if(constraintGridToCheck[row][column]&NINE) counter++;
+  if(constraintGridToCheck[row][column]&NINE) counter++;*/
 
   return counter;
 }
@@ -752,42 +752,6 @@ int updateBoxConstraints(int boxRow, int boxColumn, int number, unsigned int con
     for(j = 0; j <3; j++)
     {
       constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] &= (~NUM2MASK(number));
-      /*if(constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] > 0)
-      {
-        switch (number)
-        {
-          case 1:
-          if(constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] & ONE)
-          {
-            constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] ^= ONE;
-          }
-          break;
-          case 2:
-          if(constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] & TWO) constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] ^= TWO;
-          break;
-          case 3:
-          if(constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] & THREE) constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] ^= THREE;
-          break;
-          case 4:
-          if(constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] & FOUR) constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] ^= FOUR;
-          break;
-          case 5:
-          if(constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] & FIVE) constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] ^= FIVE;
-          break;
-          case 6:
-          if(constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] & SIX) constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] ^= SIX;
-          break;
-          case 7:
-          if(constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] & SEVEN) constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] ^= SEVEN;
-          break;
-          case 8:
-          if(constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] & EIGHT) constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] ^= EIGHT;
-          break;
-          case 9:
-          if(constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] & NINE) constraintGridToUpdate[(3*boxRow + i)][3*boxColumn+j] ^= NINE;
-          break;
-        }
-      }*/
     }
   }
   return 1;
