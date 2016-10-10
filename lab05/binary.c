@@ -44,7 +44,7 @@ int main(int argc, char **argv)
   }
 
   /*deal with flag 1*/
-  if((binary = isEqual(&argv[1], "-b")) | isEqual(&argv[1], "-d"))
+  if((binary = isEqual(argv[1], "-b")) | isEqual(argv[1], "-d"))
   ;
   else
   {
