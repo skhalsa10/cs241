@@ -10,9 +10,11 @@
 #include <stdio.h>
 
 /*declare external fns*/
+int isEqual( char *s1, char *s2);
+int strLength( char *string);
 
 /*declare external variables*/
-const char *USAGEMESSAGE = 
+const char *USAGEMESSAGE =
   "usage:\n"
   "./binary OPTION SIZE NUMBER\n"
   "  OPTION:\n"
@@ -31,12 +33,45 @@ const char *USAGEMESSAGE =
 
 int main(int argc, char **argv)
 {
-  int i = 0;
-  for(i=0;i<argc;i++)
+  /*if this is one then binary switch was used else decimal switch was used*/
+  int binary = 0;
+
+  /*argc MUST be equal to 4 based on the spec there is no default behavior*/
+  if(argc != 4)
   {
-    printf("%s\n", argv[i]);
+    printf("\n%s\n", USAGEMESSAGE);
+    return 0;
   }
 
-  printf("\n%s\n", USAGEMESSAGE);
+  /*deal with flag 1*/
+  if((binary = isEqual(&argv[1], "-b")) | isEqual(&argv[1], "-d"))
+  ;
+  else
+  {
+    printf("\n%s\n", USAGEMESSAGE);
+    return 0;
+  }
 
+return binary;
+}
+
+/*this function compares to strings to see if they are the same*/
+int isEqual( char *s1, char *s2)
+{
+  if(strLength(s1) != strLength(s2)) return 0;
+  while(*s1 != '\0')
+  {
+    if(*s1 != *s2) return 0;
+    s1++;
+    s2++;
+  }
+  return 1;
+}
+
+/* returns the length of the string parameter*/
+int strLength( char *string)
+{
+  int n;
+  for(n=0; *string != '\0'; string++) n++;
+  return n;
 }
