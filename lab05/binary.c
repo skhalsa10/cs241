@@ -52,7 +52,9 @@ int main(int argc, char **argv)
     return 0;
   }
 
-return binary;
+printf("%d", binary);
+
+return 1;
 }
 
 /*this function compares to strings to see if they are the same*/
