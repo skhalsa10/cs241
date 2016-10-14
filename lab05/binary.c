@@ -16,6 +16,7 @@ int convertToDecimal(char *input, int *decimal);
 int baseToPosExp(int base, int power);
 unsigned int stringDecimalToInt(char *input);
 int convertToBinary(int size, char *input, char *binaryString);
+int formatDecimal(int decimal, char *decimalString);
 
 /*declare external variables*/
 const char *USAGEMESSAGE =
@@ -47,7 +48,7 @@ int main(int argc, char **argv)
   /*argc MUST be equal to 4 based on the spec there is no default behavior*/
   if(argc != 4)
   {
-    printf("ERROR: incorrect number of arguments\n")
+    printf("ERROR: incorrect number of arguments\n");
     printf("%s\n", USAGEMESSAGE);
     return 0;
   }
@@ -176,19 +177,19 @@ int convertToBinary(int size, char *input, char *binaryString)
 
   for(i = 0; i < 100; i++)
   {
-    tempBuffer[i] = 0;
+    tempBuffer[i] = '0';
   }
 
   /*fill the buffer will hold the number in reverse*/
   i = 0;
   while(number !=0)
   {
-    tempBuffer[i] = number % 2;
+    tempBuffer[i] = (number % 2)+'0';
     number = number/2;
     i++;
   }
 
-  spaceCounter = 1
+  spaceCounter = 1;
   /*need to pad with 0's based on size and reverse order*/
   for(i=0;--size <0;i++)
   {
