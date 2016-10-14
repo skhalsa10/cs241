@@ -13,7 +13,7 @@
 int isEqual( char *s1, char *s2);
 int strLength( char *string);
 int convertToDecimal(char *input, int *decimal);
-int baseToPosExp(int base, int power);
+int baseToExp(int base, int power);
 unsigned int stringDecimalToInt(char *input);
 int convertToBinary(int size, char *input, char *binaryString);
 int formatDecimal(int decimal, char *decimalString);
@@ -143,6 +143,7 @@ int formatDecimal(int decimal, char *decimalString)
   }
   *decimalString = '\0';
 
+return 1;
 }
 
 /*this function compares to strings to see if they are the same*/
@@ -228,7 +229,7 @@ int convertToDecimal(char *input, int *decimal)
   {
     if (input[length] ==1)
     {
-      *decimal += baseToPosExp(2, i);
+      *decimal += baseToExp(2, i);
     }
   }
   return 1;
@@ -236,9 +237,9 @@ int convertToDecimal(char *input, int *decimal)
 
 /*this assumes the base is positive just because thats aLL I NEED.
   it could easily be updated for negatve bases*/
-int baseToPosExp(int base, int power)
+int baseToExp(int base, int power)
 {
-  int n = 1
+  int n = 1;
   if(power == 0) return 1;
   while(power !=0)
   {
