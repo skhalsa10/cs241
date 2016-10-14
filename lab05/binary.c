@@ -85,7 +85,7 @@ int main(int argc, char **argv)
     if(convertToDecimal(argv[3], &decimal))
     {
       printf("ENTERED\n");
-      printf("format returned %d decimal %d \n"formatDecimal(decimal, decimalString), decimal);
+      printf("format returned %d decimal %d \n", formatDecimal(decimal, decimalString), decimal);
       printf("%s", decimalString);
       return 1;
     }
