@@ -80,7 +80,7 @@ int main(int argc, char **argv)
 
   if(binary)
   {
-    //printf("binary entered %d\n", convertToDecimal(argv[3], &decimal));
+    /*printf("binary entered %d\n", convertToDecimal(argv[3], &decimal));*/
     /*convert binary to decimal*/
     if(convertToDecimal(argv[3], &decimal))
     {
