@@ -16,7 +16,7 @@ int convertToDecimal(char *input, int *decimal);
 int baseToExp(int base, int power);
 unsigned int stringDecimalToInt(char *input);
 int convertToBinary(int size, char *input, char *binaryString);
-int formatDecimal(int decimal, char *decimalString);
+int formatDecimal(int size, int decimal, char *decimalString);
 
 /*declare external variables*/
 const char *USAGEMESSAGE =
@@ -80,13 +80,11 @@ int main(int argc, char **argv)
 
   if(binary)
   {
-    /*printf("binary entered %d\n", convertToDecimal(argv[3], &decimal));*/
     /*convert binary to decimal*/
     if(convertToDecimal(argv[3], &decimal))
     {
-      printf("ENTERED\n");
-      printf("format returned %d decimal %d \n", formatDecimal(decimal, decimalString), decimal);
-      printf("%s", decimalString);
+      formatDecimal(size, decimal, decimalString);
+      printf("%s\n", decimalString);
       return 1;
     }
     else
@@ -101,7 +99,7 @@ int main(int argc, char **argv)
     /*convert decimal to binary*/
     if(convertToBinary(size, argv[3], binaryString))
     {
-      printf("%s", binaryString);
+      printf("%s\n", binaryString);
       return 1;
     }
     else
@@ -115,7 +113,7 @@ int main(int argc, char **argv)
 return 1;
 }
 
-int formatDecimal(int decimal, char *decimalString)
+int formatDecimal(int size, int decimal, char *decimalString)
 {
   int i;
   int commaCounter;
@@ -125,7 +123,7 @@ int formatDecimal(int decimal, char *decimalString)
   /*initialize buffer*/
   for(i = 0; i<100; i++)
   {
-    buffer[i]= '0';
+    buffer[i]= ' ';
   }
   /*convert to backwards string*/
   for(i = 0; decimal !=0; i++)
@@ -172,22 +170,19 @@ int convertToBinary(int size, char *input, char *binaryString)
   int i;
   int spaceCounter;
   char tempBuffer[100];
-  char *temp = input;
+  int length = strLength(input);
   unsigned int number;
 
   /*check input has correct characters*/
-  while(temp++ != '\0')
+  for(i=0;i<length;i++)
   {
-    if(*temp > '9' || *temp < '0') return 0;
+    if(*(input+i) > '9' || *(input+i) < '0') return 0;
   }
-
   number = stringDecimalToInt(input);
-
   for(i = 0; i < 100; i++)
   {
     tempBuffer[i] = '0';
   }
-
   /*fill the buffer will hold the number in reverse*/
   i = 0;
   while(number !=0)
@@ -199,17 +194,17 @@ int convertToBinary(int size, char *input, char *binaryString)
 
   spaceCounter = 1;
   /*need to pad with 0's based on size and reverse order*/
-  for(i=0;--size <0;i++)
+  for(i=0;--size >=0;i++)
   {
     binaryString[i] = tempBuffer[size];
-    if (spaceCounter ==4)
+    if (spaceCounter == 4)
     {
       binaryString[++i] = ' ';
       spaceCounter = 0;
     }
     spaceCounter++;
   }
-
+  binaryString[--i] = '\0';
   return 1;
 }
 
@@ -217,7 +212,7 @@ int convertToBinary(int size, char *input, char *binaryString)
 unsigned int stringDecimalToInt(char *input)
 {
   int n = 0;
-  while(input != '\0')
+  while(*input != '\0')
   {
     n = n*10 + (*input - '0');
     input++;
@@ -232,9 +227,9 @@ int convertToDecimal(char *input, int *decimal)
   int i;
   int length = strLength(input);
   /* start from length-1 and convert to decimal*/
-  for(i = 0; (--length)<0;i++)
+  for(i = 0; (--length)>0;i++)
   {
-    if (input[length] ==1)
+    if (input[length] =='1')
     {
       *decimal += baseToExp(2, i);
     }
@@ -260,6 +255,6 @@ int baseToExp(int base, int power)
 int strLength( char *string)
 {
   int n;
-  for(n=1; *string != '\0'; string++) n++;
+  for(n=0; *string != '\0'; string++) n++;
   return n;
 }
