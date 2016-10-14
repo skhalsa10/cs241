@@ -78,31 +78,37 @@ int main(int argc, char **argv)
     return 0;
   }
 
-  /*convert binary to decimal*/
-  if(convertToDecimal(argv[3], &decimal))
+  if(binary)
   {
-    formatDecimal(decimal, decimalString);
-    printf("%s", decimalString);
-    return 1;
+    printf("binary entered");
+    /*convert binary to decimal*/
+    if(convertToDecimal(argv[3], &decimal))
+    {
+      formatDecimal(decimal, decimalString);
+      printf("%s", decimalString);
+      return 1;
+    }
+    else
+    {
+      printf("ERROR: argument 3 is not a binary integer\n");
+      printf("%s\n", USAGEMESSAGE);
+      return 0;
+    }
   }
   else
   {
-    printf("ERROR: argument 3 is not a binary integer\n");
-    printf("%s\n", USAGEMESSAGE);
-    return 0;
-  }
-
-  /*convert decimal to binary*/
-  if(convertToBinary(size, argv[3], binaryString))
-  {
-    printf("%s", binaryString);
-    return 1;
-  }
-  else
-  {
-    printf("ERROR: argument 3 is not a decimal integer\n");
-    printf("%s\n", USAGEMESSAGE);
-    return 0;
+    /*convert decimal to binary*/
+    if(convertToBinary(size, argv[3], binaryString))
+    {
+      printf("%s", binaryString);
+      return 1;
+    }
+    else
+    {
+      printf("ERROR: argument 3 is not a decimal integer\n");
+      printf("%s\n", USAGEMESSAGE);
+      return 0;
+    }
   }
 
 return 1;
