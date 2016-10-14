@@ -80,11 +80,12 @@ int main(int argc, char **argv)
 
   if(binary)
   {
-    printf("binary entered %d\n", convertToDecimal(argv[3], &decimal));
+    //printf("binary entered %d\n", convertToDecimal(argv[3], &decimal));
     /*convert binary to decimal*/
     if(convertToDecimal(argv[3], &decimal))
     {
-      formatDecimal(decimal, decimalString);
+      printf("ENTERED\n");
+      printf("format returned %d decimal %d \n"formatDecimal(decimal, decimalString), decimal);
       printf("%s", decimalString);
       return 1;
     }
