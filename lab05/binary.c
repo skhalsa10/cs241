@@ -138,7 +138,23 @@ int formatDecimal(int size, int decimal, char *decimalString)
     commaCounter++;
   }
 
-  while(buffer[i] == '0'|| buffer[i]==',') i--;
+  while(buffer[i] == ' ') i--;
+  if(buffer[i] == ',') buffer[i] = ' ';
+
+  switch (size) {
+    case 8:
+    i = 2;
+    break;
+    case 16:
+    i = 6;
+    break;
+    case 32:
+    i = 10;
+    break;
+    case 64:
+    i =14;
+    break;
+  }
 
   while(i >= 0)
   {
