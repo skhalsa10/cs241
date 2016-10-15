@@ -10,7 +10,7 @@
 #define SEVEN 64
 #define EIGHT 128
 #define NINE 256
-#define CELLSELECTION 0
+#define CELLSELECTION 1
 #define ISSIMPLESOLUTIONON 0
 #define DEBUG 0
 
@@ -38,15 +38,12 @@ int updateColumnConstraints(int column, int number, unsigned int constraintGridT
 int updateBoxConstraints(int boxRow, int boxColumn, int number, unsigned int constraintGridToUpdate[][9]);
 int fillInSingleConstraints();
 int complexSolution(int i, int j, int n, unsigned int originalConstraintGrid[][9]);
-int undoRowConstraint(int row, int number);
-int undoColumnConstraint(int column, int number);
-int undoBoxConstraint(int boxRow, int boxColumn, int number);
 int turnOffConstraint(int row, int column, int toTurnOff);
 void printConstraintGrid();
 int simpleSolution();
 int deleteFalseConstraints(int row, int column, int number);
-int howManySolutions(int row, int column);
-int copyConstraints(unsigned int copyToThisGrid[9][9], unsigned int fromThisGrid[9][9]);
+int howManySolutions(int row, int column, unsigned int constraintGridToCheck[][9] );
+int copyConstraints(unsigned int copyToThisGrid[][9], unsigned int fromThisGrid[][9]);
 
 /* 2d array i'll call theGrid */
 int theGrid[9][9];
@@ -83,25 +80,8 @@ int main()
     of instructions when certain criteria is met
     like an error flag is turned on or a function
     returns 0 */
-    if(DEBUG)
-    {
-      int testConstraintGrid[9][9];
-      convertLineToGrid();
-      createConstraintGrid();
-      int i = 0;
-      int j = 0;
-      for(i = 0;i<9;i++)
-      {
-        for(j=0;j<9;j++)
-        {
-          testConstraintGrid[i][j] = constraintGrid[i][j];
-        }
-      }
-      printConstraintGrid();
 
-    }
-    else
-    {
+
     do
     {
       if(!convertLineToGrid())
@@ -137,7 +117,6 @@ int main()
 
     printResults();
 
-  }
 
   }
 }
@@ -236,185 +215,6 @@ int solvePuzzle()
 }
 
 
-/************************************
-* Parameters:
-* inputRow is the row index of the "currentCell"
-* inputColumn is the column index of the "currentCell"
-* inputNumber is the number we are readding to the
-* appropriate list of available constraints
-***************************************
-*  this function calls other smaller helper functions that
-* perform undos for the row the column and the box
-****************************************/
-int undoMove(int inputRow,int inputColumn,int inputNumber)
-{
-  printf("undomove entered\n");
-  theGrid[inputRow][inputColumn] = 0;
-  /*createConstraintGrid();*/
-  undoRowConstraint(inputRow, inputNumber);
-  undoColumnConstraint(inputRow, inputNumber);
-  undoBoxConstraint((inputRow/3), (inputColumn/3), inputNumber);
-  return 1;
-}
-
-/**************************************************************
-* Parameters:
-* int row - the row that will be iterated over
-* int number - the number to add back as a constraintGrid
-***************************************************************
-* Returns 1 if successful and 0 if there is an error
-***************************************************************
-*  this function just loops over every cell in row and adds
-* Number Back in as a possible solution.
-*
-* Is this adding steps that do not need to be done?
-**************************************************************/
-int undoRowConstraint(int row, int number)
-{
-  int j = 0;
-  for (j=0;j<9;j++)
-  {
-    if (theGrid[row][j] >0)
-    {
-      switch (number)
-      {
-        case 1:
-        constraintGrid[row][j] |= ONE;
-        break;
-        case 2:
-          constraintGrid[row][j] |= TWO;
-        break;
-        case 3:
-          constraintGrid[row][j] |= THREE;
-        break;
-        case 4:
-          constraintGrid[row][j] |= FOUR;
-        break;
-        case 5:
-          constraintGrid[row][j] |= FIVE;
-        break;
-        case 6:
-          constraintGrid[row][j] |= SIX;
-        break;
-        case 7:
-          constraintGrid[row][j] |= SEVEN;
-        break;
-        case 8:
-          constraintGrid[row][j] |= EIGHT;
-        break;
-        case 9:
-          constraintGrid[row][j] |= NINE;
-        break;
-      }
-    }
-  }
-  return 1;
-}
-
-/*****************************************************************
-*Parameters:
-* int column: column that will have constrains readded
-* int number: number to re add to constraint list
-****************************************************************
-*this function re adds the number as an available solution to the column
-*****************************************************************/
-int undoColumnConstraint(int column, int number)
-{
-  int i = 0;
-  for (i=0;i<9;i++)
-  {
-    if (theGrid[i][column] >0)
-    {
-      switch (number)
-      {
-        case 1:
-        constraintGrid[i][column] |= ONE;
-        break;
-        case 2:
-          constraintGrid[i][column] |= TWO;
-        break;
-        case 3:
-          constraintGrid[i][column] |= THREE;
-        break;
-        case 4:
-          constraintGrid[i][column] |= FOUR;
-        break;
-        case 5:
-          constraintGrid[i][column] |= FIVE;
-        break;
-        case 6:
-          constraintGrid[i][column] |= SIX;
-        break;
-        case 7:
-          constraintGrid[i][column] |= SEVEN;
-        break;
-        case 8:
-          constraintGrid[i][column] |= EIGHT;
-        break;
-        case 9:
-          constraintGrid[i][column] |= NINE;
-        break;
-      }
-    }
-  }
-  return 1;
-}
-/*****************************************************************
-* parameters:
-* int boxRow: row index to cell
-* int boxcolumn: column index to cell
-* int number: number to readd as possible solutions
-****************************************************************
-*this function readds the number to the box as a solutions
-* note it should be eliminated from the current cell in question
-* after the fact as a failed solution
-*****************************************************************/
-int undoBoxConstraint(int boxRow, int boxColumn, int number)
-{
-  int i = 0;
-  int j = 0;
-  for(i = 0;i<3;i++)
-  {
-    for(j=0;j<3;j++)
-    {
-      if (theGrid[3*boxRow+i][3*boxColumn+j] >0)
-      {
-        switch (number)
-        {
-          case 1:
-          constraintGrid[3*boxRow+i][3*boxColumn+j] |= ONE;
-          break;
-          case 2:
-            constraintGrid[3*boxRow+i][3*boxColumn+j] |= TWO;
-          break;
-          case 3:
-            constraintGrid[3*boxRow+i][3*boxColumn+j] |= THREE;
-          break;
-          case 4:
-            constraintGrid[3*boxRow+i][3*boxColumn+j] |= FOUR;
-          break;
-          case 5:
-            constraintGrid[3*boxRow+i][3*boxColumn+j] |= FIVE;
-          break;
-          case 6:
-            constraintGrid[3*boxRow+i][3*boxColumn+j] |= SIX;
-          break;
-          case 7:
-            constraintGrid[3*boxRow+i][3*boxColumn+j] |= SEVEN;
-          break;
-          case 8:
-            constraintGrid[3*boxRow+i][3*boxColumn+j] |= EIGHT;
-          break;
-          case 9:
-            constraintGrid[3*boxRow+i][3*boxColumn+j] |= NINE;
-          break;
-        }
-      }
-    }
-  }
-  return 1;
-}
-
 /*****************************************************************
 * parameters:
 * int row: index to cell
@@ -439,24 +239,24 @@ int column: column index of cell in question
 ****************************************************************
 * this function returns how many possible solutions are left
 *****************************************************************/
-int howManySolutions(int row,int column)
+int howManySolutions(int row,int column, unsigned int constraintGridToCheck[][9])
 {
   int counter = 0;
 
-  if(constraintGrid[row][column]&ONE) counter++;
-  if(constraintGrid[row][column]&TWO) counter++;
-  if(constraintGrid[row][column]&THREE) counter++;
-  if(constraintGrid[row][column]&FOUR) counter++;
-  if(constraintGrid[row][column]&FIVE) counter++;
-  if(constraintGrid[row][column]&SIX) counter++;
-  if(constraintGrid[row][column]&SEVEN) counter++;
-  if(constraintGrid[row][column]&EIGHT) counter++;
-  if(constraintGrid[row][column]&NINE) counter++;
+  if(constraintGridToCheck[row][column]&ONE) counter++;
+  if(constraintGridToCheck[row][column]&TWO) counter++;
+  if(constraintGridToCheck[row][column]&THREE) counter++;
+  if(constraintGridToCheck[row][column]&FOUR) counter++;
+  if(constraintGridToCheck[row][column]&FIVE) counter++;
+  if(constraintGridToCheck[row][column]&SIX) counter++;
+  if(constraintGridToCheck[row][column]&SEVEN) counter++;
+  if(constraintGridToCheck[row][column]&EIGHT) counter++;
+  if(constraintGridToCheck[row][column]&NINE) counter++;
 
   return counter;
 }
 
-int copyConstraints(unsigned int copyToThisGrid[9][9], unsigned int fromThisGrid[9][9])
+int copyConstraints(unsigned int copyToThisGrid[][9], unsigned int fromThisGrid[][9])
 {
   int i = 0;
   int j = 0;
@@ -579,20 +379,27 @@ if(CELLSELECTION ==1)
     {
       if (theGrid[i][j]==0)
       {
+        if(localConstraintGrid[i][j]==0) return 0;
         openCell = TRUE;
-        switch (howManySolutions(i,j))
+        /*printf("theGrid[%d][%d]: %d", i,j,theGrid[i][j]);
+        printf("localConstraintGrid[%d][%d]: %d\n",i,j, localConstraintGrid[i][j]);
+        printf("howManySolutions(%d,%d,localConstraintGrid): %d\n",i,j, howManySolutions(i,j,localConstraintGrid));*/
+        switch (howManySolutions(i,j,localConstraintGrid))
         {
           case 1:
           cellWithOneR = i;
           cellWithOneC = j;
+
           break;
           case 2:
           cellWithTwoR = i;
           cellWithTwoC = j;
+
           break;
           case 3:
           cellWithThreeR = i;
           cellWithThreeC = j;
+
           break;
           case 4:
           cellWithFourR = i;
@@ -620,7 +427,9 @@ if(CELLSELECTION ==1)
           break;
         }
       }
+
     }
+
   }
 
   /*a terrible hack to set i and j to the variable of lowest magnitude*/
@@ -823,6 +632,7 @@ int deleteFalseConstraints(int row, int column, int number)
     return 1;
 
   }
+  return1;
 }
 
 /*****************************************************************
@@ -1248,6 +1058,7 @@ int updateBoxConstraints(int boxRow, int boxColumn, int number, unsigned int con
       }
     }
   }
+  return 1;
 }
 
 /*

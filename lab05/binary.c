@@ -12,11 +12,11 @@
 /*declare external fns*/
 int isEqual( char *s1, char *s2);
 int strLength( char *string);
-int convertToDecimal(char *input, int *decimal);
-int baseToExp(int base, int power);
+int convertToDecimal(int size, char *input, unsigned long int *decimal);
+unsigned long int baseToExp(int base, int power);
 unsigned int stringDecimalToInt(char *input);
 int convertToBinary(int size, char *input, char *binaryString);
-int formatDecimal(int size, int decimal, char *decimalString);
+int formatDecimal(int size, unsigned long int decimal, char *decimalString);
 
 /*declare external variables*/
 const char *USAGEMESSAGE =
@@ -34,7 +34,8 @@ const char *USAGEMESSAGE =
   "\n"
   "  NUMBER:\n"
   "    number to be converted.\n"
-  "\n";
+  "\n";{
+
 
 int main(int argc, char **argv)
 {
@@ -43,13 +44,13 @@ int main(int argc, char **argv)
   char decimalString[100];
   int binary = 0;
   int size = 0;
-  int decimal = 0;
+  unsigned long int decimal = 0;
 
   /*argc MUST be equal to 4 based on the spec there is no default behavior*/
   if(argc != 4)
   {
     printf("ERROR: incorrect number of arguments\n");
-    printf("%s\n", USAGEMESSAGE);
+    printf("%s", USAGEMESSAGE);
     return 0;
   }
 
@@ -59,7 +60,7 @@ int main(int argc, char **argv)
   else
   {
     printf("ERROR: argument 1 must be -b | -d\n");
-    printf("%s\n", USAGEMESSAGE);
+    printf("%s", USAGEMESSAGE);
     return 0;
   }
 
@@ -74,14 +75,14 @@ int main(int argc, char **argv)
   else
   {
     printf("ERROR: argument 2 must be: -8 | -16 | -32 | -64\n");
-    printf("%s\n", USAGEMESSAGE);
+    printf("%s", USAGEMESSAGE);
     return 0;
   }
 
   if(binary)
   {
     /*convert binary to decimal*/
-    if(convertToDecimal(argv[3], &decimal))
+    if(convertToDecimal(size, argv[3], &decimal))
     {
       formatDecimal(size, decimal, decimalString);
       printf("%s\n", decimalString);
@@ -90,7 +91,7 @@ int main(int argc, char **argv)
     else
     {
       printf("ERROR: argument 3 is not a binary integer\n");
-      printf("%s\n", USAGEMESSAGE);
+      printf("%s", USAGEMESSAGE);
       return 0;
     }
   }
@@ -105,15 +106,27 @@ int main(int argc, char **argv)
     else
     {
       printf("ERROR: argument 3 is not a decimal integer\n");
-      printf("%s\n", USAGEMESSAGE);
+      printf("%s", USAGEMESSAGE);
       return 0;
     }
   }
 
-return 1;
+  return 1;
 }
 
-int formatDecimal(int size, int decimal, char *decimalString)
+/**********************************************
+* paramters:
+* int size: defines output format
+* unsigned long int decimal: number to format
+* char *decimalString : pointer to char array
+* that holds the formatted string
+***********************************************
+* formatDecimal converts a decimal to a
+* formatted string.
+***********************************************
+* returns: 1 if success and 0 if error
+***********************************************/
+int formatDecimal(int size, unsigned long int decimal, char *decimalString)
 {
   int i;
   int commaCounter;
@@ -138,24 +151,25 @@ int formatDecimal(int size, int decimal, char *decimalString)
     commaCounter++;
   }
 
+  /*deletes comma that is not used*/
   while(buffer[i] == ' ') i--;
   if(buffer[i] == ',') buffer[i] = ' ';
-
+  /*sets padding*/
   switch (size) {
     case 8:
     i = 2;
     break;
     case 16:
-    i = 6;
+    i = 5;
     break;
     case 32:
-    i = 10;
+    i = 12;
     break;
     case 64:
-    i =14;
+    i =25;
     break;
   }
-
+  /*pull string out of buffer in correct order*/
   while(i >= 0)
   {
     *decimalString = buffer[i];
@@ -163,11 +177,19 @@ int formatDecimal(int size, int decimal, char *decimalString)
     decimalString++;
   }
   *decimalString = '\0';
-
-return 1;
+  return 1;
 }
 
-/*this function compares to strings to see if they are the same*/
+/**********************************************
+* paramters:
+* char *s1: s
+* char *s2: number to format
+***********************************************
+* formatDecimal converts a decimal to a
+* formatted string.
+***********************************************
+* returns: 1 if success and 0 if error
+***********************************************/
 int isEqual( char *s1, char *s2)
 {
   if(strLength(s1) != strLength(s2)) return 0;
@@ -180,7 +202,16 @@ int isEqual( char *s1, char *s2)
   return 1;
 }
 
-/*takes a decimal string and converts to a binary string*/
+/**********************************************
+* paramters:
+* char *s1: s
+* char *s2: number to format
+***********************************************
+* formatDecimal converts a decimal to a
+* formatted string.
+***********************************************
+* returns: 1 if success and 0 if error
+***********************************************/
 int convertToBinary(int size, char *input, char *binaryString)
 {
   int i;
@@ -238,12 +269,14 @@ unsigned int stringDecimalToInt(char *input)
 
 /*takes a binary string and converts it to decimal number
   It will return 1 if successful or 0 if not*/
-int convertToDecimal(char *input, int *decimal)
+int convertToDecimal(int size, char *input, unsigned long int *decimal)
 {
   int i;
   int length = strLength(input);
+  int iModerator = length/size;
+  if (length == size) iModerator =0;
   /* start from length-1 and convert to decimal*/
-  for(i = 0; (--length)>0;i++)
+  for(i = 0; (--length)>=(iModerator);i++)
   {
     if (input[length] =='1')
     {
@@ -255,9 +288,9 @@ int convertToDecimal(char *input, int *decimal)
 
 /*this assumes the base is positive just because thats aLL I NEED.
   it could easily be updated for negatve bases*/
-int baseToExp(int base, int power)
+unsigned long int baseToExp(int base, int power)
 {
-  int n = 1;
+  unsigned long int n = 1;
   if(power == 0) return 1;
   while(power !=0)
   {
