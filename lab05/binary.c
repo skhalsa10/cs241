@@ -34,7 +34,7 @@ const char *USAGEMESSAGE =
   "\n"
   "  NUMBER:\n"
   "    number to be converted.\n"
-  "\n";{
+  "\n";
 
 
 int main(int argc, char **argv)
