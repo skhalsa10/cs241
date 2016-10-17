@@ -255,7 +255,15 @@ int convertToBinary(int size, char *input, char *binaryString)
   return 1;
 }
 
-/*this assumes input is of correct characters*/
+/**********************************************
+* paramters:
+* input[]: String that is converted to number
+***********************************************
+* this fn converts a string into its int counterpart
+* does not do any error checking
+***********************************************
+* returns: the converted int
+***********************************************/
 unsigned int stringDecimalToInt(char *input)
 {
   int n = 0;
@@ -267,8 +275,18 @@ unsigned int stringDecimalToInt(char *input)
   return n;
 }
 
-/*takes a binary string and converts it to decimal number
-  It will return 1 if successful or 0 if not*/
+/**********************************************
+* paramters:
+* size: how many bits used
+* *input: STring of of a binary representation
+* unsigned long int *decimal: this will hold
+* base 10 representation of input string
+***********************************************
+* convertToDecimal: converts input binary
+* string into int base 10 representation
+***********************************************
+* returns: 1 if success and 0 if error
+***********************************************/
 int convertToDecimal(int size, char *input, unsigned long int *decimal)
 {
   int i;
@@ -286,8 +304,20 @@ int convertToDecimal(int size, char *input, unsigned long int *decimal)
   return 1;
 }
 
-/*this assumes the base is positive just because thats aLL I NEED.
-  it could easily be updated for negatve bases*/
+/**********************************************
+* paramters:
+* int base: base to be raised
+* int power: the exponant the base will be raised to
+***********************************************
+* baseToExp: this fn will rase the base to the power
+* it assumes the base is positive because that
+* is all that is needed for this program I
+* am sure there is a better standard library
+* available for this, but decided to make
+* my own for more practice
+***********************************************
+* returns: the number after all calculationsa are made.
+***********************************************/
 unsigned long int baseToExp(int base, int power)
 {
   unsigned long int n = 1;
@@ -300,7 +330,14 @@ unsigned long int baseToExp(int base, int power)
   return n;
 }
 
-/* returns the length of the string parameter*/
+/**********************************************
+* paramters:
+* char *string: the string that will be analyzed
+***********************************************
+* strLength: this fn returns the length of inputted string
+***********************************************
+* returns: length of string
+***********************************************/
 int strLength( char *string)
 {
   int n;
