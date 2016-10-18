@@ -300,6 +300,7 @@ int convertToDecimal(int size, char *input, unsigned long int *decimal)
     {
       *decimal += baseToExp(2, i);
     }
+    else if(input[length] !='0') return 0;
   }
   return 1;
 }
