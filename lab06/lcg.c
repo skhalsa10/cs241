@@ -39,7 +39,7 @@ u64 calculateP(u64 m)
     {
       if(factorFound) p *= i;
       factorFound = 0;
-      m /= 2;
+      m /= i;
     }
 
     factorFound = 1;
