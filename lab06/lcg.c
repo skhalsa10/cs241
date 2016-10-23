@@ -14,6 +14,10 @@ LCG makeLCG(u64 m, u64 c)
 
   if(lcg.c >= lcg.m || lcg.a >= lcg.m || lcg.a <= 0 || lcg.m <= 0)
   {
+    printf("lcg.c(%d) >= lcg.m(%d) = %d\n",lcg.c, lcg.m ,lcg.c >= lcg.m );
+    printf("lcg.a(%d) >= lcg.m(%d) = %d\n",lcg.a, lcg.m ,lcg.a >= lcg.m);
+    printf("lcg.a <= 0 = %d\n",lcg.a <= 0);
+  printf("lcg.m <= 0 = %d\n",lcg.m <= 0);
     lcg.x = 0;
     lcg.m = 0;
     lcg.a = 0;
