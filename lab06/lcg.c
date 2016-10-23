@@ -1,4 +1,5 @@
 #include "lcg.h"
+#include <stdio.h>
 
 typedef unsigned long u64;
 typedef struct LinearCongruentialGenerator LCG;
