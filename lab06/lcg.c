@@ -44,6 +44,6 @@ u64 calculateP(u64 m)
 
 u64 getNextRandomValue(LCG* lcg)
 {
-  lcg.x = ((lcg.a*lcg.x) +lcg.c) % lcg.m;
+  lcg->x = ((lcg->a*lcg->x) +lcg->c) % lcg->m;
   return lcg.x;
 }
