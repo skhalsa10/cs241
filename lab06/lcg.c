@@ -1,5 +1,5 @@
 #include "lcg.h"
-#include <stdio.h>
+
 
 typedef unsigned long u64;
 typedef struct LinearCongruentialGenerator LCG;
@@ -15,10 +15,6 @@ LCG makeLCG(u64 m, u64 c)
 
   if(lcg.c >= lcg.m || lcg.a >= lcg.m || lcg.a <= 0 || lcg.m <= 0)
   {
-    printf("lcg.c(%lu) >= lcg.m(%lu) = %d\n",lcg.c, lcg.m ,lcg.c >= lcg.m );
-    printf("lcg.a(%lu) >= lcg.m(%lu) = %d\n",lcg.a, lcg.m ,lcg.a >= lcg.m);
-    printf("lcg.a <= 0 = %d\n",lcg.a <= 0);
-  printf("lcg.m <= 0 = %d\n",lcg.m <= 0);
     lcg.x = 0;
     lcg.m = 0;
     lcg.a = 0;
@@ -49,6 +45,7 @@ u64 calculateP(u64 m)
 
 u64 getNextRandomValue(LCG* lcg)
 {
+  u64 temp = lcg->x;
   lcg->x = ((lcg->a*lcg->x) +lcg->c) % lcg->m;
-  return lcg->x;
+  return temp;
 }
