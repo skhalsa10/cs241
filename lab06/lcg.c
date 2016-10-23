@@ -1,7 +1,7 @@
 #include "lcg.h"
 
-typedef (unsigned long) u64;
-typedef (struct LinearCongruentialGenerator) LCG;
+typedef unsigned long u64;
+typedef struct LinearCongruentialGenerator LCG;
 
 LCG makeLCG(u64 m, u64 c)
 {
