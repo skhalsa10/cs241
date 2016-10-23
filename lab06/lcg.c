@@ -2,6 +2,7 @@
 
 typedef unsigned long u64;
 typedef struct LinearCongruentialGenerator LCG;
+u64 calculateP(u64 m);
 
 LCG makeLCG(u64 m, u64 c)
 {
