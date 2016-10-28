@@ -11,7 +11,7 @@ u64 m;
 u64 c;
 int byte;
 int encrypt;
-int parseLine(int* m, int* c);
+int parseLine(u64* m, u64* c);
 int encryptData();
 int decryptData();
 
