@@ -132,11 +132,11 @@ int parseLine(int* m, int* c)
   int length = -1;
 
   /*if the first char is not e or d return 0 for error*/
-  if(byte ='e')
+  if(byte == 'e')
   {
     encrypt = 1;
   }
-  else if(byte = 'd')
+  else if(byte == 'd')
   {
     encrypt = 0
   }
