@@ -25,7 +25,7 @@ int main()
     while(byte != '\n')
     {
       lineCount++;
-      if(parseLine(&m,&c))
+      if(parseLine())
       {
         /*lcg = makeLCG(m,c);*/
         if(encrypt==1)
@@ -114,6 +114,12 @@ int decryptData()
     {
       decryptedByte = byte^(x%128);
     }
+    if(decryptedByte < 32 || decryptedByte >126)
+    {
+      while(byte != '\n' && byte != EOF) byte = getchar();
+      printf("Error");
+      return 0;
+    }
     putchar(decryptedByte);
     byte = getchar();
     x = getNextRandomValue(&lcg);
@@ -187,7 +193,7 @@ int parseLine()
   /*if i make it this far than we can make the lcg*/
   lcg = makeLCG(m,c);
   /*if lcg is bogus return 0*/
-  iflcg.a==0 && lcg.x ==0 && lcg.c ==0 && lcg.m ==0) return 0;
+  if(lcg.a==0 && lcg.x ==0 && lcg.c ==0 && lcg.m ==0) return 0;
   byte = getchar();
 
   return 1;
