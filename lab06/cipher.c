@@ -94,7 +94,7 @@ int decryptData()
 {
   u64 x = getNextRandomValue(&lcg);
   char decryptedByte = 0;
-  while (byte != EOF || byte != '/n')
+  while (byte != EOF || byte != '\n')
   {
     if(byte == '*')
     {
