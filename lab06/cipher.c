@@ -176,9 +176,11 @@ int parseLine(u64* m, u64* c)
     i++;
   }
   if(byte == '\n' || byte == EOF) return 0;
-  &c = strtoul(buffer, &numberEnd, 10);
+  *c = strtoul(buffer, &numberEnd, 10);
   length = ((numberEnd - buffer) / sizeof(char));
   /* per spec this has to be between 1 and 20*/
   if(length > 20 || length < 1) return 0;
   byte = getchar();
+
+  return 1;
 }
