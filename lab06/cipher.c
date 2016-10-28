@@ -31,7 +31,7 @@ int main()
       lineCount++;
       if(parseLine(&m,&c))
       {
-        lcg = makeLCG(m,c);
+        /*lcg = makeLCG(m,c);*/
         if(encrypt==1)
         {
           printf("%5d) ", lineCount );
@@ -133,8 +133,6 @@ int parseLine(u64* m, u64* c)
   char* numberEnd;
   int length = -1;
 
-  /*check to see if lcg values are bogus*/
-  if(lcg.a == 0 && lcg.c == 0 && lcg.m == 0 && lcg.x == 0) return 0;
 
   /*if the first char is not e or d return 0 for error*/
   if(byte == 'e')
@@ -186,6 +184,11 @@ int parseLine(u64* m, u64* c)
   length = ((numberEnd - buffer) / sizeof(char));
   /* per spec this has to be between 1 and 20*/
   if(length > 20 || length < 1) return 0;
+
+  /*if i make it this far than we can make the lcg*/
+  lcg = makeLCG(m,c);
+  /*if lcg is bogus return 0*/
+  iflcg.a==0 && lcg.x ==0 && lcg.c ==0 && lcg.m ==0) return 0;
   byte = getchar();
 
   return 1;
