@@ -123,7 +123,7 @@ int decryptData()
   return 1;
 }
 
-int parseLine(int* m, int* c)
+int parseLine(u64* m, u64* c)
 {
   /*declare needed variables*/
   char buffer[25];
