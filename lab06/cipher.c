@@ -7,19 +7,15 @@ typedef unsigned long u64;
 typedef struct LinearCongruentialGenerator LCG;
 
 LCG lcg;
-u64 m;
-u64 c;
 int byte;
 int encrypt;
-int parseLine(u64* m, u64* c);
+int parseLine();
 int encryptData();
 int decryptData();
 
 int main()
 {
   int lineCount = 0;
-  m = 0;
-  c = 0;
   byte = getchar();
   /* set encrypt to negative 1 as default
   if 0 it means decrypt if 1 it means encrypt*/
@@ -125,10 +121,13 @@ int decryptData()
   return 1;
 }
 
-int parseLine(u64* m, u64* c)
+int parseLine()
 {
+
   /*declare needed variables*/
   int i;
+  u64 m;
+  u64 c;
   char buffer[25];
   char* numberEnd;
   int length = -1;
@@ -161,7 +160,7 @@ int parseLine(u64* m, u64* c)
   /*we should be expecting a ',' if not one ERROR*/
   if(byte == '\n' || byte == EOF) return 0;
   buffer[i] = '\0';
-  *m = strtoul(buffer, &numberEnd, 10);
+  m = strtoul(buffer, &numberEnd, 10);
   length = ((numberEnd - buffer) / sizeof(char));
   /* per spec this has to be between 1 and 20*/
   if(length > 20 || length < 1) return 0;
@@ -180,7 +179,7 @@ int parseLine(u64* m, u64* c)
     i++;
   }
   if(byte == '\n' || byte == EOF) return 0;
-  *c = strtoul(buffer, &numberEnd, 10);
+  c = strtoul(buffer, &numberEnd, 10);
   length = ((numberEnd - buffer) / sizeof(char));
   /* per spec this has to be between 1 and 20*/
   if(length > 20 || length < 1) return 0;
