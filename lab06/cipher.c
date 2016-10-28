@@ -133,6 +133,9 @@ int parseLine(u64* m, u64* c)
   char* numberEnd;
   int length = -1;
 
+  /*check to see if lcg values are bogus*/
+  if(lcg.a == 0 && lcg.c == 0 && lcg.m == 0 && lcg.x == 0) return 0;
+
   /*if the first char is not e or d return 0 for error*/
   if(byte == 'e')
   {
