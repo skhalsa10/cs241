@@ -31,7 +31,7 @@ int main()
       lineCount++;
       if(parseLine(&m,&c))
       {
-        lcg = makeLCG(m,c)
+        lcg = makeLCG(m,c);
         if(encrypt==1)
         {
           printf("%5d) ", lineCount );
@@ -49,7 +49,7 @@ int main()
       }
       else
       {
-        while(byte != '/n') byte = getchar();
+        while(byte != '\n') byte = getchar();
         printf("%5d) Error\n", lineCount);
       }
     }
@@ -85,7 +85,7 @@ int encryptData()
         putchar(encryptedByte);
     }
     byte = getchar();
-    x = getNextRandomValue(&lcg)
+    x = getNextRandomValue(&lcg);
   }
   return 1;
 }
@@ -114,7 +114,7 @@ int decryptData()
     }
     else
     {
-      decryptedByte = byte^(x%128)
+      decryptedByte = byte^(x%128);
     }
     putchar(decryptedByte);
     byte = getchar();
@@ -138,7 +138,7 @@ int parseLine(u64* m, u64* c)
   }
   else if(byte == 'd')
   {
-    encrypt = 0
+    encrypt = 0;
   }
   else
   {
