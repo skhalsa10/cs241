@@ -17,7 +17,7 @@ int decryptData();
 
 int main()
 {
-  int lineCount = 0
+  int lineCount = 0;
   m = 0;
   c = 0;
   byte = getchar();
