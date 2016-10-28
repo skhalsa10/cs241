@@ -36,11 +36,13 @@ int main()
         {
           printf("%5d) ", lineCount );
           encryptData();
+          printf("\n");
         }
         else if(encrypt ==0)
         {
           printf("%5d) ", lineCount );
           decryptData();
+          printf("\n");
         }
         else
         {
@@ -62,7 +64,7 @@ int encryptData()
 {
   u64 x = getNextRandomValue(&lcg);
   char encryptedByte = 0;
-  while(byte != '\n' || byte != EOF)
+  while(byte != '\n' && byte != EOF)
   {
     encryptedByte = byte^(x%128);
     if(encryptedByte <32)
@@ -94,7 +96,7 @@ int decryptData()
 {
   u64 x = getNextRandomValue(&lcg);
   char decryptedByte = 0;
-  while (byte != EOF || byte != '\n')
+  while (byte != EOF && byte != '\n')
   {
     if(byte == '*')
     {
@@ -148,13 +150,13 @@ int parseLine(u64* m, u64* c)
   /*move to the first number and then read in number store in buffer*/
   byte = getchar();
   i = 0;
-  while(byte != ',' || byte != '\n' || byte != EOF)
+  while(byte != ',' && byte != '\n' && byte != EOF)
   {
     buffer[i] = byte;
     byte = getchar();
     i++;
   }
-  
+
   /*we should be expecting a ',' if not one ERROR*/
   if(byte == '\n' || byte == EOF) return 0;
   buffer[i] = '\0';
@@ -170,7 +172,7 @@ int parseLine(u64* m, u64* c)
   }
   byte = getchar();
   i = 0;
-  while(byte != ','||byte != '\n'|| byte != EOF)
+  while(byte != ',' && byte != '\n' && byte != EOF)
   {
     buffer[i] = byte;
     byte = getchar();
