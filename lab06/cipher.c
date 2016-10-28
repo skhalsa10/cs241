@@ -31,7 +31,7 @@ int main()
       lineCount++;
       if(parseLine(&m,&c))
       {
-        lcg = makeLCG()
+        lcg = makeLCG(m,c)
         if(encrypt==1)
         {
           printf("%5d) ", lineCount );
