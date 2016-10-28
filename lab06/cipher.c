@@ -17,6 +17,7 @@ int decryptData();
 
 int main()
 {
+  int lineCount = 0
   m = 0;
   c = 0;
   byte = getchar();
@@ -27,15 +28,18 @@ int main()
   {
     while(byte != '\n')
     {
+      lineCount++;
       if(parseLine(&m,&c))
       {
         lcg = makeLCG()
         if(encrypt==1)
         {
+          printf("%5d) ", lineCount );
           encryptData();
         }
         else if(encrypt ==0)
         {
+          printf("%5d) ", lineCount );
           decryptData();
         }
         else
@@ -45,7 +49,8 @@ int main()
       }
       else
       {
-        /*TODO error output goes here*/
+        while(byte != '/n') byte = getchar();
+        printf("%5d) Error\n", lineCount);
       }
     }
     byte = getchar();
@@ -87,6 +92,34 @@ int encryptData()
 
 int decryptData()
 {
+  u64 x = getNextRandomValue(&lcg);
+  char decryptedByte = 0;
+  while (byte != EOF || byte != '/n')
+  {
+    if(byte == '*')
+    {
+      byte = getchar();
+      if(byte == '*')
+      {
+        decryptedByte = byte^(x%128);
+      }
+      else if(byte == '&')
+      {
+        decryptedByte = 127^(x%128);
+      }
+      else
+      {
+        decryptedByte = (byte-'@')^(x%128);
+      }
+    }
+    else
+    {
+      decryptedByte = byte^(x%128)
+    }
+    putchar(decryptedByte);
+    byte = getchar();
+    x = getNextRandomValue(&lcg);
+  }
   return 1;
 }
 
