@@ -126,9 +126,9 @@ int decryptData()
 int parseLine(u64* m, u64* c)
 {
   /*declare needed variables*/
+  int i;
   char buffer[25];
   char* numberEnd;
-  int i = 0;
   int length = -1;
 
   /*if the first char is not e or d return 0 for error*/
@@ -147,6 +147,7 @@ int parseLine(u64* m, u64* c)
 
   /*move to the first number and then read in number store in buffer*/
   byte = getchar();
+  i = 0;
   while(byte != ',' || byte != '\n' || byte != EOF)
   {
     buffer[i] == byte;
