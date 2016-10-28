@@ -154,6 +154,7 @@ int parseLine(u64* m, u64* c)
     byte = getchar();
     i++;
   }
+  
   /*we should be expecting a ',' if not one ERROR*/
   if(byte == '\n' || byte == EOF) return 0;
   buffer[i] = '\0';
