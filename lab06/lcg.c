@@ -1,6 +1,6 @@
 #include "lcg.h"
 
-
+/*declare typedef and external fns*/
 typedef unsigned long u64;
 typedef struct LinearCongruentialGenerator LCG;
 u64 calculateP(u64 m);
