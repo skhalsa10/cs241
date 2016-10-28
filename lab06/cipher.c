@@ -150,13 +150,13 @@ int parseLine(u64* m, u64* c)
   i = 0;
   while(byte != ',' || byte != '\n' || byte != EOF)
   {
-    buffer[i] == byte;
+    buffer[i] = byte;
     byte = getchar();
     i++;
   }
   /*we should be expecting a ',' if not one ERROR*/
   if(byte == '\n' || byte == EOF) return 0;
-  buffer[i] == '\0';
+  buffer[i] = '\0';
   *m = strtoul(buffer, &numberEnd, 10);
   length = ((numberEnd - buffer) / sizeof(char));
   /* per spec this has to be between 1 and 20*/
