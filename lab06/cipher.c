@@ -1,3 +1,11 @@
+/***********************************************
+*                                              *
+*               By: Siri Khalsa                *
+*                  10/29/16                    *
+*                 CS-241 001                   *
+*  cipher.c | encrypt or decrypt data w/xor    *
+*                                              *
+***********************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include "lcg.h"
@@ -17,7 +25,7 @@ int main()
 {
   int lineCount = 0;
   byte = getchar();
-  /* set encrypt to negative 1 as default
+  /* set encrypt to -1 as default
   if 0 it means decrypt if 1 it means encrypt*/
   encrypt = -1;
   while(byte != EOF)
@@ -47,6 +55,7 @@ int main()
       }
       else
       {
+        /*input has error move to \n to get ready for next input*/
         while(byte != '\n') byte = getchar();
         printf("%5d) Error\n", lineCount);
       }
@@ -56,10 +65,20 @@ int main()
   return 0;
 }
 
+/***************************************************
+*
+* This function will iterate over stdin stream
+* treat everything as a char and xor with a psuodo
+* random number  generated from a Linear
+* Congruential Generator to encrypt the data
+* return 1 for success or 0 for error
+*
+****************************************************/
 int encryptData()
 {
   u64 x = getNextRandomValue(&lcg);
   char encryptedByte = 0;
+  /*encrypt the  entire line per spec definition*/
   while(byte != '\n' && byte != EOF)
   {
     encryptedByte = byte^(x%128);
@@ -88,12 +107,24 @@ int encryptData()
   return 1;
 }
 
+/***************************************************
+*
+* This function will iterate over stdin stream
+* treat everything as a char and xor with a psuodo
+* random number  generated from a Linear
+* Congruential Generator to decrypt the data
+* if this produces not printable ASCII it will error
+* return 1 for success or 0 for error
+*
+****************************************************/
 int decryptData()
 {
   u64 x = getNextRandomValue(&lcg);
   char decryptedByte = 0;
+  /*decrypt the entire line*/
   while (byte != EOF && byte != '\n')
   {
+    /*treat escape characters according to spec*/
     if(byte == '*')
     {
       byte = getchar();
@@ -112,8 +143,10 @@ int decryptData()
     }
     else
     {
+      /*if not escaped then just decrypt*/
       decryptedByte = byte^(x%128);
     }
+    /* make sure decrypted result is a printable ascii character- treat accordingly*/
     if(decryptedByte < 32 || decryptedByte >126)
     {
       while(byte != '\n' && byte != EOF) byte = getchar();
@@ -127,6 +160,18 @@ int decryptData()
   return 1;
 }
 
+/***************************************************
+*
+* This function will iterate over stdin stream
+* Per the spec of this program we are expecting the
+* following:
+* |Action|   lcg m  |    ,   |  lcg c  |    ,   |
+* |1 char| 1-20 char| 1 char |1-20 char| 1 char |
+* If any of these inputs are wrong this will return 0
+* other wise makeLCG(m,c) will be called and 1 will
+* be returned
+*
+****************************************************/
 int parseLine()
 {
 
@@ -190,10 +235,11 @@ int parseLine()
   /* per spec this has to be between 1 and 20*/
   if(length > 20 || length < 1) return 0;
 
-  /*if i make it this far than we can make the lcg*/
+  /*if it make it this far than we can make the lcg*/
   lcg = makeLCG(m,c);
   /*if lcg is bogus return 0*/
   if(lcg.a==0 && lcg.x ==0 && lcg.c ==0 && lcg.m ==0) return 0;
+
   byte = getchar();
 
   return 1;
