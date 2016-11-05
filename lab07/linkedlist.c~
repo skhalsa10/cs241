@@ -1,0 +1,18 @@
+/***********************************************
+*                                              *
+*               By: Siri Khalsa                *
+*                  11/04/16                    *
+*                 CS-241 001                   *
+*		    lab07                      *
+*     linkedlist.c | defines linked list       *
+*                                              *
+***********************************************/
+
+#include <linkedlist.h>
+
+struct ListNode* createNode(int data)
+{
+  struct ListNode* node = malloc(sizeof(struct ListNode));
+  node->data = data;
+  node->next = NULL;
+}
