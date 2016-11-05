@@ -42,12 +42,12 @@ struct ListNode* insertSorted(struct ListNode* head, int data)
 {
   /*what do we do with duplicate data? for now I will ignore but need to come back*/
   struct ListNode* current = head;
-  if(current->data > data) return pushStack(head);
-  while(corrent->next != NULL && (current->next->data) <data)
+  if(current->data > data) return pushStack(head, data);
+  while(current->next != NULL && (current->next->data) <data)
   {
     current = current->next;
   }
-  current->next = pushStack(current->next);
+  current->next = pushStack(current->next, data);
   return head;
 }
 
