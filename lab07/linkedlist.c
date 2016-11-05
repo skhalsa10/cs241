@@ -137,7 +137,7 @@ int listLength(struct ListNode* head)
 {
   /*i feel like this has a recursive solution
    but I cant figure it out right now*/
-  int length = 1;
+  int length = 0;
   struct ListNode* current = head;
   while(current->next != NULL)
   {
