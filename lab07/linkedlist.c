@@ -75,33 +75,66 @@ struct ListNode* pushStack(struct ListNode* head, int data)
   
 }
 
-/* Remove and return data from head of non-empty list, changing head.
- * Memory for removed node should be freed. */
+/**********************************************************
+ * Parameters:
+ * struct ListNode** headRef - pointer to head reference
+ **********************************************************
+ * free node at head of list and point head to the next node
+ * Memory for removed node should be freed. 
+ **********************************************************
+ * Returns int - data from freed node will be returned
+ ***********************************************************/
 int popStack(struct ListNode** headRef)
 {
   
 }
 
-/* Return length of the list. */
+/***********************************************************
+ * Parameters:
+ * struct ListNode* head - pointer to Head node of list
+ ***********************************************************
+ * this function returns the current length of linked list
+ ***********************************************************
+ * Return int - length of the list.
+ ***********************************************************/
 int listLength(struct ListNode* head)
 {
   
 }
 
-/* Print list data on single line, separated with spaces and ending
- * with newline. */
+/***********************************************************
+ * Paramters:
+ * struct ListNode* head- point to head node of list
+ ***********************************************************
+ * Print list data on single line, separated with 
+ * spaces and ending with newline. 
+ ***********************************************************/
 void printList(struct ListNode* head)
 {
   
 }
 
-/* Free memory used by the list. */
+/***********************************************************
+ * Paramters:
+ * struct ListNode* head - pointer to the head node of list
+ ***********************************************************
+ * Free memory used by the list.
+ ***********************************************************
+ * Returns nothing
+ ***********************************************************/
 void freeList(struct ListNode* head)
 {
   
 }
 
-/* Reverse order of elements in the list */
+/***********************************************************
+ * Paramters:
+ * struct ListNode* headRef - reference to pointer of head node
+ ***********************************************************
+ * This functions Reverses order of elements in the list 
+ ***********************************************************
+ * Returns nothing
+ ************************************************************/
 void reverseList(struct ListNode** headRef)
 {
   
