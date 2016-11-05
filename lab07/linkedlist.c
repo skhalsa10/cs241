@@ -156,7 +156,7 @@ int listLength(struct ListNode* head)
 void printList(struct ListNode* head)
 {
   struct ListNode* current = head;
-  while (current->next != NULL)
+  while (current->next->next != NULL)
   {
     printf("%d ", current->data );
     current = current->next;
