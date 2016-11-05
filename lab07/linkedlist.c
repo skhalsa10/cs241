@@ -12,6 +12,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+void swapFirstLastNode(struct ListNode** headRef);
+
 /********************************************************
  * Parameters:
  * int data- data to be assigned to newly allocated node
