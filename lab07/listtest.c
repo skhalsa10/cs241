@@ -14,6 +14,7 @@ int main(int argc, char** argv)
   for(i = 0; i < 23; ++i)
   {
     n = (i*17+11) % 23;
+    printf("%d\n", n);
     head = insertSorted(head, n);
     stack = pushStack(stack, n);
   }
