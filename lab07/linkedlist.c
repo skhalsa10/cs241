@@ -210,11 +210,11 @@ void reverseList(struct ListNode** headRef)
 void swapFirstLastNode(struct ListNode** headRef)
 {
   struct ListNode** tailRef = headRef;
-  while((*tailRef)->data != NULL)
+  while((*tailRef)->next != NULL)
   {
     *tailRef = (*tailRef)->next;
   }
-  (*tailRef)->data = *headRef;
+  (*tailRef)->next = *headRef;
   (*headRef) = (*tailRef);
   *tailRef = NULL;
 }
