@@ -3,12 +3,14 @@
 *               By: Siri Khalsa                *
 *                  11/04/16                    *
 *                 CS-241 001                   *
-*		    lab07                      *
+*		                lab07                      *
 *     linkedlist.c | defines linked list       *
 *                                              *
 ***********************************************/
 
-#include <linkedlist.h>
+#include "linkedlist.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 /********************************************************
  * Parameters:
@@ -38,7 +40,15 @@ struct ListNode* createNode(int data)
  ********************************************************/
 struct ListNode* insertSorted(struct ListNode* head, int data)
 {
-  
+  /*what do we do with duplicate data? for now I will ignore but need to come back*/
+  struct ListNode* current = head;
+  if(current->data > data) return pushStack(head);
+  while(corrent->next != NULL && (current->next->data) <data)
+  {
+    current = current->next;
+  }
+  current->next = pushStack(current->next);
+  return head;
 }
 
 /********************************************************
@@ -57,7 +67,24 @@ struct ListNode* insertSorted(struct ListNode* head, int data)
  ********************************************************/
 int removeItem(struct ListNode** headRef, int data)
 {
-  
+  /*again this function could change based on duplicate
+   data if there is duplicate do we delete all nodes containing?
+    need more info but making a rough draft for now*/
+
+  /*find node that has data and point headRef to a pointer that point to it*/
+  while((*headRef)->next != NULL && (*headRef)->data != data)
+  {
+    *headRef = (*headRef)->next;
+  }
+  if((*headRef)->data == data)
+  {
+    popStack(headRef);
+    return 1;
+  }
+  else
+  {
+    return 0;
+  }
 }
 
 /********************************************************
@@ -72,7 +99,9 @@ int removeItem(struct ListNode** headRef, int data)
  ********************************************************/
 struct ListNode* pushStack(struct ListNode* head, int data)
 {
-  
+  struct ListNode* newHead = createNode(data);
+  newHead->next = head;
+  return newHead;
 }
 
 /**********************************************************
@@ -86,7 +115,11 @@ struct ListNode* pushStack(struct ListNode* head, int data)
  ***********************************************************/
 int popStack(struct ListNode** headRef)
 {
-  
+  struct ListNode* temp = *headRef;
+  int dataToReturn = temp->data;
+  *headRef = temp->next;
+  free(temp);
+  return dataToReturn;
 }
 
 /***********************************************************
@@ -99,7 +132,16 @@ int popStack(struct ListNode** headRef)
  ***********************************************************/
 int listLength(struct ListNode* head)
 {
-  
+  /*i feel like this has a recursive solution
+   but I cant figure it out right now*/
+  int length = 1;
+  struct ListNode* current = head;
+  while(current->next != NULL)
+  {
+    length++;
+    current = current->next;
+  }
+  return length;  
 }
 
 /***********************************************************
@@ -111,7 +153,13 @@ int listLength(struct ListNode* head)
  ***********************************************************/
 void printList(struct ListNode* head)
 {
-  
+  struct ListNode* current = head;
+  while (current->next != NULL)
+  {
+    printf("%d ", current->data );
+    current = current->next;
+  }
+  printf("%d\n", current->data );
 }
 
 /***********************************************************
@@ -124,12 +172,18 @@ void printList(struct ListNode* head)
  ***********************************************************/
 void freeList(struct ListNode* head)
 {
-  
+  struct ListNode* toFree;
+  while(head->next !=NULL)
+  {
+    toFree = head;
+    head = head->next;
+    free(toFree);
+  }
 }
 
 /***********************************************************
  * Paramters:
- * struct ListNode* headRef - reference to pointer of head node
+ * struct ListNode** headRef - reference to pointer of head node
  ***********************************************************
  * This functions Reverses order of elements in the list 
  ***********************************************************
@@ -137,5 +191,30 @@ void freeList(struct ListNode* head)
  ************************************************************/
 void reverseList(struct ListNode** headRef)
 {
-  
+  while((*headRef != NULL))
+  {
+    swapFirstLastNode(headRef);
+    (*headRef) = (*headRef)->next;
+    reverseList(headRef);
+  }
+}
+
+/*************************************************************
+ * Parameters:
+ * struct ListNode** headRef - reference to head*
+ *************************************************************
+ * The function swaps the first ListNode with the LastNode
+ *************************************************************
+ * Return void
+ *************************************************************/
+void swapFirstLastNode(struct ListNode** headRef)
+{
+  struct ListNode** tailRef = headRef;
+  while((*tailRef)->data != NULL)
+  {
+    *tailRef = (*tailRef)->next;
+  }
+  (*tailRef)->data = *headRef;
+  (*headRef) = (*tailRef);
+  *tailRef = NULL;
 }
