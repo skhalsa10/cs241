@@ -137,7 +137,7 @@ int listLength(struct ListNode* head)
 {
   /*i feel like this has a recursive solution
    but I cant figure it out right now*/
-  int length = 0;
+  int length = 1;
   struct ListNode* current = head;
   while(current->next != NULL)
   {
@@ -162,7 +162,7 @@ void printList(struct ListNode* head)
     printf("\n");
     return;
   }
-  while (current->next->next != NULL)
+  while (current->next != NULL)
   {
     printf("%d ", current->data );
     current = current->next;
