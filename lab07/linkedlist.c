@@ -70,12 +70,14 @@ struct ListNode* insertSorted(struct ListNode* head, int data)
  ********************************************************/
 int removeItem(struct ListNode** headRef, int data)
 {
+  
   /*find node that has data and point headRef to a pointer that point to it*/
   while((*headRef)->next != NULL && (*headRef)->data != data)
   {
+    printf("(*headRef)->data: %d data: %d\n",(*headRef)->data, data)
     *headRef = (*headRef)->next;
   }
-  printf("(*headRef)->data: %d data: %d\n",(*headRef)->data, data);
+  ;
   if((*headRef)->data == data)
   {
     popStack(headRef);
