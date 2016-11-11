@@ -3,7 +3,7 @@
 *               By: Siri Khalsa                *
 *                  11/04/16                    *
 *                 CS-241 001                   *
-*		                lab07                      *
+*		    lab07                      *
 *     linkedlist.c | defines linked list       *
 *                                              *
 ***********************************************/
