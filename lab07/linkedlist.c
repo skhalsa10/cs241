@@ -71,7 +71,6 @@ struct ListNode* insertSorted(struct ListNode* head, int data)
 int removeItem(struct ListNode** headRef, int data)
 {
   struct ListNode* temp = NULL;
-  struct ListNode* current = (*headRef);
   struct ListNode** currentRef = headRef;
   /*check if first node has data and change head to point to second node*/
   if((*headRef)->data == data)
