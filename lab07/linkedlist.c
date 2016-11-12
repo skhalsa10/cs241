@@ -83,7 +83,7 @@ int removeItem(struct ListNode** headRef, int data)
     That points to the node with the data*/
   while((*currentRef)->next != NULL && (*current)->data != data)
   {
-    currentRef = (*currentRef)->&next;
+    currentRef = &((*currentRef)->next);
   }
   if((*currentRef)->data == data)
   {
