@@ -73,7 +73,7 @@ int removeItem(struct ListNode** headRef, int data)
   struct ListNode** currentRef = headRef;
 
   /*special case if the very first node contains the data*/
-  if((*headRef->data == data))
+  if((*headRef)->data == data)
   {
     popStack(headRef);
     return 1;
