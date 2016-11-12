@@ -87,10 +87,7 @@ int removeItem(struct ListNode** headRef, int data)
   }
   if((*currentRef)->data == data)
   {
-    temp = *currentRef;
-    *currentRef = temp->next;
-    temp->next = NULL;
-    free(temp);
+    popStack(currentRef);
     return 1;
   }
   else
