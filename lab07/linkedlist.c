@@ -81,7 +81,7 @@ int removeItem(struct ListNode** headRef, int data)
   }
   /*now move currentRef to hold the address of the "next" 
     That points to the node with the data*/
-  while((*currentRef)->next != NULL && (*current)->data != data)
+  while((*currentRef)->next != NULL && (*currentRefS)->data != data)
   {
     currentRef = &((*currentRef)->next);
   }
