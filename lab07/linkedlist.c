@@ -72,7 +72,7 @@ int removeItem(struct ListNode** headRef, int data)
 {
   struct ListNode** currentRef = headRef;
 
-  printf("(*headRef)->data: %d\n",(*headRef)->data);
+  printf("entering function data: %d (*currentRef)->data: %d\n", data,(*currentRef)->data);
   /*special case if the very first node contains the data*/
   if((*headRef)->data == data)
   {
@@ -85,6 +85,7 @@ int removeItem(struct ListNode** headRef, int data)
   while((*currentRef)->next != NULL && (*currentRef)->data != data)
   {
     *currentRef = (*currentRef)->next;
+    printf("(*currentRef)->data: %d (*headRef)->data: %d\n",(*currentRef)->data,(*headRef)->data);
   }
   if((*currentRef)->data == data)
   {
