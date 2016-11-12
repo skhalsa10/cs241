@@ -225,12 +225,15 @@ void swapFirstLastNode(struct ListNode** headRef)
 {
   printList(*headRef);
   struct ListNode** tailRef = headRef;
+  struct ListNode* tempHead = NULL;
   while((*tailRef)->next != NULL)
   {
     tailRef = &((*tailRef)->next);
   }
-  (*tailRef)->next = *headRef;
-  (*headRef) = (*tailRef);
-  (*tailRef)->next = NULL;
+  (*tailRef)->next = *headRef->next;
+  tempHead = (*tailRef)->next;
+  (*tailRef) = (*headRef);
+  (*headRef)->next = NULL;
+  (*headRef) = tempHead;
   printList(*headRef);
 }
