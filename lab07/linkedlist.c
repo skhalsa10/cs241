@@ -70,7 +70,6 @@ struct ListNode* insertSorted(struct ListNode* head, int data)
  ********************************************************/
 int removeItem(struct ListNode** headRef, int data)
 {
-  struct ListNode* temp = NULL;
   struct ListNode** currentRef = headRef;
   /*check if first node has data and change head to point to second node*/
   if((*headRef)->data == data)
@@ -205,6 +204,7 @@ void freeList(struct ListNode* head)
  ************************************************************/
 void reverseList(struct ListNode** headRef)
 {
+
   while((*headRef != NULL))
   {
     swapFirstLastNode(headRef);
@@ -226,9 +226,9 @@ void swapFirstLastNode(struct ListNode** headRef)
   struct ListNode** tailRef = headRef;
   while((*tailRef)->next != NULL)
   {
-    *tailRef = (*tailRef)->next;
+    tailRef = &((*tailRef)->next);
   }
   (*tailRef)->next = *headRef;
   (*headRef) = (*tailRef);
-  *tailRef = NULL;
+  *tailRef->next = NULL;
 }
