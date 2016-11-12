@@ -127,6 +127,7 @@ int popStack(struct ListNode** headRef)
   int dataToReturn = temp->data;
   *headRef = temp->next;
   free(temp);
+  temp = NULL;
   return dataToReturn;
 }
 
