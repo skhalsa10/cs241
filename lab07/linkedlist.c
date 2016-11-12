@@ -204,6 +204,7 @@ void freeList(struct ListNode* head)
  ************************************************************/
 void reverseList(struct ListNode** headRef)
 {
+  printList(*headRef)
   struct ListNode** currentRef = headRef;
   while((*currentRef != NULL))
   {
