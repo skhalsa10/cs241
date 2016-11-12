@@ -70,16 +70,23 @@ struct ListNode* insertSorted(struct ListNode* head, int data)
  ********************************************************/
 int removeItem(struct ListNode** headRef, int data)
 {
-  
-  /*find node that has data and point headRef to a pointer that point to it*/
-  while((*headRef)->next != NULL && (*headRef)->data != data)
-  {
-    printf("(*headRef)->data: %d data: %d\n",(*headRef)->data, data);
-    *headRef = (*headRef)->next;
-  }
-  if((*headRef)->data == data)
+  struct ListNode** currentRef = headRef;
+
+  /*special case if the very first node contains the data*/
+  if((*headRef->data == data))
   {
     popStack(headRef);
+    return 1;
+  }
+  
+  /*find node that has data and point currentRef to a pointer that point to it*/
+  while((*currentRef)->next != NULL && (*currentRef)->data != data)
+  {
+    *currentRef = (*currentRef)->next;
+  }
+  if((*currentRef)->data == data)
+  {
+    popStack(currentRef);
     return 1;
   }
   else
