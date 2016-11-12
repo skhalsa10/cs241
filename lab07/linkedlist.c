@@ -223,7 +223,7 @@ void reverseList(struct ListNode** headRef)
  *************************************************************/
 void swapFirstLastNode(struct ListNode** headRef)
 {
-  struct listNode* temp = NULL;
+  struct ListNode* temp = NULL;
   struct ListNode** tailRef = headRef;
   printf("before swap\n");
   printList(*headRef);
