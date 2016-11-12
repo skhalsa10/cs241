@@ -186,7 +186,8 @@ void printList(struct ListNode* head)
 void freeList(struct ListNode* head)
 {
   struct ListNode* toFree;
-  while(head->next !=NULL)
+  if (head == NULL) return;
+  while((head != NULL) && head->next !=NULL)
   {
     toFree = head;
     head = head->next;
