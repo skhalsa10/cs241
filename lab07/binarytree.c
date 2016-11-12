@@ -3,7 +3,7 @@
 *               By: Siri Khalsa                *
 *                  11/04/16                    *
 *                 CS-241 001                   *
-*		    lab07                      *
+*		            lab07                      *
 *              | binarytree.c |                *
 *        defines binarytree data struct        *
 *                                              *
@@ -23,6 +23,13 @@
  * struct TreeNode* - pointer to new TreeNode 
  ************************************************************/
 struct TreeNode* createNode(int data)
+{
+    struct TreeNode* node = malloc(sizeof(struct TreeNode));
+    node->data = data;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
+}
 
 /************************************************************
  * parameters:
@@ -36,6 +43,9 @@ struct TreeNode* createNode(int data)
  * struct TreeNode* - pointer to new Tree Root
  ************************************************************/
 struct TreeNode* insertBST(struct TreeNode* root, int data)
+{
+    
+}
 
 /************************************************************
  * parameters:
