@@ -71,6 +71,8 @@ struct ListNode* insertSorted(struct ListNode* head, int data)
 int removeItem(struct ListNode** headRef, int data)
 {
   struct ListNode** currentRef = headRef;
+  struct ListNode* current = *headRef;
+  *currentRef = current;
 
   printf("entering function data: %d (*currentRef)->data: %d\n", data,(*currentRef)->data);
   /*special case if the very first node contains the data*/
