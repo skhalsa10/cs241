@@ -86,7 +86,7 @@ int removeItem(struct ListNode** headRef, int data)
   }
   if(current->data == data)
   {
-    popstack(currentRef);
+    popStack(currentRef);
     return 1;
   }
   else
