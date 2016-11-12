@@ -72,7 +72,7 @@ int removeItem(struct ListNode** headRef, int data)
 {
   struct ListNode** currentRef;
   struct ListNode* current = (*headRef);
-  *currentRef = current;
+  (*currentRef) = current;
   /*check if first node has data and change head to point to second node*/
   if((*headRef)->data == data)
   {
@@ -86,7 +86,7 @@ int removeItem(struct ListNode** headRef, int data)
   }
   if(current->data == data)
   {
-    popStack(currentRef);
+    popStack(&current);
     return 1;
   }
   else
