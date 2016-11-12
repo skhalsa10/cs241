@@ -76,7 +76,7 @@ int removeItem(struct ListNode** headRef, int data)
   /*special case if the very first node contains the data*/
   if((*headRef)->data == data)
   {
-    printf("entered (*headRef)->data == data: data = %d\n");
+    printf("entered (*headRef)->data == data: data = %d\n", (*headRef)->data);
     popStack(headRef);
     return 1;
   }
