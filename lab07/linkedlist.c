@@ -234,10 +234,10 @@ void swapFirstLastNode(struct ListNode** headRef)
   {
     tailRef = &((*tailRef)->next);
   }
-  temp = &(*(*headRef));
+  temp = (*headRef);
   (*headRef) = NULL;
   (*tailRef)->next = temp->next;
-  (*headRef) = &(*(*tailRef));
+  (*headRef) = (*tailRef);
   (*tailRef) = NULL;
   temp->next = NULL;
   (*tailRef) = temp;
