@@ -70,9 +70,8 @@ struct ListNode* insertSorted(struct ListNode* head, int data)
  ********************************************************/
 int removeItem(struct ListNode** headRef, int data)
 {
-  struct ListNode** currentRef;
+  struct ListNode* temp = NULL;
   struct ListNode* current = (*headRef);
-  (*currentRef) = current;
   /*check if first node has data and change head to point to second node*/
   if((*headRef)->data == data)
   {
@@ -86,7 +85,9 @@ int removeItem(struct ListNode** headRef, int data)
   }
   if(current->data == data)
   {
-    popStack(&current);
+    temp = current;
+    current = temp->next;
+    free(temp);
     return 1;
   }
   else
