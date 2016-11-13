@@ -288,12 +288,12 @@ void printTreeHelper(struct TreeNode* root)
     if(root == NULL) return;
     if(root->left != NULL)
     {
-        printTree(root->left);
+        printTreeHelper(root->left);
     }
     printf("%d ", root->data);
     if(root->right != NULL)
     {
-        printTree(root->right);
+        printTreeHelper(root->right);
     }
 }
 
