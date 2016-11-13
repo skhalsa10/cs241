@@ -187,10 +187,10 @@ int maxDepth(struct TreeNode* root)
     {
         return 1;
     }
-    left += maxDepth(root->left);
-    right += maxDepth(root->right);
+    left = maxDepth(root->left);
+    right = maxDepth(root->right);
 
-    return ((left >= right) ? left : right);
+    return ((left >= right) ? left+1 : right+1);
 
 }
 
