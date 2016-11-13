@@ -64,6 +64,7 @@ struct TreeNode* insertBST(struct TreeNode* root, int data)
         if(root->right == NULL)
         {
             root->right = createNode(data);
+            return root;
         }
         else
         {
@@ -140,7 +141,9 @@ int removeBST(struct TreeNode** rootRef, int data)
         }
         current->next = temp;
         free(toFree);
+        return 1;
     }
+    return 0;
 }
 
 /************************************************************
@@ -198,7 +201,7 @@ int maxDepth(struct TreeNode* root)
 int isBalanced(struct TreeNode* root)
 {
     if(root == NULL) return 1;
-    if(root->left == NULL && root->right NULL) return 1;
+    if(root->left == NULL && root->right == NULL) return 1;
     if(isBalanced(root->left) && isBalanced(root->right))
     {
         if(maxDepth(root->left)-maxDepth(root->right) < 2)
