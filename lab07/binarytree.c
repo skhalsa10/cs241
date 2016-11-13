@@ -288,7 +288,7 @@ int checkLeftLess(struct TreeNode* root, int dataCheck)
     }
     if(root->left != NULL && root->right != NULL)
     {
-        if(root->data <dataCheck && checkLeftLess(root->right, dataCheck) checkLeftLess(root->left, dataCheck))
+        if(root->data <dataCheck && checkLeftLess(root->right, dataCheck) && checkLeftLess(root->left, dataCheck))
         {
             return 1;
         }
@@ -331,7 +331,7 @@ int checkRightMore(struct TreeNode* root, int dataCheck)
     }
     if(root->left != NULL && root->right != NULL)
     {
-        if(root->data >=dataCheck && checkRightMore(root->right, dataCheck) checkRightMore(root->left, dataCheck))
+        if(root->data >=dataCheck && checkRightMore(root->right, dataCheck) && checkRightMore(root->left, dataCheck))
         {
             return 1;
         }
