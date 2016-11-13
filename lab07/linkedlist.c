@@ -205,7 +205,7 @@ void freeList(struct ListNode* head)
 void reverseList(struct ListNode** headRef)
 {
   struct ListNode** currentRef = headRef;
-  if(*currentRef->next == NULL) return;
+  if((*currentRef)->next == NULL) return;
   swapFirstLastNode(currentRef);
   currentRef = &((*headRef)->next);
   reverseList(currentRef);
