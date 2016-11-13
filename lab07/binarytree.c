@@ -14,6 +14,7 @@
 #include <stdio.h>
 
 void printLeavesHelper(struct TreeNode* root);
+void printTreeHelper(struct TreeNode* root);
 
 /************************************************************
  * parameters:
@@ -278,6 +279,12 @@ int isBST(struct TreeNode* root)
  ************************************************************/
 void printTree(struct TreeNode* root)
 {
+    printTreeHelper(root);
+    printf("\n");
+}
+
+void printTreeHelper(struct TreeNode* root)
+{
     if(root == NULL) return;
     if(root->left != NULL)
     {
@@ -286,15 +293,7 @@ void printTree(struct TreeNode* root)
     printf("%d ", root->data);
     if(root->right != NULL)
     {
-        if(root->right->right== NULL && root->right->left == NULL)
-        {
-            printf("%d\n",root->data);
-        }
-        else
-        {
-            printTree(root->right);
-        }
-
+        printTree(root->right);
     }
 }
 
