@@ -284,8 +284,15 @@ void printTree(struct TreeNode* root)
     printf("%d ", root->data);
     if(root->right != NULL)
     {
-        printTree(root->right);
-        printf("\n");
+        if(root->right->right== NULL && root->right->left == NULL)
+        {
+            printf("%d\n",root->data);
+        }
+        else
+        {
+            printTree(root->right);
+        }
+
     }
 }
 
@@ -294,9 +301,17 @@ void printTree(struct TreeNode* root)
 void printLeaves(struct TreeNode* root)
 {
     if(root == NULL)return;
-    if(root->left == NULL &&root->right == NULL)
+    if(root->left == NULL && root->right == NULL)
     {
         printf("%d ", root->data);
+    }
+    if(root->left != NULL)
+    {
+        printLeaves(root->left);
+    }
+    if(root->right != NULL)
+    {
+        printLeaves(root->right);
     }
 }
 
