@@ -294,9 +294,11 @@ int checkLeftLess(struct TreeNode* root, int dataCheck)
         }
         else
         {
-            return 0
+            return 0;
         }
     }
+
+    return 1;
 }
 
 int checkRightMore(struct TreeNode* root, int dataCheck)
@@ -337,9 +339,10 @@ int checkRightMore(struct TreeNode* root, int dataCheck)
         }
         else
         {
-            return 0
+            return 0;
         }
     }
+    return 1;
 }
 
 /************************************************************
