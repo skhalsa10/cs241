@@ -140,7 +140,7 @@ int removeBST(struct TreeNode** rootRef, int data)
         {
             current = current->right;
         }
-        current->next = temp;
+        current->right = temp;
         free(toFree);
         return 1;
     }
