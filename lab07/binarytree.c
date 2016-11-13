@@ -13,6 +13,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+void printLeavesHelper(struct TreeNode* root);
+
 /************************************************************
  * parameters:
  * int data - data to be inserted in new TreeNode
@@ -300,6 +302,12 @@ void printTree(struct TreeNode* root)
  * separated with spaces, ending with newline.*/
 void printLeaves(struct TreeNode* root)
 {
+    printLeaves(root);
+    printf("\n");
+}
+
+void printLeavesHelper(struct TreeNode* root)
+{
     if(root == NULL)return;
     if(root->left == NULL && root->right == NULL)
     {
@@ -307,11 +315,11 @@ void printLeaves(struct TreeNode* root)
     }
     if(root->left != NULL)
     {
-        printLeaves(root->left);
+        printLeavesHelper(root->left);
     }
     if(root->right != NULL)
     {
-        printLeaves(root->right);
+        printLeavesHelper(root->right);
     }
 }
 
