@@ -93,10 +93,10 @@ struct TreeNode* insertBST(struct TreeNode* root, int data)
  ************************************************************/
 int removeBST(struct TreeNode** rootRef, int data)
 {
-    if(*rootRef == NULL) return 0;
     struct TreeNode* current = *rootRef;
     struct TreeNode* toFree = NULL;
     struct TreeNode* temp = NULL;
+    if(*rootRef == NULL) return 0;
     while(current->data != data&&current->left != NULL &&current->right != NULL)
     {
         if(data < current->data)
