@@ -233,38 +233,22 @@ int isBalanced(struct TreeNode* root)
  ************************************************************/
 int isBST(struct TreeNode* root)
 {
-    if(root->left == NULL && root->right == NULL)
+    if( root == NULL) return 1;
+    /*if there is no children then it is true*/
+    if(root->left == NULL && root->right == NULL) return 1;
+    /*if only on side has a child check to see if this isBST*/
+    if(root->left != NULL && root->right == NULL)
     {
-        return 1;
+        return isBST(root->left);
     }
-    if(root->left == NULL)
+    if(root->left == NULL && root->right != NULL)
     {
-        if(root->right->data < root->data) 
-        {
-            return 0;
-        }
-        else
-        {
-            return isBST(root->right);
-        }
-    }
-    if(root->right == NULL)
-    {
-        if(root->left->data >= root->data)
-        {
-            return 0;
-        }
-        else
-        {
-            return isBST(root->left);
-        }
-    }
-    if(isBST(root->left)&&isBST(root->right))
-    {
-        return 1;
+        return isBST(root->right);
     }
 
-    return 0;
+    /*else return the logical AND for both sides*/
+    return (isBST(root->left)&& isBST(root->right));
+
 }
 
 /************************************************************
