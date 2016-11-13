@@ -98,60 +98,38 @@ struct TreeNode* insertBST(struct TreeNode* root, int data)
  ************************************************************/
 int removeBST(struct TreeNode** rootRef, int data)
 {
-    struct TreeNode* current = *rootRef;
-    struct TreeNode** currentRef = NULL;
-    struct TreeNode* toFree = NULL;
-    struct TreeNode* temp = NULL;
-    if(*rootRef == NULL) return 0;
-    while(current->data != data&&current->left != NULL &&current->right != NULL)
+    struct TreeNode** toFree == rootRef;
+    if(*rootRef == NULL)return 0;
+    if((*rootRef)->data == data && (*rootRef)->left != NULL && (*rootRef)->right != NULL)
     {
-        if(data < current->data)
+        (*rootRef) = (*toFree)->left;
+        while((*rootRef)->right != NULL)
         {
-            removeBST(&(current->left),data);
+            (*rootRef) = (*rootRef)->right;
         }
-        if(data >= current->data)
-        {
-            removeBST(&(current->right),data);
-        }
-    }
-    if(current->data != data && current->left == NULL &&current->right == NULL)
-    {
-        return 0;
-    }
-    if(current->data == data && current->left == NULL &&current->right == NULL)
-    {
-        free(current);
+        (*rootRef)->right = (*toFree)->right;
+        free(*toFree);
         return 1;
     }
-    if(current->data == data && current->left != NULL &&current->right == NULL)
+    if((*rootRef)->data == data && (*rootRef)->left != NULL && (*rootRef)->right == NULL)
     {
-        toFree = current;
-        current = current->left;
-        free(toFree);
-        return 1;
+        *rootRef = (*toFree)->left;
+        free(*toFree);
+        return 1
     }
-    if(current->data == data && current->left == NULL &&current->right != NULL)
+    if((*rootRef)->data == data && (*rootRef)->left == NULL && (*rootRef)->right != NULL)
     {
-        toFree = current;
-        current = current->right;
-        free(toFree);
-        return 1;
+        *rootRef = (*toFree)->right;
+        free(*toFree);
+        return 1
     }
-    if(current->data == data && current->left != NULL &&current->right != NULL)
+    if((*rootRef)->data == data && (*rootRef)->left == NULL && (*rootRef)->right == NULL)
     {
-        toFree = current;
-        currentRef = &current;
-        currentRef = &(toFree->left);
-        temp = toFree->right;
-        while(current->right != NULL)
-        {
-            current = current->right;
-        }
-        current->right = temp;
-        free(toFree);
-        return 1;
+        free(*toFree);
+        return 1
     }
-    return 0;
+
+    return(removeBST(&((*rootRef)->left), data) || removeBST(&((*rootRef)->right), data));
 }
 
 /************************************************************
