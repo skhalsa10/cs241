@@ -144,7 +144,7 @@ int removeBST(struct TreeNode** rootRef, int data)
         return 1;
     }
 
-    return(removeBST((*currentRef)->left, data)||removeBST((*currentRef)->right, data));
+    return(removeBST(&((*currentRef)->left), data)||removeBST(&((*currentRef)->right), data));
 
 }
 
