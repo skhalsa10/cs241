@@ -247,9 +247,11 @@ int isBST(struct TreeNode* root)
         if(root->right->data < root->data) return 0;
         return isBST(root->right);
     }
-
-    /*else return the logical AND for both sides*/
-    return (isBST(root->left)&& isBST(root->right));
+    if(root->left->data >= root->data || root->right->data < root->data)
+    {
+        return 0;
+    }
+    return (isBST(root->left) && isBST(root->right));
 
 }
 
