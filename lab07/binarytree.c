@@ -94,6 +94,7 @@ int removeBST(struct TreeNode** rootRef, int data)
     if(*rootRef == NULL) return 0
     struct TreeNode* current = *rootRef;
     struct TreeNode* toFree = NULL;
+    struct TreeNode* temp = NULL;
     while(current->data != data&&current->left != NULL &&current->right != NULL)
     {
         if(data < current->data)
@@ -130,7 +131,15 @@ int removeBST(struct TreeNode** rootRef, int data)
     }
     if(current->data == data && current->left != NULL &&current->right != NULL)
     {
-
+        toFree = current;
+        &current = &(toFree->left);
+        temp = toFree->right;
+        while(current->right != NULL)
+        {
+            current = current->right;
+        }
+        current->next = temp;
+        free(toFree);
     }
 }
 
