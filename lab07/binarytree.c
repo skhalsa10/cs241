@@ -302,7 +302,7 @@ void printTree(struct TreeNode* root)
  * separated with spaces, ending with newline.*/
 void printLeaves(struct TreeNode* root)
 {
-    printLeaves(root);
+    printLeavesHelper(root);
     printf("\n");
 }
 
