@@ -98,7 +98,7 @@ struct TreeNode* insertBST(struct TreeNode* root, int data)
  ************************************************************/
 int removeBST(struct TreeNode** rootRef, int data)
 {
-    struct TreeNode** toFree == rootRef;
+    struct TreeNode** toFree = rootRef;
     if(*rootRef == NULL)return 0;
     if((*rootRef)->data == data && (*rootRef)->left != NULL && (*rootRef)->right != NULL)
     {
@@ -115,18 +115,18 @@ int removeBST(struct TreeNode** rootRef, int data)
     {
         *rootRef = (*toFree)->left;
         free(*toFree);
-        return 1
+        return 1;
     }
     if((*rootRef)->data == data && (*rootRef)->left == NULL && (*rootRef)->right != NULL)
     {
         *rootRef = (*toFree)->right;
         free(*toFree);
-        return 1
+        return 1;
     }
     if((*rootRef)->data == data && (*rootRef)->left == NULL && (*rootRef)->right == NULL)
     {
         free(*toFree);
-        return 1
+        return 1;
     }
 
     return(removeBST(&((*rootRef)->left), data) || removeBST(&((*rootRef)->right), data));
