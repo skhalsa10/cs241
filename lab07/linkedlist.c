@@ -204,12 +204,11 @@ void freeList(struct ListNode* head)
  ************************************************************/
 void reverseList(struct ListNode** headRef)
 {
-  struct ListNode** currentRef = headRef;
-  if((*currentRef)->next == NULL) return;
+ struct ListNode** currentRef = headRef;
+  if(*currentRef)->next == NULL) return;
   swapFirstLastNode(currentRef);
   currentRef = &((*headRef)->next);
   reverseList(currentRef);
-  
 }
 
 /*************************************************************
@@ -222,20 +221,24 @@ void reverseList(struct ListNode** headRef)
  *************************************************************/
 void swapFirstLastNode(struct ListNode** headRef)
 {
-  int temp;
+  struct listNode* temp = NULL;
   struct ListNode** tailRef = headRef;
   printf("before swap\n");
   printList(*headRef);
   /*check to see if 1 node is passed in just return b/c nothing to swap*/
-  if((*headRef)->next == NULL || (*headRef)==NULL) return;
+  if((*headRef)->next == NULL) return;
   /*set tailRef to point to a pointer that points to a node with next == null*/
   while((*tailRef)->next != NULL)
   {
     tailRef = &((*tailRef)->next);
   }
-  temp = (*tailRef)->data;
-  (*tailRef)->data = (*headRef)->data;
-  (*headRef)->data = temp;
+  temp = (*headRef);
+  (*headRef) = NULL;
+  (*tailRef)->next = temp->next;
+  (*headRef) = (*tailRef);
+  (*tailRef) = NULL;
+  temp->next = NULL;
+  (*tailRef) = temp;
   printf("after swap\n");
   printList(*headRef);
 }
