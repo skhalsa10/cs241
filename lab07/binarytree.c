@@ -281,19 +281,23 @@ void printTree(struct TreeNode* root)
     {
         printTree(root->left);
     }
-    printf(" %d", root->data);
+    printf("%d ", root->data);
     if(root->right != NULL)
     {
         printTree(root->right);
     }
+    printf("\n");
 }
 
 /* Print data for leaves on single line,
  * separated with spaces, ending with newline.*/
 void printLeaves(struct TreeNode* root)
 {
-    printf("%d",root->left->data);
-    printf("%d\n",root->right->data);
+    if(root == NULL)return;
+    if(root->left == NULL &&root->right == NULL)
+    {
+        printf("%d ", root->data);
+    }
 }
 
 /* Free memory used by the tree. */
