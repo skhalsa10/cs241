@@ -72,6 +72,7 @@ struct TreeNode* insertBST(struct TreeNode* root, int data)
             return root;
         }
     }
+    return root;
 }
 
 /************************************************************
