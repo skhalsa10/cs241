@@ -276,32 +276,16 @@ int isBST(struct TreeNode* root)
  ************************************************************/
 void printTree(struct TreeNode* root)
 {
-    if(root == NULL)
-    {
-        printf("\n");
-        return;
-    }
-    if(root->left == NULL && root->right == NULL)
-    {
-        printf(" %d", root->data);
-        if(root->data == maxValueBST(root))
-        {
-            printf("\n");
-        }
-        return;
-    }
-    if(root->right == NULL)
+    if(root == NULL) return;
+    if(root->left != NULL)
     {
         printTree(root->left);
     }
-    if(root->left == NULL)
+    printf(" %d", root->data);
+    if(root->right != NULL)
     {
-        printf(" %d", root->data);
         printTree(root->right);
     }
-    printTree(root->left);
-    printf(" %d", root->data);
-    printTree(root->right);
 }
 
 /* Print data for leaves on single line,
