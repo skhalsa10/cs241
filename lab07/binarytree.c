@@ -15,6 +15,8 @@
 
 void printLeavesHelper(struct TreeNode* root);
 void printTreeHelper(struct TreeNode* root);
+int checkLeftLess(struct TreeNode* root, int dataCheck);
+int checkRightMore(struct TreeNode* root, int dataCheck);
 
 /************************************************************
  * parameters:
@@ -247,12 +249,97 @@ int isBST(struct TreeNode* root)
         if(root->right->data < root->data) return 0;
         return isBST(root->right);
     }
-    if(root->left->data >= root->data || root->right->data < root->data)
+    if(!checkLeftLess(root->left, root->data) || !checkRightMore(root->right, root->data))
     {
         return 0;
     }
     return (isBST(root->left) && isBST(root->right));
+}
 
+int checkLeftLess(struct TreeNode* root, int dataCheck)
+{
+    if(root == NULL) return 1;
+    if(root->left == NULL && root->right == NULL)
+    {
+        if (root->data <dataCheck)return 1;
+        else return 0;
+    }
+    if(root->left != NULL && root->right == NULL)
+    {
+        if(root->data <dataCheck && checkLeftLess(root->left, dataCheck))
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    if(root->left == NULL && root->right != NULL)
+    {
+        if(root->data <dataCheck && checkLeftLess(root->right, dataCheck))
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    if(root->left != NULL && root->right != NULL)
+    {
+        if(root->data <dataCheck && checkLeftLess(root->right, dataCheck) checkLeftLess(root->left, dataCheck))
+        {
+            return 1;
+        }
+        else
+        {
+            return 0
+        }
+    }
+}
+
+int checkRightMore(struct TreeNode* root, int dataCheck)
+{
+    if(root == NULL) return 1;
+    if(root->left == NULL && root->right == NULL)
+    {
+        if (root->data >=dataCheck)return 1;
+        else return 0;
+    }
+    if(root->left != NULL && root->right == NULL)
+    {
+        if(root->data >=dataCheck && checkRightMore(root->left, dataCheck))
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    if(root->left == NULL && root->right != NULL)
+    {
+        if(root->data >=dataCheck && checkRightMore(root->right, dataCheck))
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    if(root->left != NULL && root->right != NULL)
+    {
+        if(root->data >=dataCheck && checkRightMore(root->right, dataCheck) checkRightMore(root->left, dataCheck))
+        {
+            return 1;
+        }
+        else
+        {
+            return 0
+        }
+    }
 }
 
 /************************************************************
