@@ -276,6 +276,11 @@ int isBST(struct TreeNode* root)
  ************************************************************/
 void printTree(struct TreeNode* root)
 {
+    if(root == NULL)
+    {
+        printf("\n");
+        return;
+    }
     if(root->left == NULL && root->right == NULL)
     {
         printf(" %d", root->data);
