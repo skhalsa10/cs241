@@ -44,7 +44,33 @@ struct TreeNode* createNode(int data)
  ************************************************************/
 struct TreeNode* insertBST(struct TreeNode* root, int data)
 {
-    
+    if(root == NULL) return createNode(data);    
+
+    if(data < root->data)
+    {
+        if(root->left == NULL)
+        {
+            root->left = createNode(data);
+            return root;
+        }
+        else
+        {
+            insertBST(root->left,data);
+            return root;
+        }
+    }
+    if(data >= root->data)
+    {
+        if(root->right == NULL)
+        {
+            root->right = createNode(data);
+        }
+        else
+        {
+            insertBST(root->right, data);
+            return root;
+        }
+    }
 }
 
 /************************************************************
@@ -64,6 +90,10 @@ struct TreeNode* insertBST(struct TreeNode* root, int data)
  * Return 1 if data was present, 0 if not found
  ************************************************************/
 int removeBST(struct TreeNode** rootRef, int data)
+{
+    struct TreeNode* current = *rootRef;
+    whil
+}
 
 /************************************************************
  * parameters:
@@ -75,6 +105,10 @@ int removeBST(struct TreeNode** rootRef, int data)
  * Maximum value in non-empty binary search tree. 
  ************************************************************/
 int maxValueBST(struct TreeNode* root)
+{
+    if(root->right == NULL) return root->data;
+    return maxValueBST(root->right);
+}
 
 /************************************************************
  * parameters:
@@ -86,6 +120,20 @@ int maxValueBST(struct TreeNode* root)
  * maximum depth of tree. Empty tree has depth 0
  ************************************************************/
 int maxDepth(struct TreeNode* root)
+{
+    int left = 0;
+    int right = 0;
+    if(root == NULL)return 0;
+    if(root->left == NULL && root->right == NULL)
+    {
+        return 1;
+    }
+    left += maxDepth(root->left);
+    right += maxDepth(root->right);
+
+    return ((left >= right) ? left : right);
+
+}
 
 /************************************************************
  * parameters:
@@ -100,6 +148,22 @@ int maxDepth(struct TreeNode* root)
  * 1 if tree is balanced, 0 if not.
  ************************************************************/
 int isBalanced(struct TreeNode* root)
+{
+    if(root == NULL) return 1;
+    if(root->left == NULL && root->right NULL) return 1;
+    if(isBalanced(root->left) && isBalanced(root->right))
+    {
+        if(maxDepth(root->left)-maxDepth(root->right) < 2)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    return 0;
+}
 
 /************************************************************
  * parameters:
@@ -111,6 +175,40 @@ int isBalanced(struct TreeNode* root)
  * 1 if tree is a binary search tree, 0 if not
  ************************************************************/
 int isBST(struct TreeNode* root)
+{
+    if(root->left == NULL && root->right == NULL)
+    {
+        return 1;
+    }
+    if(root->left == NULL)
+    {
+        if(root->right->data < root->data) 
+        {
+            return 0;
+        }
+        else
+        {
+            return isBST(root->right);
+        }
+    }
+    if(root->right == NULL)
+    {
+        if(root->left->data >= root->data)
+        {
+            return 0;
+        }
+        else
+        {
+            return isBST(root->left);
+        }
+    }
+    if(isBST(root->left)&&isBST(root->right))
+    {
+        return 1;
+    }
+
+    return 0;
+}
 
 /************************************************************
  * parameters:
@@ -123,10 +221,43 @@ int isBST(struct TreeNode* root)
  * void
  ************************************************************/
 void printTree(struct TreeNode* root)
+{
+    if(root->left == NULL && root->right == NULL)
+    {
+        printf(" %d", root->data);
+        if(root->data == maxValueBST(root))
+        {
+            printf("\n");
+        }
+        return;
+    }
+    if(root->right == NULL)
+    {
+        printTree(root->left);
+    }
+    if(root->left == NULL)
+    {
+        printf(" %d", root->data);
+        printTree(root->right);
+    }
+    printTree(root->left);
+    printf(" %d", root->data);
+    printTree(root->right);
+}
 
 /* Print data for leaves on single line,
  * separated with spaces, ending with newline.*/
 void printLeaves(struct TreeNode* root)
+{
+    printf("%d",root->left->data);
+    printf("%d\n",root->right->data);
+}
 
 /* Free memory used by the tree. */
 void freeTree(struct TreeNode* root)
+{
+    if(root == NULL) return;
+    freeTree(root->left);
+    freeTree(root->right);
+    free(root);
+}
