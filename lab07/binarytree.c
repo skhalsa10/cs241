@@ -9,7 +9,7 @@
 *                                              *
 ***********************************************/
 
-#include "linkedlist.h"
+#include "binarytree.h"
 #include <stdlib.h>
 #include <stdio.h>
 
