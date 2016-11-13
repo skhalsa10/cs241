@@ -239,10 +239,12 @@ int isBST(struct TreeNode* root)
     /*if only on side has a child check to see if this isBST*/
     if(root->left != NULL && root->right == NULL)
     {
+        if(root->left->data >= root->data) return 0;
         return isBST(root->left);
     }
     if(root->left == NULL && root->right != NULL)
     {
+        if(root->right->data < root->data) return 0;
         return isBST(root->right);
     }
 
