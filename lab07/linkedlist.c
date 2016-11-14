@@ -208,7 +208,7 @@ void reverseList(struct ListNode** headRef)
     reverseList(currentRef);
   }
 
-  return reverseList(&((*headRef)->next));
+  reverseList(&((*headRef)->next));
 }
 
 /*************************************************************
