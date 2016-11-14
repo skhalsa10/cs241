@@ -206,7 +206,6 @@ void reverseList(struct ListNode** headRef)
   {
     swapFirstLastNode(currentRef);
     currentRef= &((*currentRef)->next);
-    reverseList(currentRef);
   }
 }
 
