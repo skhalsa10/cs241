@@ -70,28 +70,21 @@ struct ListNode* insertSorted(struct ListNode* head, int data)
  ********************************************************/
 int removeItem(struct ListNode** headRef, int data)
 {
+  struct ListNode* toFree = NULL;
   struct ListNode** currentRef = headRef;
-  /*check if first node has data and change head to point to second node*/
-  if((*headRef)->data == data)
-  {
-    popStack(headRef);
-    return 1;
-  }
-  /*now move currentRef to hold the address of the "next" 
-    That points to the node with the data*/
-  while((*currentRef)->next != NULL && (*currentRef)->data != data)
-  {
-    currentRef = &((*currentRef)->next);
-  }
+
+  if((*headRef) == NULL return 0);
   if((*currentRef)->data == data)
   {
-    popStack(currentRef);
+    toFree = *currentRef
+    *headRef = toFree->next;
+    toFree->next = NULL;
+    free(toFree);
+    toFree = NULL;
     return 1;
   }
-  else
-  {
-    return 0;
-  }
+  
+  return removeItem(&((*currentRef)->next));
 }
 
 /********************************************************
