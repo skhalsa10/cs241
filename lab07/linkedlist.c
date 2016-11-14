@@ -198,7 +198,17 @@ void freeList(struct ListNode* head)
  ************************************************************/
 void reverseList(struct ListNode** headRef)
 {
+  struct ListNode** currentRef = headRef;
+  if((*currentRef)== NULL || (*currentRef)->next == NULL) return;
 
+  while((*currentRef)->next != NULL)
+  {
+    swapFirstLastNode(currentRef);
+    (*currentRef)= (*currentRef)->next;
+    reverseList(currentRef);
+  }
+
+  return reverseList(&((*headRef)->next));
 }
 
 /*************************************************************
