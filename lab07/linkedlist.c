@@ -179,12 +179,13 @@ void printList(struct ListNode* head)
 void freeList(struct ListNode* head)
 {
   struct ListNode* toFree;
-  while((head != NULL) && head->next !=NULL)
-  {
-    toFree = head;
-    head = head->next;
-    free(toFree);
-  }
+  if(head == NULL) return;
+  toFree = head;
+  head = toFree->next;
+  toFree->next = NULL;
+  free(toFree);
+  toFree = NULL;
+  freeList(head);
 }
 
 /***********************************************************
