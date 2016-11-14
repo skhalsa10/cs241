@@ -207,6 +207,8 @@ void reverseList(struct ListNode** headRef)
     swapFirstLastNode(currentRef);
     currentRef= &((*currentRef)->next);
   }
+
+  reverseList(nextRef);
 }
 
 /*************************************************************
@@ -214,6 +216,8 @@ void reverseList(struct ListNode** headRef)
  * struct ListNode** headRef - reference to head*
  *************************************************************
  * The function swaps the first ListNode with the LastNode
+ * By swapping the data. I could use pointers here but I was
+ * having trouble and I am on a deadline
  *************************************************************
  * Return void
  *************************************************************/
