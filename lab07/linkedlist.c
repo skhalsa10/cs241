@@ -84,7 +84,7 @@ int removeItem(struct ListNode** headRef, int data)
     return 1;
   }
   
-  return removeItem(&((*currentRef)->next));
+  return removeItem(&((*currentRef)->next), data);
 }
 
 /********************************************************
