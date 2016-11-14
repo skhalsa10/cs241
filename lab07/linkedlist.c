@@ -77,7 +77,7 @@ int removeItem(struct ListNode** headRef, int data)
   if((*currentRef)->data == data)
   {
     toFree = *currentRef
-    *headRef = toFree->next;
+    (*headRef) = toFree->next;
     toFree->next = NULL;
     free(toFree);
     toFree = NULL;
