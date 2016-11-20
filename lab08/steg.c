@@ -98,6 +98,8 @@ int main(int argc, char** argv)
       putc(c,out);
   }
 
+  fclose(in);
+  fclose(out);
   return 1;
 }
 
