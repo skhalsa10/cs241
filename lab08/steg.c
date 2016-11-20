@@ -16,10 +16,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int getIntFromArray(unsigned char bytes[]);
+void copyIntToAddress(int n, unsigned char bytes[]);
+
 int main(int argc, char** argv)
 {
   char* inFileName = argv[1];
-  char* outFIleName = argv[2];
+  char* outFileName = argv[2];
 
   unsigned char header[54];
   /* array of 4 bytes to hide 1 char*/
@@ -34,7 +37,7 @@ int main(int argc, char** argv)
   int pixelDataSize;
   int rowSize;
   int rowPadding;
-  int i, j, c;
+  int c;
 
   /* read header into array */
   fread(header, 1, 54, in);
@@ -95,6 +98,7 @@ int main(int argc, char** argv)
       putc(c,out);
   }
 
+  return 1;
 }
 
 /****************************************************************************/
