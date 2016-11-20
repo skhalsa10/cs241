@@ -14,7 +14,7 @@
 
 int main(int argc, char** argv)
 {
-    char* inFileName = arg[1];
+    char* inFileName = argv[1];
     int i;
     char code;
     unsigned char bytes[4];
