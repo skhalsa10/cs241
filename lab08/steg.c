@@ -67,25 +67,6 @@ int main(int argc, char** argv)
 /* this assumes that the message received from
  stdin is not longer than the picture can hadle*/
 
-  while((c = getchar()) != EOF)
-  {
-      char temp;
-      /*fill the array*/
-      fread(bytes, 1, 4, in);
-
-      temp = bytes[0]&(~3);
-      bytes[0] = temp|(3&c);
-      temp = bytes[0]&(~3);
-      bytes[0] = temp|(3&(c>>2));
-      temp = bytes[0]&(~3);
-      bytes[0] = temp|(3&(c>>4));
-      temp = bytes[0]&(~3);
-      bytes[0] = temp|(3&(c>>6));
-
-      /*write new bytes back to output file*/
-      fwrite(bytes, 1, 4, out);
-  }
-
   /*add a null byte*/
   fread(bytes, 1, 4, in);
   bytes[0]= bytes[0]&(~3);
