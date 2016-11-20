@@ -92,8 +92,8 @@ int main(int argc, char** argv)
   bytes[1]= bytes[0]&(~3);
   bytes[2]= bytes[0]&(~3);
   bytes[3]= bytes[0]&(~3);
-  fwrite(bytes, 1. 4,out);
-  
+  fwrite(bytes, 1, 4,out);
+
   /*now copy the rest of the file*/
   while((c=getc(in))!= EOF)
   {
