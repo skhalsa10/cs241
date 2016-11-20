@@ -64,8 +64,18 @@ int main(int argc, char** argv)
   /* write header to output file */
   fwrite(header, 1, sizeof(header), out);
 
-/* this assumes that the message received from
- stdin is not longer than the picture can hadle*/
+  /* this assumes that the message received from
+  stdin is not longer than the picture can hadle*/
+  c = 'Z';
+  fread(bytes, 1, 4, in);
+  bytes[3]= (bytes[4]&(~3))|(c&3);
+  c >>= 2;
+  bytes[2]= (bytes[4]&(~3))|(c&3);
+  c >>= 2;
+  bytes[1]= (bytes[4]&(~3))|(c&3);
+  c >>= 2;
+  bytes[0]= (bytes[4]&(~3))|(c&3);
+  fwrite(bytes, 1, 4,out);
 
   /*add a null byte*/
   fread(bytes, 1, 4, in);
