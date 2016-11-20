@@ -40,7 +40,7 @@ int main(int argc, char** argv)
         code = (code<<2)| (bytes[1]&3);
         code = (code<<2)| (bytes[2]&3);
         code = (code<<2)| (bytes[3]&3);
-
+        printf("code: %c",code);
         if(code != 0) putchar(code);
     }
 
