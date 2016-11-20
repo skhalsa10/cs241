@@ -16,8 +16,7 @@ int main(int argc, char** argv)
 {
     char* inFileName = argv[1];
     int i;
-    char code;
-    int finished = 0;
+    char code = 1;
     unsigned char bytes[4];
 
     FILE* in = fopen(inFileName, "rb");
@@ -40,7 +39,7 @@ int main(int argc, char** argv)
         code = (code<<2)| (bytes[1]&3);
         code = (code<<2)| (bytes[2]&3);
         code = (code<<2)| (bytes[3]&3);
-        printf("code: %c",code);
+
         if(code != 0) putchar(code);
     }
 
