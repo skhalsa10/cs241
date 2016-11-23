@@ -8,16 +8,10 @@
 *     takes a picture and hides a message      *
 *      from standard in into the picture       *
 *                                              *
-*   Borrowed a lot of code froom brooks file   *
-* No need to reinvent the same methods but need*
-*           to credit her code her.            *
 *                                              *
 ***********************************************/
 #include <stdio.h>
 #include <stdlib.h>
-
-int getIntFromArray(unsigned char bytes[]);
-void copyIntToAddress(int n, unsigned char bytes[]);
 
 int main(int argc, char** argv)
 {
@@ -31,35 +25,10 @@ int main(int argc, char** argv)
   FILE* in = fopen(inFileName, "rb");
   FILE* out = fopen(outFileName, "wb");
 
-  int fileSize;
-  int pixelWidth;
-  int pixelHeight;
-  int pixelDataSize;
-  int rowSize;
-  int rowPadding;
   int c;
 
   /* read header into array */
   fread(header, 1, 54, in);
-
-  /*I can assume all header info is correct*/
-
-  fileSize = getIntFromArray(&header[2]);
-  pixelWidth = getIntFromArray(&header[18]);
-  pixelHeight = getIntFromArray(&header[22]);
-  pixelDataSize = getIntFromArray(&header[34]);
-
-  /* compute row padding */
-  rowSize = pixelWidth*3;
-  rowPadding = (4 - (rowSize % 4)) % 4;
-  rowSize += rowPadding;
-
-  printf("pixelWidth  = %d pixels\n", pixelWidth);
-  printf("pixelHeight = %d pixels\n", pixelHeight);
-  printf("rowPadding  = %d bytes\n", rowPadding);
-  printf("rowSize     = %d bytes\n", rowSize);
-  printf("pixelDataSize = %d bytes\n", pixelDataSize);
-  printf("fileSize = %d bytes\n", fileSize);
 
   /* write header to output file */
   fwrite(header, 1, sizeof(header), out);
@@ -96,32 +65,4 @@ int main(int argc, char** argv)
   fclose(in);
   fclose(out);
   return 1;
-}
-
-/****************************************************************************/
-/* This function copies 4 bytes from an int to an unsigned char array where */
-/*   the least significant byte of the int is placed in the first element   */
-/*   of the array.                                                          */
-/****************************************************************************/
-void copyIntToAddress(int n, unsigned char bytes[])
-{
-  bytes[0] = n & 0xFF;
-  bytes[1] = (n >>  8) & 0xFF;
-  bytes[2] = (n >> 16) & 0xFF;
-  bytes[3] = (n >> 24) & 0xFF;
-}
-
-/**********************************************************************/
-/* Take 4 bytes from an unsigned char array and assemble them into an */
-/* int where the first element of the array is the least significant  */
-/* byte of the int.                                                   */
-/**********************************************************************/
-int getIntFromArray(unsigned char bytes[])
-{
-  int n =
-    bytes[0] |
-    bytes[1] << 8 |
-    bytes[2] << 16 |
-    bytes[3] << 24;
-  return n;
 }
