@@ -24,7 +24,7 @@ void generateFreq(FILE* in, unsigned int freqCounter[])
   }
 }
 
-void printFreg(unsigned int freqCounter[])
+void printFreq(unsigned int freqCounter[])
 {
   int i;
   printf("Symbol\tFreq\n");
