@@ -63,9 +63,9 @@ void printQueue(qNode* head)
   {
     if(current->dataNode->symbol<33||current->dataNode->symbol>126)
     {
-      printf("=%d\t%d\n"current->dataNode->symbol, current->dataNode->freq);
+      printf("=%d\t%d\n",current->dataNode->symbol, current->dataNode->freq);
     }
-    printf("%c\t%d\n"current->dataNode->symbol, current->dataNode->freq);
+    printf("%c\t%d\n",current->dataNode->symbol, current->dataNode->freq);
     current = current->next;
   }
 
