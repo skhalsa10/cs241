@@ -43,11 +43,11 @@ void printFreq(unsigned long freqCounter[])
       totalChars += freqCounter[i];
       if(i<33||i>126)
       {
-        printf("=%d\t%d\n",i, freqCounter[i]);
+        printf("=%d\t%lu\n",i, freqCounter[i]);
       }
       else
       {
-        printf("%c\t%d\n",i, freqCounter[i]);
+        printf("%c\t%lu\n",i, freqCounter[i]);
       }
     }
   }
@@ -55,7 +55,7 @@ void printFreq(unsigned long freqCounter[])
 }
 
 
-void printQueue(struct QueueNode* head)
+void printQueue(qNode* head)
 {
   struct qNode* current = head;
   printf("___________PRINTING QUEUE_______________\n");
