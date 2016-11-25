@@ -15,7 +15,7 @@ void encodeFile(FILE* in, FILE* out)
   generateFreq(in, freqCounter);
   printFreq(freqCounter)
 }
-void generateFreq(File* in, unsigned int freqCounter[])
+void generateFreq(FILE* in, unsigned int freqCounter[])
 {
   int c;
   while((c=getc(in)) != EOF)
