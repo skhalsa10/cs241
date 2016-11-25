@@ -34,11 +34,11 @@ void printFreq(unsigned int freqCounter[])
     {
       if(i<33||i>126)
       {
-        printf("=%d\t%d",i, freqCounter[i]);
+        printf("=%d\t%d\n",i, freqCounter[i]);
       }
       else
       {
-        printf("%c\t%d",i, freqCounter[i]);
+        printf("%c\t%d\n",i, freqCounter[i]);
       }
     }
   }
