@@ -33,7 +33,7 @@ void printFreq(unsigned int freqCounter[])
   {
     if(freqCounter[i] != 0)
     {
-      totalChars += i;
+      totalChars += freqCounter[i];
       if(i<33||i>126)
       {
         printf("=%d\t%d\n",i, freqCounter[i]);
