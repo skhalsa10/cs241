@@ -13,7 +13,7 @@ void encodeFile(FILE* in, FILE* out)
   }
   /*count frequency of symbols in file pointed to by in*/
   generateFreq(in, freqCounter);
-  printFreq(freqCounter)
+  printFreq(freqCounter);
 }
 void generateFreq(FILE* in, unsigned int freqCounter[])
 {
