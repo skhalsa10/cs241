@@ -57,7 +57,7 @@ void printFreq(unsigned long freqCounter[])
 
 void printQueue(qNode* head)
 {
-  struct qNode* current = head;
+  qNode* current = head;
   printf("___________PRINTING QUEUE_______________\n");
   while(current != NULL)
   {
