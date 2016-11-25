@@ -1,5 +1,5 @@
-#include "huffman.h"
 #include <stdio.h>
+#include "huffman.h"
 
 /*encodes file*/
 void encodeFile(FILE* in, FILE* out)
