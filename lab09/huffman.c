@@ -27,11 +27,13 @@ void generateFreq(FILE* in, unsigned int freqCounter[])
 void printFreq(unsigned int freqCounter[])
 {
   int i;
+  unsigned long totalChars = 0;
   printf("Symbol\tFreq\n");
   for(i=0;i<500;i++)
   {
     if(freqCounter[i] != 0)
     {
+      totalChars += i;
       if(i<33||i>126)
       {
         printf("=%d\t%d\n",i, freqCounter[i]);
@@ -42,4 +44,5 @@ void printFreq(unsigned int freqCounter[])
       }
     }
   }
+  printf("Total chars = %lu\n", totalChars);
 }
