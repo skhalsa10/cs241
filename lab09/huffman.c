@@ -1,4 +1,5 @@
 #include "huffman.h"
+#include <stdio.h>
 
 /*encodes file*/
 void encodeFile(FILE* in, FILE* out)
@@ -22,6 +23,7 @@ void generateFreq(File* in, unsigned int freqCounter[])
     freqCounter[c]++;
   }
 }
+
 void printFreg(unsigned int freqCounter[])
 {
   int i;
