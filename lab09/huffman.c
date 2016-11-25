@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include "huffman.h"
+#include "queueAndTree.h"
+
 
 /*encodes file*/
 void encodeFile(FILE* in, FILE* out)
 {
-  unsigned int freqCounter[260];
+  unsigned long freqCounter[260];
   int i;
+  struct QueueNode* head = NULL;
   /*initialize array to 0*/
   for(i=0;i<260;i++)
   {
@@ -14,8 +17,12 @@ void encodeFile(FILE* in, FILE* out)
   /*count frequency of symbols in file pointed to by in*/
   generateFreq(in, freqCounter);
   printFreq(freqCounter);
+  head = generateQueue(freqCounter);
+  printQueue(head);
 }
-void generateFreq(FILE* in, unsigned int freqCounter[])
+
+
+void generateFreq(FILE* in, unsigned long freqCounter[])
 {
   int c;
   while((c=getc(in)) != EOF)
@@ -24,7 +31,7 @@ void generateFreq(FILE* in, unsigned int freqCounter[])
   }
 }
 
-void printFreq(unsigned int freqCounter[])
+void printFreq(unsigned long freqCounter[])
 {
   int i;
   unsigned long totalChars = 0;
@@ -45,4 +52,36 @@ void printFreq(unsigned int freqCounter[])
     }
   }
   printf("Total chars = %lu\n", totalChars);
+}
+
+
+void printQueue(struct QueueNode* head)
+{
+  struct qNode* current = head;
+  printf("___________PRINTING QUEUE_______________\n");
+  while(current != NULL)
+  {
+    if(current->dataNode->symbol<33||current->dataNode->symbol>126)
+    {
+      printf("=%d\t%d\n"current->dataNode->symbol, current->dataNode->freq);
+    }
+    printf("%c\t%d\n"current->dataNode->symbol, current->dataNode->freq);
+    current = current->next;
+  }
+
+}
+
+struct QueueNode* generateQueue(unsigned long freqCounter[])
+{
+  struct QueueNode* head = NULL;
+  unsigned char i;
+  for(i=0; i<260; i++)
+  {
+    if(freqCounter[i] != 0)
+    {
+      head = insertTreeIntoQueue(head, createTreeNode(i,freqCounter[i]));
+    }
+  }
+
+  return head;
 }
