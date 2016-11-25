@@ -23,6 +23,6 @@ void encodeFile(FILE* in, FILE* out);
 /***************************************************/
 void decodeFile(FILE* in, FILE* out);
 
-
+void generateFreq(File* in, unsigned int freqCounter[]);
 
 #endif
