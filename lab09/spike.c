@@ -26,7 +26,10 @@ void printQueue(qNode* head)
     {
       printf("=%d\t%lu\n",current->dataNode->symbol, current->dataNode->freq);
     }
-    printf("%c\t%lu\n",current->dataNode->symbol, current->dataNode->freq);
+    else
+    {
+      printf("%c\t%lu\n",current->dataNode->symbol, current->dataNode->freq);
+    }
     current = current->next;
   }
 
