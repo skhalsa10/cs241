@@ -2,7 +2,7 @@
 #define QUEUEANDTREE_H
 
 #include <stdio.h>
-/*#include <stdlib.h>*/
+#include <stdlib.h>
 
 /*this is the node for the tree*/
 struct TreeNode
