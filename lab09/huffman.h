@@ -45,7 +45,47 @@ void generateFreq(FILE* in, unsigned long freqCounter[]);
 ***************************************************************/
 void printFreq(unsigned long freqCounter[]);
 
-struct QueueNode* generateQueue(unsigned long freqCounter[]);
+/*********************************************************************
+* Parameters:                                                        *
+* unsigned long freqCounter[] - array index is the char with         *
+*                               a frequency associated with the char *
+**********************************************************************
+* This function generates a priority queue out of array. The array   *
+* will have room for all possible char values. this function expects *
+* the frequencies to already have been counted. it will find a char  *
+* with frequence > 0 create a Tree node and add to queue             *
+**********************************************************************
+* Return:                                                            *
+* qNode* - the head to teh front of the queue                        *
+**********************************************************************/
+qNode* generateQueue(unsigned long freqCounter[]);
+/*********************************************************************
+* Parameters:                                                        *
+* struct QueueNode* head - pointer to head of Queue to be printed    *
+**********************************************************************
+* This function will print out a priority queue it will              *
+* print the DataNode's symbol and frequency of the symbol            *
+**********************************************************************
+* Nothing is returned                                                *
+**********************************************************************/
 void printQueue(struct QueueNode* head);
+/*********************************************************************
+* Parameter:                                                         *
+* qNode* head - pointer to the head of the Priority Queue to build   *
+*               Huffman tree from                                    *
+**********************************************************************
+* This Function takes a prioritized queue and creates a huffman tree *
+* by doing the following:                                            *
+* While queue has more than one item:                                *
+* – Remove two trees from queue.                                     *
+* – Create new tree with those two as children. (First removed       *
+* should be left child.) Tree frequency count is sum of              *
+* children’s counts.                                                 *
+* – Add new tree to priority queue.                                  *
+**********************************************************************
+* Returns:                                                           *
+* tNode* - the address of the root of the new tree                   *
+**********************************************************************/
+tNode* buildHuffmanTree(qNode* head);
 
 #endif

@@ -26,6 +26,8 @@ typedef struct QueueNode qNode;
 
 /* declare tree related functions*/
 tNode* createTreeNode(unsigned char symbol, unsigned long freq);
+char getLeftLeafSymbol(tNode* root);
+char getRightLeafSymbol(tNode* root);
 
 
 /*declare queue related functions*/

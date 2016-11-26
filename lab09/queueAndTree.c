@@ -70,7 +70,33 @@ qNode* insertTreeIntoQueue(qNode* head, tNode* tNodeToInsert)
   /*return original head*/
   return head;
 }
-qNode* insertQueueIntoQueue(qNode* head, qNode*qNodeToInsert)
+qNode* insertQueueIntoQueue(qNode* head, qNode* qNodeToInsert)
 {
-  return NULL;
+  qNode* temp = NULL;
+  if(head == NULL || head->next == NULL) return head;
+  if(qNodeToInsert->dataNode->freq < head->dataNode->freq)
+  {
+    temp = qNodeToInsert;
+    temp->next = head;
+    head = temp;
+    return head;
+  }
+  if(qNodeToInsert->dataNode->freq == head->dataNode->freq)
+  {
+    if(getRightLeafSymbol(qNodeToInsert->dataNode) 
+      > getRightLeafSymbol(head->dataNode))
+    {
+      temp = qNodeToInsert;
+      temp->next = head;
+      head = temp;
+      return head;
+    }
+  }
+  head->next = insertQueueIntoQueue(head->next, qNodeToInsert);
+  return head;
+}
+
+char getRightLeafSymbol(tNode* root)
+{
+  
 }

@@ -3,7 +3,13 @@
 #include "queueAndTree.h"
 
 
-/*encodes file*/
+/**************************************************************/
+/* Huffman encode a file.                                     */
+/*     Also writes freq/code table to standard output         */
+/* in -- File to encode.                                      */
+/*       May be binary, so don't assume printable characters. */
+/* out -- File where encoded data will be written.            */
+/**************************************************************/
 void encodeFile(FILE* in, FILE* out)
 {
   unsigned long freqCounter[260];
@@ -14,14 +20,23 @@ void encodeFile(FILE* in, FILE* out)
   {
     freqCounter[i] = 0;
   }
-  /*count frequency of symbols in file pointed to by in*/
+ /*the following couple of methods make up the main algorithm*/
   generateFreq(in, freqCounter);
   printFreq(freqCounter);
   head = generateQueue(freqCounter);
   printQueue(head);
 }
 
-
+/**************************************************************
+* Parameters:                                                 *
+* FILE* in - file stream to analyze                           *
+* unsigned int freqCounter[]- array that will hold freq count *
+***************************************************************
+* This functions interates over every char in a FILE stream   *
+* and counts and stores how many times each symbol is used    *
+***************************************************************
+* returns nothingbut permanently changes array parameter      *
+***************************************************************/
 void generateFreq(FILE* in, unsigned long freqCounter[])
 {
   int c;
@@ -31,6 +46,7 @@ void generateFreq(FILE* in, unsigned long freqCounter[])
   }
 }
 
+/*may get rid of this*/
 void printFreq(unsigned long freqCounter[])
 {
   int i;
@@ -54,7 +70,15 @@ void printFreq(unsigned long freqCounter[])
   printf("Total chars = %lu\n", totalChars);
 }
 
-
+/*********************************************************************
+* Parameters:                                                        *
+* struct QueueNode* head - pointer to head of Queue to be printed    *
+**********************************************************************
+* This function will print out a priority queue it will              *
+* print the DataNode's symbol and frequency of the symbol            *
+**********************************************************************
+* Nothing is returned                                                *
+**********************************************************************/
 void printQueue(qNode* head)
 {
   qNode* current = head;
@@ -71,9 +95,21 @@ void printQueue(qNode* head)
     }
     current = current->next;
   }
-
 }
 
+/*********************************************************************
+* Parameters:                                                        *
+* unsigned long freqCounter[] - array index is the char with         *
+*                               a frequency associated with the char *
+**********************************************************************
+* This function generates a priority queue out of array. The array   *
+* will have room for all possible char values. this function expects *
+* the frequencies to already have been counted. it will find a char  *
+* with frequence > 0 create a Tree node and add to queue             *
+**********************************************************************
+* Return:                                                            *
+* qNode* - the head to teh front of the queue                        *
+**********************************************************************/
 qNode* generateQueue(unsigned long freqCounter[])
 {
   struct QueueNode* head = NULL;
@@ -84,8 +120,15 @@ qNode* generateQueue(unsigned long freqCounter[])
     {
       head = insertTreeIntoQueue(head, createTreeNode(i,freqCounter[i]));
     }
-    printf("%d\n", i);
   }
-
+  if(freqCounter[255] != 0)
+  {
+    head = insertTreeIntoQueue(head, createTreeNode(255,freqCounter[255]));
+  }
   return head;
+}
+
+tNode* buildHuffmanTree(qNode* head)
+{
+
 }
