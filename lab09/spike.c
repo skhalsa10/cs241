@@ -7,9 +7,10 @@ void printQueue(qNode* head);
 void main()
 {
   qNode* head = NULL;
-  head = insertTreeIntoQueue(head, createTreeNode('i', 5281));
+  
   head = insertTreeIntoQueue(head, createTreeNode('s', 5280));
   head = insertTreeIntoQueue(head, createTreeNode('p', 2640));
+  head = insertTreeIntoQueue(head, createTreeNode('i', 5281));
   head = insertTreeIntoQueue(head, createTreeNode('m', 1320));
   head = insertTreeIntoQueue(head, createTreeNode(32, 1065));
   head = insertTreeIntoQueue(head, createTreeNode(10, 264));
