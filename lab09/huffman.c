@@ -75,7 +75,7 @@ qNode* generateQueue(unsigned long freqCounter[])
 {
   struct QueueNode* head = NULL;
   unsigned char i;
-  for(i=0; i<260; i++)
+  for(i=0; i<256; i++)
   {
     if(freqCounter[i] != 0)
     {
