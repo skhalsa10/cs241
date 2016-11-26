@@ -66,7 +66,7 @@ qNode* insertTreeIntoQueue(qNode* head, tNode* tNodeToInsert)
   /*if freq greater than heads dataNode or if freqs
    are the same but symbol is smaller than dataNodes->symbol 
    recursively call this function with the head as next*/
-  insertTreeIntoQueue(head->next, tNodeToInsert);
+  head->next = insertTreeIntoQueue(head->next, tNodeToInsert);
   /*return original head*/
   return head;
 }
