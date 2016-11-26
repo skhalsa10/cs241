@@ -71,7 +71,7 @@ void printQueue(qNode* head)
 
 }
 
-struct QueueNode* generateQueue(unsigned long freqCounter[])
+qNode* generateQueue(unsigned long freqCounter[])
 {
   struct QueueNode* head = NULL;
   unsigned char i;
@@ -81,6 +81,7 @@ struct QueueNode* generateQueue(unsigned long freqCounter[])
     {
       head = insertTreeIntoQueue(head, createTreeNode(i,freqCounter[i]));
     }
+    printf("%d\n", i);
   }
 
   return head;
