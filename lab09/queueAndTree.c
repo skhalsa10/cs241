@@ -44,7 +44,7 @@ qNode* insertTreeIntoQueue(qNode* head, tNode* tNodeToInsert)
   /*if the frequency of the tnode to insert 
     is smaller than the head's dataNodes's frequency
     we need to insert at the head and return new head*/
-  if(tNodeToInsert->freg < (head->dataNode->freq))
+  if(tNodeToInsert->freq < (head->dataNode->freq))
   {
     temp = createQueueNode(tNodeToInsert);
     temp->next = head;
@@ -72,5 +72,5 @@ qNode* insertTreeIntoQueue(qNode* head, tNode* tNodeToInsert)
 }
 qNode* insertQueueIntoQueue(qNode* head, qNode*qNodeToInsert)
 {
-
+  return NULL;
 }
