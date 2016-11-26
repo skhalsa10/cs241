@@ -4,7 +4,7 @@
 
 void printQueue(qNode* head);
 
-void main
+void main()
 {
   qNode* head = NULL;
   head = insertTreeIntoQueue(head, createTreeNode('s', 5280));
