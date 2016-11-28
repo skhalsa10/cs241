@@ -157,11 +157,15 @@ qNode* buildHuffmanTree(qNode* head)
     return head;
   }
   
-  qNode* left = head;
-  qNode* right = head->next;
+  qNode* left;
+  qNode* right;
+  unsigned long newFreq;
+  
+  left = head;
+  right = head->next;
   head = right->next;
+  newFreq = (left->dataNode->freq)+(right->dataNode->freq);
 
-  unsigned long newFreq = (left->dataNode->freq)+(right->dataNode->freq);
   tNode* newTree = createTreeNode('\0',newFreq);
   newTree->left = left->dataNode;
   newTree->right = right->dataNode;
