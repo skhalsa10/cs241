@@ -150,17 +150,17 @@ qNode* generateQueue(unsigned long freqCounter[])
 **********************************************************************/
 qNode* buildHuffmanTree(qNode* head)
 {
+  qNode* left;
+  qNode* right;
+  unsigned long newFreq;
+  
   /*if head is null return head if head->next is null return head->dataNode
   this completed the returns needed for recursive use of this function*/
   if(head == NULL || head->next == NULL) 
   {
     return head;
   }
-  
-  qNode* left;
-  qNode* right;
-  unsigned long newFreq;
-  
+    
   left = head;
   right = head->next;
   head = right->next;
