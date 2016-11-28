@@ -15,6 +15,7 @@ void encodeFile(FILE* in, FILE* out)
   unsigned long freqCounter[260];
   int i;
   struct QueueNode* head = NULL;
+  tNode* root = NULL;
   /*initialize array to 0*/
   for(i=0;i<260;i++)
   {
@@ -25,6 +26,9 @@ void encodeFile(FILE* in, FILE* out)
   printFreq(freqCounter);
   head = generateQueue(freqCounter);
   printQueue(head);
+  head = buildHuffmanTree(head);
+  printQueue(head);
+  root = head->dataNode;
 }
 
 /**************************************************************
@@ -127,8 +131,49 @@ qNode* generateQueue(unsigned long freqCounter[])
   }
   return head;
 }
-
-tNode* buildHuffmanTree(qNode* head)
+/*********************************************************************
+* Parameter:                                                         *
+* qNode* head - pointer to the head of the Priority Queue to build   *
+*               Huffman tree from                                    *
+**********************************************************************
+* This Function takes a prioritized queue and creates a huffman tree *
+* by doing the following:                                            *
+* While queue has more than one item:                                *
+* – Remove two trees from queue.                                     *
+* – Create new tree with those two as children. (First removed       *
+* should be left child.) Tree frequency count is sum of              *
+* children’s counts.                                                 *
+* – Add new tree to priority queue.                                  *
+**********************************************************************
+* Returns:                                                           *
+* qNode* - the address of the head of the queue with one item        *
+**********************************************************************/
+qNode* buildHuffmanTree(qNode* head)
 {
+  /*if head is null return head if head->next is null return head->dataNode
+  this completed the returns needed for recursive use of this function*/
+  if(head == NULL) return head;
+  if(head->next == NULL)return head->dataNode;
+  
+  qNode* left = head;
+  qNode* right = head->next
+  head = right->next;
+
+  unsigned long newFreq = (left->dataNode->freq)+(right->dataNode->freq);
+  tNode* newTree = createTreeNode(NULL,newFreq);
+  newTree->left = left->dataNode;
+  newTree->right = right->dataNode;
+
+  /*free the left qNode and modify the right to hold the newTree*/
+  left->dataNode = NULL;
+  left->next = NULL;
+  free(left);
+  right->dataNode = newTree;
+  right->next = NULL;
+  /*insert modified right qnode into queue with correct priority*/
+  head = insertQueueIntoQueue(head,right);
+  /*repeat until one qnode is left*/
+  head = buildHuffmanTree(head);
+  return head;
 
 }

@@ -3,6 +3,7 @@
 
 /* Including stdio so we'll know about FILE type */
 #include <stdio.h>
+#include <stdlib.h>
 #include "queueAndTree.h"
 
 /* The following 2 functions are used in my huffencode and huffdecode
@@ -84,8 +85,8 @@ void printQueue(struct QueueNode* head);
 * – Add new tree to priority queue.                                  *
 **********************************************************************
 * Returns:                                                           *
-* tNode* - the address of the root of the new tree                   *
+* qNode* - the address of the root of the new tree                   *
 **********************************************************************/
-tNode* buildHuffmanTree(qNode* head);
+qNode* buildHuffmanTree(qNode* head);
 
 #endif
