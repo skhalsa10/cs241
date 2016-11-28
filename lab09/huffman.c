@@ -153,7 +153,8 @@ qNode* buildHuffmanTree(qNode* head)
   qNode* left;
   qNode* right;
   unsigned long newFreq;
-  
+  tNode* newTree;
+
   /*if head is null return head if head->next is null return head->dataNode
   this completed the returns needed for recursive use of this function*/
   if(head == NULL || head->next == NULL) 
@@ -166,7 +167,7 @@ qNode* buildHuffmanTree(qNode* head)
   head = right->next;
   newFreq = (left->dataNode->freq)+(right->dataNode->freq);
 
-  tNode* newTree = createTreeNode('\0',newFreq);
+  newTree = createTreeNode('\0',newFreq);
   newTree->left = left->dataNode;
   newTree->right = right->dataNode;
 
