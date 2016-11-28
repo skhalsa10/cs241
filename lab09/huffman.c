@@ -180,6 +180,7 @@ qNode* buildHuffmanTree(qNode* head)
   /*insert modified right qnode into queue with correct priority*/
   head = insertQueueIntoQueue(head,right);
   /*repeat until one qnode is left*/
+  printQueue(head);
   head = buildHuffmanTree(head);
   
   return head;
