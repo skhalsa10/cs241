@@ -33,7 +33,6 @@ void encodeFile(FILE* in, FILE* out)
   head = buildHuffmanTree(head);
   printQueue(head);
   root = head->dataNode;
-  code = "";
   generateCodes(symbolCodes, root, code);
   printSymbolCodes(freqCounter, symbolCodes);
 }
