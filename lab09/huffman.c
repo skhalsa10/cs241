@@ -235,7 +235,7 @@ char* addZero(char* code)
     temp[i] = '\0';
   }
   i = 0;
-  while(code != NULL)
+  while((*code) != NULL)
   {
     temp[i] = *code;
     i++;
@@ -256,7 +256,7 @@ char* addOne(char* code)
     temp[i] = '\0';
   }
   i = 0;
-  while(code != NULL)
+  while((*code) != NULL)
   {
     temp[i] = *code;
     i++;
