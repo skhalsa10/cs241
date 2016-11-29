@@ -29,7 +29,7 @@ void encodeFile(FILE* in, FILE* out)
   head = buildHuffmanTree(head);
   printQueue(head);
   root = head->dataNode;
-  printf("the rightleaf symbolis %c\n",getRightLeafSymbol(root));
+  printf("the rightleaf symbol is %d \n", getRightLeafSymbol(root));
 }
 
 /**************************************************************
