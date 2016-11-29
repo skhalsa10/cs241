@@ -242,6 +242,7 @@ char* addZero(char* code)
     code++;
   }
   temp[i] = '0';
+  free(code);
   return temp;
 }
 
@@ -262,5 +263,6 @@ char* addOne(char* code)
     code++;
   }
   temp[i] = '1';
+  free(code);
   return temp;
 }
