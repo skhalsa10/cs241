@@ -227,10 +227,10 @@ void generateCodes(char* symbolCodes[], tNode* root, char* code)
 
 char* addZero(char* code)
 {
-  char temp[30];
+  char* temp = malloc(sizeof(char)*260);
   int i;
 
-  for(i=0;i<30;i++)
+  for(i=0;i<260;i++)
   {
     temp[i] = '\0';
   }
@@ -247,10 +247,10 @@ char* addZero(char* code)
 
 char* addOne(char* code)
 {
-  char temp[30];
+  char* temp = malloc(sizeof(char)*260);
   int i;
 
-  for(i=0;i<30;i++)
+  for(i=0;i<260;i++)
   {
     temp[i] = '\0';
   }
