@@ -13,7 +13,7 @@
 void encodeFile(FILE* in, FILE* out)
 {
   unsigned long freqCounter[260];
-  int i;
+  int i, c;
   struct QueueNode* head = NULL;
   tNode* root = NULL;
   /*initialize array to 0*/
@@ -29,7 +29,8 @@ void encodeFile(FILE* in, FILE* out)
   head = buildHuffmanTree(head);
   printQueue(head);
   root = head->dataNode;
-  printf("the rightleaf symbol is %d \n", getRightLeafSymbol(root));
+  c = getRightLeafSymbol(root)
+  printf("the rightleaf symbol is %d \n", c);
 }
 
 /**************************************************************
