@@ -29,6 +29,7 @@ void encodeFile(FILE* in, FILE* out)
   head = buildHuffmanTree(head);
   printQueue(head);
   root = head->dataNode;
+  printf("the rightleaf symbolis %c\n",getRightLeafSymbol(root));
 }
 
 /**************************************************************
@@ -147,6 +148,7 @@ qNode* generateQueue(unsigned long freqCounter[])
 **********************************************************************
 * Returns:                                                           *
 * qNode* - the address of the head of the queue with one item        *
+* this head->dataNode is the root of the huffman tree that was built *
 **********************************************************************/
 qNode* buildHuffmanTree(qNode* head)
 {
@@ -180,7 +182,6 @@ qNode* buildHuffmanTree(qNode* head)
   /*insert modified right qnode into queue with correct priority*/
   head = insertQueueIntoQueue(head,right);
   /*repeat until one qnode is left*/
-  printQueue(head);
   head = buildHuffmanTree(head);
   
   return head;
