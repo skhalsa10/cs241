@@ -217,11 +217,11 @@ void generateCodes(char* symbolCodes[], tNode* root, char* code)
   }
   if(root->left != NULL)
   {
-    generateCodes(symbolCodes, root->left, addZero(code))
+    generateCodes(symbolCodes, root->left, addZero(code));
   }
   if(root->right != NULL)
   {
-    generateCodes(symbolCodes, root->left, addOne(code))
+    generateCodes(symbolCodes, root->left, addOne(code));
   }
 }
 
@@ -235,13 +235,14 @@ char* addZero(char* code)
     temp[i] = '\0';
   }
   i = 0;
-  while(code != '\n')
+  while(code != NULL)
   {
     temp[i] = *code;
     i++;
     code++;
   }
   temp[i] = '0';
+  return temp;
 }
 
 char* addOne(char* code)
@@ -254,11 +255,12 @@ char* addOne(char* code)
     temp[i] = '\0';
   }
   i = 0;
-  while(code != '\n')
+  while(code != NULL)
   {
     temp[i] = *code;
     i++;
     code++;
   }
   temp[i] = '1';
+  return temp;
 }
