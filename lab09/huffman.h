@@ -89,4 +89,9 @@ void printQueue(struct QueueNode* head);
 **********************************************************************/
 qNode* buildHuffmanTree(qNode* head);
 
+void generateCodes(char* symbolCodes[], tNode* root, char* code);
+void printSymbolCodes(unsigned long freqCounter[], char* symbolCodes[]);
+char* addOne(char* code);
+char* addZero(char* code);
+
 #endif

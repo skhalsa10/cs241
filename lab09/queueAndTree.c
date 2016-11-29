@@ -97,6 +97,7 @@ qNode* insertQueueIntoQueue(qNode* head, qNode* qNodeToInsert)
   return head;
 }
 
+
 char getRightLeafSymbol(tNode* root)
 {
   if(root->right ==NULL) return root->symbol;

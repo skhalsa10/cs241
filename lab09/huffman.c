@@ -13,7 +13,8 @@
 void encodeFile(FILE* in, FILE* out)
 {
   unsigned long freqCounter[260];
-  int i, c;
+  char* symbolCodes[260];
+  int i;
   struct QueueNode* head = NULL;
   tNode* root = NULL;
   /*initialize array to 0*/
@@ -21,16 +22,18 @@ void encodeFile(FILE* in, FILE* out)
   {
     freqCounter[i] = 0;
   }
- /*the following couple of methods make up the main algorithm*/
+  /*the following couple of methods make up the main algorithm*/
   generateFreq(in, freqCounter);
+  /*rewind in to the beginning*/
+  rewind(in);
   printFreq(freqCounter);
   head = generateQueue(freqCounter);
   printQueue(head);
   head = buildHuffmanTree(head);
   printQueue(head);
   root = head->dataNode;
-  c = getRightLeafSymbol(root);
-  printf("the rightleaf symbol is %d \n", c);
+  generateCodes(symbolCodes, root, "");
+  printSymbolCodes(freqCounter, symbolCodes);
 }
 
 /**************************************************************
@@ -74,6 +77,23 @@ void printFreq(unsigned long freqCounter[])
     }
   }
   printf("Total chars = %lu\n", totalChars);
+}
+
+void printSymbolCodes(unsigned long freqCounter[], char* symbolCodes[])
+{
+  int i;
+  printf("Symbol\tFreq\tCode\n");
+  for (i=0;i<260;i++)
+  {
+    if(i<33||i>126)
+    {
+      printf("=%d\t%lu\t%s\n",i, freqCounter[i], symbolCodes[i]);
+    }
+    else
+    {
+      printf("%c\t%lu\t%s\n",i, freqCounter[i], symbolCodes[i]);
+    }
+  }
 }
 
 /*********************************************************************
@@ -186,4 +206,59 @@ qNode* buildHuffmanTree(qNode* head)
   head = buildHuffmanTree(head);
   
   return head;
+}
+
+void generateCodes(char* symbolCodes[], tNode* root, char* code)
+{
+  if(root == NULL) return;
+  if(root->left == NULL && root->right == NULL)
+  {
+    symbolCodes[(int)root->symbol] = code;
+  }
+  if(root->left != NULL)
+  {
+    generateCodes(symbolCodes, root->left, addZero(code))
+  }
+  if(root->right != NULL)
+  {
+    generateCodes(symbolCodes, root->left, addOne(code))
+  }
+}
+
+char* addZero(char* code)
+{
+  char temp[30];
+  int i;
+
+  for(i=0;i<30;i++)
+  {
+    temp[i] = '\0';
+  }
+  i = 0;
+  while(code != '\n')
+  {
+    temp[i] = *code;
+    i++;
+    code++;
+  }
+  temp[i] = '0';
+}
+
+char* addOne(char* code)
+{
+  char temp[30];
+  int i;
+
+  for(i=0;i<30;i++)
+  {
+    temp[i] = '\0';
+  }
+  i = 0;
+  while(code != '\n')
+  {
+    temp[i] = *code;
+    i++;
+    code++;
+  }
+  temp[i] = '1';
 }
