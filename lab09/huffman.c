@@ -225,7 +225,7 @@ void generateCodes(char* symbolCodes[], tNode* root, char* code)
   }
   if(root->right != NULL)
   {
-    generateCodes(symbolCodes, root->left, addOne(code));
+    generateCodes(symbolCodes, root->right, addOne(code));
   }
 }
 
