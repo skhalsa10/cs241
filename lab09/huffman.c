@@ -14,7 +14,6 @@ void encodeFile(FILE* in, FILE* out)
 {
   unsigned long freqCounter[260];
   char* symbolCodes[260];
-  char* code = malloc(sizeof(char)*260);
   int i;
   struct QueueNode* head = NULL;
   tNode* root = NULL;
@@ -33,7 +32,7 @@ void encodeFile(FILE* in, FILE* out)
   head = buildHuffmanTree(head);
   printQueue(head);
   root = head->dataNode;
-  generateCodes(symbolCodes, root, code);
+  generateCodes(symbolCodes, root, "");
   printSymbolCodes(freqCounter, symbolCodes);
 }
 
@@ -214,59 +213,49 @@ qNode* buildHuffmanTree(qNode* head)
 
 void generateCodes(char* symbolCodes[], tNode* root, char* code)
 {
-  if(root == NULL) return;
+  char* leftCode = malloc(sizeof(char)*260);
+  char* rightCode = malloc(sizeof(char)*260);
+  int i;
+  if(root == NULL)
+  {
+    free(leftCode);
+    free(rightCode);
+    return;
+  } 
   if(root->left == NULL && root->right == NULL)
   {
     symbolCodes[(int)root->symbol] = code;
+    free(leftCode);
+    free(rightCode);
+    return;
   }
   if(root->left != NULL)
   {
-    generateCodes(symbolCodes, root->left, addZero(code));
+    
+    copyStringWithC(code, leftCode, '0');
+    generateCodes(symbolCodes, root->left, leftCode);
   }
   if(root->right != NULL)
   {
+    copyStringWithC(code, rightCode, '1');
     generateCodes(symbolCodes, root->right, addOne(code));
   }
+  freee(code);
 }
 
-char* addZero(char* code)
+void copyStringWithC(char* copyFrom, char* copyTo, char addToEnd)
 {
-  char* temp = malloc(sizeof(char)*260);
   int i;
-
   for(i=0;i<260;i++)
   {
-    temp[i] = '\0';
+    copyTo[i] = '\0';
   }
   i = 0;
   while((*code) != '\0')
   {
-    temp[i] = *code;
+    copyTo[i] = *code;
     i++;
     code++;
   }
-  temp[i] = '0';
-  free(code);
-  return temp;
-}
-
-char* addOne(char* code)
-{
-  char* temp = malloc(sizeof(char)*260);
-  int i;
-
-  for(i=0;i<260;i++)
-  {
-    temp[i] = '\0';
-  }
-  i = 0;
-  while((*code) != '\0')
-  {
-    temp[i] = *code;
-    i++;
-    code++;
-  }
-  temp[i] = '1';
-  free(code);
-  return temp;
+  copyTo[i] = addToEnd;
 }
