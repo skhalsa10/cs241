@@ -1,4 +1,5 @@
 #include "queueAndTree.h"
+#include "humman.c"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -7,6 +8,10 @@ void printQueue(qNode* head);
 void main()
 {
   qNode* head = NULL;
+  qNode* head2 = NULL;
+  qNode* max = NULL;
+  qNode* middle = NULL;
+  qNode* small = NULL;
   
   head = insertTreeIntoQueue(head, createTreeNode('s', 5280));
   head = insertTreeIntoQueue(head, createTreeNode('p', 2640));
@@ -15,23 +20,11 @@ void main()
   head = insertTreeIntoQueue(head, createTreeNode(32, 1065));
   head = insertTreeIntoQueue(head, createTreeNode(10, 264));
   printQueue(head);
-}
 
-void printQueue(qNode* head)
-{
-  qNode* current = head;
-  printf("___________PRINTING QUEUE_______________\n");
-  while(current != NULL)
-  {
-    if(current->dataNode->symbol<33||current->dataNode->symbol>126)
-    {
-      printf("=%d\t%lu\n",current->dataNode->symbol, current->dataNode->freq);
-    }
-    else
-    {
-      printf("%c\t%lu\n",current->dataNode->symbol, current->dataNode->freq);
-    }
-    current = current->next;
-  }
+  max = createQueueNode(createTreeNode(0, 7920));
+  max->dataNode->left = createTreeNode('p',2640);
+  max->dataNode->right = createTreeNode('s', 5280);
+  insertQueueIntoQueue(head2, max);
 
+  
 }
