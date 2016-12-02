@@ -25,10 +25,13 @@ void main()
   max->dataNode->left = createTreeNode('p',2640);
   max->dataNode->right = createTreeNode('s', 5280);
 
+  head2 = max;
+  head2->next = middle;
+
   middle = createQueueNode(createTreeNode(0, 7920));
   middle->dataNode->left = createTreeNode('t',2640);
   middle->dataNode->right = createTreeNode('u', 5280);
-  head2 = insertQueueIntoQueue(head2, middle);
+
   small = createQueueNode(createTreeNode(0, 3));
   small->dataNode->left = createTreeNode('a',1);
   small->dataNode->right = createTreeNode('b', 2);
