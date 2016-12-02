@@ -24,7 +24,7 @@ void main()
   max = createQueueNode(createTreeNode(0, 7920));
   max->dataNode->left = createTreeNode('p',2640);
   max->dataNode->right = createTreeNode('s', 5280);
-  insertQueueIntoQueue(head2, max);
+  head2 = insertQueueIntoQueue(head2, max);
 
   printQueue(head2);
 }
