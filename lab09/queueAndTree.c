@@ -74,7 +74,6 @@ qNode* insertQueueIntoQueue(qNode* head, qNode* qNodeToInsert)
 {
   qNode* temp = NULL;
   if(head==NULL) return qNodeToInsert;
-  if(head->next == NULL) return head;
   if(qNodeToInsert->dataNode->freq < head->dataNode->freq)
   {
     temp = qNodeToInsert;
