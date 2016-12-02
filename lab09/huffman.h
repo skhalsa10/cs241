@@ -93,5 +93,6 @@ void generateCodes(char* symbolCodes[], tNode* root, char* code);
 void printSymbolCodes(unsigned long freqCounter[], char* symbolCodes[]);
 char* addOne(char* code);
 char* addZero(char* code);
+void copyStringWithC(char* copyFrom, char* copyTo, char addToEnd);
 
 #endif

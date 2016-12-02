@@ -215,7 +215,6 @@ void generateCodes(char* symbolCodes[], tNode* root, char* code)
 {
   char* leftCode = malloc(sizeof(char)*260);
   char* rightCode = malloc(sizeof(char)*260);
-  int i;
   if(root == NULL)
   {
     free(leftCode);
@@ -240,7 +239,7 @@ void generateCodes(char* symbolCodes[], tNode* root, char* code)
     copyStringWithC(code, rightCode, '1');
     generateCodes(symbolCodes, root->right, addOne(code));
   }
-  freee(code);
+  free(code);
 }
 
 void copyStringWithC(char* copyFrom, char* copyTo, char addToEnd)
@@ -253,9 +252,9 @@ void copyStringWithC(char* copyFrom, char* copyTo, char addToEnd)
   i = 0;
   while((*code) != '\0')
   {
-    copyTo[i] = *code;
+    copyTo[i] = *copyFrom;
     i++;
-    code++;
+    copyFrom++;
   }
   copyTo[i] = addToEnd;
 }
