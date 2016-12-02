@@ -14,6 +14,7 @@ void encodeFile(FILE* in, FILE* out)
 {
   unsigned long freqCounter[260];
   char* symbolCodes[260];
+  char* code = malloc(sizeof(char)*260);
   int i;
   struct QueueNode* head = NULL;
   tNode* root = NULL;
@@ -32,7 +33,8 @@ void encodeFile(FILE* in, FILE* out)
   head = buildHuffmanTree(head);
   printQueue(head);
   root = head->dataNode;
-  generateCodes(symbolCodes, root, "");
+  code = "";
+  generateCodes(symbolCodes, root, code);
   printSymbolCodes(freqCounter, symbolCodes);
 }
 
