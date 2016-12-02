@@ -29,6 +29,10 @@ void main()
   middle->dataNode->left = createTreeNode('t',2640);
   middle->dataNode->right = createTreeNode('u', 5280);
   head2 = insertQueueIntoQueue(head2, middle);
+  small = createQueueNode(createTreeNode(0, 3));
+  small->dataNode->left = createTreeNode('a',1);
+  small->dataNode->right = createTreeNode('b', 2);
+  head2 = insertQueueIntoQueue(head2, small);
 
   printQueue(head2);
 }
