@@ -250,7 +250,7 @@ void copyStringWithC(char* copyFrom, char* copyTo, char addToEnd)
     copyTo[i] = '\0';
   }
   i = 0;
-  while((*code) != '\0')
+  while((*copyFrom) != '\0')
   {
     copyTo[i] = *copyFrom;
     i++;
