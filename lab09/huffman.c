@@ -237,7 +237,7 @@ void generateCodes(char* symbolCodes[], tNode* root, char* code)
   if(root->right != NULL)
   {
     copyStringWithC(code, rightCode, '1');
-    generateCodes(symbolCodes, root->right, addOne(code));
+    generateCodes(symbolCodes, root->right, rightCode);
   }
   free(code);
 }
