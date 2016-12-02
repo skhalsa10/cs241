@@ -1,5 +1,5 @@
 #include "queueAndTree.h"
-#include "humman.c"
+#include "huffman.h"
 #include <stdio.h>
 #include <stdlib.h>
 
