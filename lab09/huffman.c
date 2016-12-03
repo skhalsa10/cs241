@@ -39,8 +39,8 @@ void encodeFile(FILE* in, FILE* out)
   head->next = NULL;
   free(head);
   freeAllMemory(root, symbolCodes, freqCounter);
-  close(in);
-  close(out);
+  fclose(in);
+  fclose(out);
 }
 
 void freeAllMemory(tNode* root, char* symbolCodes[], unsigned long freqCounter[])
