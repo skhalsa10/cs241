@@ -88,11 +88,53 @@ void printQueue(struct QueueNode* head);
 * qNode* - the address of the root of the new tree                   *
 **********************************************************************/
 qNode* buildHuffmanTree(qNode* head);
-
+/*********************************************************************
+* Parameter:                                                         *
+* char* symbolCodes[] - array to hold the codes                      *
+* tNode* root - pointer to root of huffman tree                      *
+* char* code - string to hold the code until a leaf is discovered    *
+**********************************************************************
+* This Function traverses the tree and generates codes. it is a      *
+* recursive function that traverses the tree each time it is called  *
+* the string input will get a 1 or a 0 depending on the direction    *
+* of the traversal                                                   *
+**********************************************************************
+* Returns:                                                           *
+* Nothing                                                            *
+**********************************************************************/
 void generateCodes(char* symbolCodes[], tNode* root, char* code);
+/**************************************************************
+* Parameters:                                                 *
+* unsigned long freqCounter[] -  the array that holds         *
+*                                all frequency counts         *
+* char* symbolCodes[] - the array that holds the codes        *
+***************************************************************
+* This functions prints out the character the frequency       *
+* and the code                                                *
+***************************************************************
+* returns nothingnbut permanently changes array parameter     *
+***************************************************************/
 void printSymbolCodes(unsigned long freqCounter[], char* symbolCodes[]);
-char* addOne(char* code);
-char* addZero(char* code);
+/*********************************************************************
+* Parameter:                                                         *
+* char* copyFrom - string that will be copied                        *
+* char* copyTo - pointer tht string will be copied to                *
+* char addToEnd - this char gets tacked on to the end                *
+**********************************************************************
+* This Function copies the content of copyFrom into copyTo and       *
+* then adds addToEnd to the end                                      *
+* NOTE: this function assumes the strings are never longer then 260  *
+* characters                                                         *
+**********************************************************************
+* Returns:                                                           *
+* Nothing                                                            *
+**********************************************************************/
 void copyStringWithC(char* copyFrom, char* copyTo, char addToEnd);
+
+void freeAllMemory(tNode* root, char* symbolCodes[], unsigned long freqCounter[]);
+
+void createEncodedFile(FILE* in, FILE* out, char* symbolCodes[]);
+
+void freeTree(tNode* root);
 
 #endif

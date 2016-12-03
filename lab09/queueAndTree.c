@@ -1,6 +1,16 @@
 #include "queueAndTree.h"
 
-/*the first section of this file will define functions for the Tree*/
+/*******************************************************************
+ * Parameters:                                                     *
+ * unsigned char symbol - value to set as symbol                   *
+ * unsigned long freq - value to set as frequency                  *
+ *******************************************************************
+ * This function dynamically allocates a tNode and                 * 
+ * sets symbol and freq to theior respective data members          *                                  *
+ *******************************************************************
+ * Returns:                                                        *
+ * tNode* - pointer to the new tNode                               *
+ *******************************************************************/
 tNode* createTreeNode(unsigned char symbol, unsigned long freq)
 {
   tNode* node = malloc(sizeof(tNode));
@@ -11,8 +21,16 @@ tNode* createTreeNode(unsigned char symbol, unsigned long freq)
   return node;
 }
 
-
-/*this second part of this file will define functions for the Queue*/
+/*******************************************************************
+ * Parameters:                                                     *
+ * tNode* dataNode - tree node to set as dataNode field            *
+ *******************************************************************
+ * This function dynamically allocates a queueNode and             * 
+ * sets dataNode to the parameter                                  *
+ *******************************************************************
+ * Returns:                                                        *
+ * qNode* - pointer to the new qNode                               *
+ *******************************************************************/
 qNode* createQueueNode(tNode* dataNode)
 {
   qNode* node = malloc(sizeof(qNode));
@@ -21,16 +39,16 @@ qNode* createQueueNode(tNode* dataNode)
   return node;
 }
 /*******************************************************************
- * Parameters:
- * qNode* head - pointer to the beginning of the queue
- * tNode* tNodeToInsert - pointer to a tree node to insert in 
- *                        queue in a prioritized order
+ * Parameters:                                                     *
+ * qNode* head - pointer to the beginning of the queue             *
+ * tNode* tNodeToInsert - pointer to a tree node to insert in      *
+ *                        queue in a prioritized order             *
  *******************************************************************
- * This function inserts a tNode pointer into a queue pointed to 
- * by head in a defined prioritized order
+ * This function inserts a tNode pointer into a queue pointed to   *
+ * by head in a defined prioritized order                          *
  *******************************************************************
- * Returns:
- * qNode* - pointer to the head of this queue
+ * Returns:                                                        *
+ * qNode* - pointer to the head of this queue                      *
  *******************************************************************/
 qNode* insertTreeIntoQueue(qNode* head, tNode* tNodeToInsert)
 {
@@ -70,6 +88,18 @@ qNode* insertTreeIntoQueue(qNode* head, tNode* tNodeToInsert)
   /*return original head*/
   return head;
 }
+
+/**************************************************************
+* Parameters:                                                 *
+* qNode* head - head of queue to insert into                  *
+* qNode* qNodeToInsert - queuenode to insert
+***************************************************************
+* This functions takes a prioritized queue and inserts a queue*
+* Node in the correct prioritized location                    *                                              *
+***************************************************************
+* returns:                                                    *
+* qNode* - the new head                                       *
+***************************************************************/
 qNode* insertQueueIntoQueue(qNode* head, qNode* qNodeToInsert)
 {
   qNode* temp = NULL;
@@ -96,7 +126,14 @@ qNode* insertQueueIntoQueue(qNode* head, qNode* qNodeToInsert)
   return head;
 }
 
-
+/**************************************************************
+* Parameters:                                                 *
+* tNode* root - points to root of tree                        *
+***************************************************************
+* This functions traverses tree and obtains the right mostleaf*                                              *
+***************************************************************
+* returns symbol in leaf                                      *
+***************************************************************/
 char getRightLeafSymbol(tNode* root)
 {
   if(root->right ==NULL) return root->symbol;
