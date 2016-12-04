@@ -28,7 +28,7 @@ void encodeFile(FILE* in, FILE* out);
 void decodeFile(FILE* in, FILE* out);
 
 
-void generateDecodeFreq(unsigned char totalSymbols,FILE* in,unsigned long freqCounter[])
+void generateDecodeFreq(unsigned char totalSymbols,FILE* in,unsigned long freqCounter[]);
 /**************************************************************
 * Parameters:                                                 *
 * FILE* in - file stream to analyze                           *
