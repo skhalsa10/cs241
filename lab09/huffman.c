@@ -85,7 +85,7 @@ void createEncodedFile(FILE* in, FILE* out,char* symbolCodes[],unsigned long fre
 
 }
 
-buildHeader(FILE* out, unsigned long freqCounter[])
+void buildHeader(FILE* out, unsigned long freqCounter[])
 {
   int i;
   unsigned long totalChars = 0;
