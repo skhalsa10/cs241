@@ -9,6 +9,7 @@
 /***************************************************/
 void decodeFile(FILE* in, FILE* out)
 {
+  int i;
   unsigned long freqCounter[260];
   unsigned char totalSymbols = 0;
   fread(&totalSymbols,1,1,in);
