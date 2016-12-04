@@ -42,6 +42,18 @@ void encodeFile(FILE* in, FILE* out)
 
 }
 
+/**************************************************************
+* Parameters:                                                 *
+* tNode* root - pointer to root of tree                       *
+* char* symbolCodes[] - array that holds codes                *
+* unsigned long freqCounter[] - used to pinpoint  where       *
+*                               malloced codes are stored     *
+***************************************************************
+* This functions first frees all malloced strings in          *
+* symbolCodes then freeTree is calle on root to free all Nodes*
+***************************************************************
+* returns  Nothing                                            *
+***************************************************************/
 void freeAllMemory(tNode* root, char* symbolCodes[], unsigned long freqCounter[])
 {
   int i;
@@ -54,6 +66,7 @@ void freeAllMemory(tNode* root, char* symbolCodes[], unsigned long freqCounter[]
   }
   freeTree(root);
 }
+
 /* Free memory used by the tree. */
 void freeTree(tNode* root)
 {
@@ -62,9 +75,67 @@ void freeTree(tNode* root)
     freeTree(root->right);
     free(root);
 }
-void createEncodedFile(FILE* in, FILE* out, char* symbolCodes[])
-{
 
+void createEncodedFile(FILE* in, FILE* out,char* symbolCodes[],unsigned long freqCounter[])
+{
+  
+  rewind(in);
+  rewind(out)
+  buildHeader(out, freqCounter);
+
+}
+
+buildHeader(FILE* out, unsigned long freqCounter[])
+{
+  int i;
+  unsigned long totalChars = 0;
+  unsigned char totalSymbols = 0;
+  totalSymbols = getTotalSymbols(freqCounter);
+  fwrite(%totalSymbols, 1, 1,out);
+  for(i=0;i<260;i++)
+  {
+    if(freqCounter[i] != 0)
+    {
+      if(i<256)
+      {
+        fwrite(&i,1,1,out);
+      }
+      else 
+      {
+        printf("ERROR");
+      }
+      fwrite(&freqCounter[i],8,1,out);
+    }
+  }
+  totalChars = getTotalChars(freqCounter);
+  fwrite(&totalChars, 8, 1,out);
+}
+
+unsigned long getTotalChars(unsigned long freqCounter[])
+{
+  int i;
+  unsigned long totalChars=0;
+  for(i = 0; i<260;i++)
+  {
+    if(freqCounter[i] != 0)
+    {
+      totalChars++;
+    }
+  }
+}
+unsigned char getTotalSymbols(unsigned long freqCounter[])
+{
+  int i;
+  unsigned char totalSymbols = 0;
+
+  for(i = 0; i < 260; i++)
+  {
+    if(freqCounter[i] != 0)
+    {
+      totalSymbols++;
+    }
+  }
+  return totalSymbols;
 }
 
 /**************************************************************

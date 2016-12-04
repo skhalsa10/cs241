@@ -130,11 +130,24 @@ void printSymbolCodes(unsigned long freqCounter[], char* symbolCodes[]);
 * Nothing                                                            *
 **********************************************************************/
 void copyStringWithC(char* copyFrom, char* copyTo, char addToEnd);
-
+/**************************************************************
+* Parameters:                                                 *
+* tNode* root - pointer to root of tree                       *
+* char* symbolCodes[] - array that holds codes                *
+* unsigned long freqCounter[] - used to pinpoint  where       *
+*                               malloced codes are stored     *
+***************************************************************
+* This functions first frees all malloced strings in          *
+* symbolCodes then freeTree is calle on root to free all Nodes*
+***************************************************************
+* returns  Nothing                                            *
+***************************************************************/
 void freeAllMemory(tNode* root, char* symbolCodes[], unsigned long freqCounter[]);
 
 void createEncodedFile(FILE* in, FILE* out, char* symbolCodes[]);
 
 void freeTree(tNode* root);
+
+unsigned char getTotalSymbols(unsigned long freqCounter[]);
 
 #endif
