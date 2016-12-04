@@ -23,7 +23,11 @@ void decodeFile(FILE* in, FILE* out)
     freqCounter[i] = 0;
   }
   generateDecodeFreq(totalSymbols, in, freqCounter);
-  printFreq(freqCounter);
+  head = generateQueue(freqCounter);
+  head = buildHuffmanTree(head);
+  root = head->dataNode;
+  generateCodes(symbolCodes, root, code);
+  printSymbolCodes(freqCounter, symbolCodes);
 
 }
 
