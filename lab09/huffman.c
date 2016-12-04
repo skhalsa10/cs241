@@ -121,7 +121,7 @@ void encodeTheData(FILE* in,FILE* out,char* symbolCodes[])
       if(codeLength < bitsAvailable)
       {
         byteToWrite = byteToWrite | code<<(bitsAvailable-codeLength);
-        bitsAvailable +=codeLength;
+        bitsAvailable -=codeLength;
         cIsUsedUp = TRUE;
       }
     }
