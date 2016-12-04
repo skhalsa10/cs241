@@ -149,6 +149,7 @@ void createEncodedFile(FILE* in, FILE* out, char* symbolCodes[],unsigned long fr
 void freeTree(tNode* root);
 
 unsigned long getTotalChars(unsigned long freqCounter[]);
+void buildHeader(FILE* out, unsigned long freqCounter[]);
 
 unsigned char getTotalSymbols(unsigned long freqCounter[]);
 
