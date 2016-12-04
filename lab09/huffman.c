@@ -110,7 +110,7 @@ void encodeTheData(FILE* in,FILE* out,char* symbolCodes[])
         byteToWrite = 0;
         bitsAvailable = 8;
       }
-      if(codeLength == bitsAvailable)
+      else if(codeLength == bitsAvailable)
       {
         byteToWrite = byteToWrite | code;
         fwrite(&byteToWrite,1,1,out);
@@ -118,7 +118,7 @@ void encodeTheData(FILE* in,FILE* out,char* symbolCodes[])
         bitsAvailable = 8;
         cIsUsedUp = TRUE;
       }
-      if(codeLength < bitsAvailable)
+      else if(codeLength < bitsAvailable)
       {
         byteToWrite = byteToWrite | code<<(bitsAvailable-codeLength);
         bitsAvailable -=codeLength;
