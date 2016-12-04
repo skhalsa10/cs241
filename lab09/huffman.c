@@ -82,7 +82,7 @@ void createEncodedFile(FILE* in, FILE* out,char* symbolCodes[],unsigned long fre
   rewind(in);
   rewind(out);
   buildHeader(out, freqCounter);
-  encodeTheData(in,out, symbolCodes[]);
+  encodeTheData(in,out,symbolCodes);
 
 }
 
@@ -93,7 +93,7 @@ void encodeTheData(FILE* in,FILE* out,char* symbolCodes[])
   unsigned char codeLength;
   unsigned long code;
   unsigned char bitsAvailable = 8;
-  cIsUsedUp = FALSE;
+  int cIsUsedUp = FALSE;
   while((c = getc(in)) != EOF)
   {
     codeLength = getCodeLength(symbolCodes[c]);
@@ -104,9 +104,9 @@ void encodeTheData(FILE* in,FILE* out,char* symbolCodes[])
       if(codeLength>bitsAvailable)
       {
         codeLength -= bitsAvailable;
-        byteToWrite = byteToWrite | (char)(code>>length);
+        byteToWrite = byteToWrite | (char)(code>>codeLength);
         fwrite(&byteToWrite,1,1,out);
-        code = code & ~((~0)<<length);
+        code = code & ~((~0)<<codeLength);
         byteToWrite = 0;
         bitsAvailable = 8;
       }
@@ -136,7 +136,7 @@ unsigned long convertCode(char* code)
   {
     if(*code == '1')
     {
-      convertedCode = convertCode<<1 & 1;
+      convertedCode = (convertCode<<1) & (unsigned long)1;
     }
     else
     {
