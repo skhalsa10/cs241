@@ -32,7 +32,7 @@ void encodeFile(FILE* in, FILE* out)
   root = head->dataNode;
   generateCodes(symbolCodes, root, code);
   printSymbolCodes(freqCounter, symbolCodes);
-  createEncodedFile(in, out, symbolCodes);
+  createEncodedFile(in, out, symbolCodes, freqCounter);
   
   /*perform all shut down tasks*/
   head->dataNode = NULL;
@@ -80,7 +80,7 @@ void createEncodedFile(FILE* in, FILE* out,char* symbolCodes[],unsigned long fre
 {
   
   rewind(in);
-  rewind(out)
+  rewind(out);
   buildHeader(out, freqCounter);
 
 }
@@ -91,7 +91,7 @@ void buildHeader(FILE* out, unsigned long freqCounter[])
   unsigned long totalChars = 0;
   unsigned char totalSymbols = 0;
   totalSymbols = getTotalSymbols(freqCounter);
-  fwrite(%totalSymbols, 1, 1,out);
+  fwrite(&totalSymbols, 1, 1,out);
   for(i=0;i<260;i++)
   {
     if(freqCounter[i] != 0)
@@ -122,6 +122,7 @@ unsigned long getTotalChars(unsigned long freqCounter[])
       totalChars++;
     }
   }
+  return totalChars;
 }
 unsigned char getTotalSymbols(unsigned long freqCounter[])
 {

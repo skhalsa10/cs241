@@ -144,9 +144,11 @@ void copyStringWithC(char* copyFrom, char* copyTo, char addToEnd);
 ***************************************************************/
 void freeAllMemory(tNode* root, char* symbolCodes[], unsigned long freqCounter[]);
 
-void createEncodedFile(FILE* in, FILE* out, char* symbolCodes[]);
+void createEncodedFile(FILE* in, FILE* out, char* symbolCodes[],unsigned long freqCounter[]);
 
 void freeTree(tNode* root);
+
+unsigned long getTotalChars(unsigned long freqCounter[]);
 
 unsigned char getTotalSymbols(unsigned long freqCounter[]);
 
