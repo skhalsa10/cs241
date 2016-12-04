@@ -2,6 +2,38 @@
 #include "huffman.h"
 #include "queueAndTree.h"
 
+/***************************************************/
+/* Decode a Huffman encoded file.                  */
+/* in -- File to decode.                           */
+/* out -- File where decoded data will be written. */
+/***************************************************/
+void decodeFile(FILE* in, FILE* out)
+{
+  unsigned long freqCounter[260];
+  unsigned char totalSymbols = 0;
+  fread(&totalSymbols,1,1,in);
+  /*initialize array to 0*/
+  for(i=0;i<260;i++)
+  {
+    freqCounter[i] = 0;
+  }
+  generateDecodeFreq(totalSymbols, in, freqCounter);
+  printFreq(freqCounter);
+
+}
+
+void generateDecodeFreq(unsigned char totalSymbols,FILE* in,unsigned long freqCounter[])
+{
+  int i;
+  unsigned char c;
+  for(i =0;i<totalSymbols;i++)
+  {
+    fread(&c,1,1,in);
+    /*possible error??*/
+    fread((freqCounter+c),8,1,in);
+  }
+}
+
 
 /**************************************************************/
 /* Huffman encode a file.                                     */
@@ -76,6 +108,18 @@ void freeTree(tNode* root)
     free(root);
 }
 
+/**************************************************************
+* Parameters:                                                 *
+* FILE* in - file to encode                                   *
+* FILE* out - file to write the encoded data to               *
+* char* symbolCodes[] - array of Symbols to codes             *
+* unsigned long freqCounter[] - array that holds symbol-freq  *
+***************************************************************
+* This function writes the header and then the encoded data   *
+* to out                                                      *
+***************************************************************
+* returns nothing                                             *
+***************************************************************/
 void createEncodedFile(FILE* in, FILE* out,char* symbolCodes[],unsigned long freqCounter[])
 {
   
@@ -83,9 +127,19 @@ void createEncodedFile(FILE* in, FILE* out,char* symbolCodes[],unsigned long fre
   rewind(out);
   buildHeader(out, freqCounter);
   encodeTheData(in,out,symbolCodes);
-
 }
 
+/**************************************************************
+* Parameters:                                                 *
+* FILE* in - file to encode                                   *
+* FILE* out - file to write the encoded data to               *
+* char* symbolCodes[] - array of SYmbols to codes             *
+***************************************************************
+* This function encodes in with codes from symbolCodes and    *
+* and writes it to out                                        *
+***************************************************************
+* returns nothing                                             *
+***************************************************************/
 void encodeTheData(FILE* in,FILE* out,char* symbolCodes[])
 {
   int c;
@@ -132,6 +186,14 @@ void encodeTheData(FILE* in,FILE* out,char* symbolCodes[])
   }
 }
 
+/**************************************************************
+* Parameters:                                                 *
+* char* code - code string to convert to binary representation*
+***************************************************************
+* This functions returns the binary representation of code    *
+***************************************************************
+* returns the binary representation of code                   *
+***************************************************************/
 unsigned long convertCode(char* code)
 {
   unsigned long convertedCode = 0;
@@ -149,7 +211,14 @@ unsigned long convertCode(char* code)
   }
   return convertedCode;
 }
-
+/**************************************************************
+* Parameters:                                                 *
+* char* code - code string to get length of                   *
+***************************************************************
+* This functions returns the length of code string            *
+***************************************************************
+* returns the length of code string                           *
+***************************************************************/
 unsigned char getCodeLength(char* code)
 {
   unsigned char codeLength = 0;
@@ -160,7 +229,15 @@ unsigned char getCodeLength(char* code)
   }
   return  codeLength;
 }
-
+/**************************************************************
+* Parameters:                                                 *
+* FILE* out- file to write header to                          *
+* unsigned long freqCounter[] - array that has list of symbols*
+***************************************************************
+* This functions writes ehader to file                        *
+***************************************************************
+* returns nothing                                             *
+***************************************************************/
 void buildHeader(FILE* out, unsigned long freqCounter[])
 {
   int i;
@@ -186,7 +263,15 @@ void buildHeader(FILE* out, unsigned long freqCounter[])
   totalChars = getTotalChars(freqCounter);
   fwrite(&totalChars, 8, 1,out);
 }
-
+/**************************************************************
+* Parameters:                                                 *
+* unsigned long freqCounter[] - array that has list of symbols*
+***************************************************************
+* This functions interates over the freqCounter array and     *
+* adds up all frequencies.                                    *
+***************************************************************
+* returns the total amount chars in file                      *
+***************************************************************/
 unsigned long getTotalChars(unsigned long freqCounter[])
 {
   int i;
@@ -200,6 +285,15 @@ unsigned long getTotalChars(unsigned long freqCounter[])
   }
   return totalChars;
 }
+/**************************************************************
+* Parameters:                                                 *
+* unsigned long freqCounter[] - array that has list of symbols*
+***************************************************************
+* This functions interates over the freqCounter array and     *
+* and counts how many spots have values                       *
+***************************************************************
+* returns the total amount of unique symbols in file          *
+***************************************************************/
 unsigned char getTotalSymbols(unsigned long freqCounter[])
 {
   int i;

@@ -26,6 +26,9 @@ void encodeFile(FILE* in, FILE* out);
 /* out -- File where decoded data will be written. */
 /***************************************************/
 void decodeFile(FILE* in, FILE* out);
+
+
+void generateDecodeFreq(unsigned char totalSymbols,FILE* in,unsigned long freqCounter[])
 /**************************************************************
 * Parameters:                                                 *
 * FILE* in - file stream to analyze                           *
@@ -145,16 +148,80 @@ void copyStringWithC(char* copyFrom, char* copyTo, char addToEnd);
 * returns  Nothing                                            *
 ***************************************************************/
 void freeAllMemory(tNode* root, char* symbolCodes[], unsigned long freqCounter[]);
-
+/**************************************************************
+* Parameters:                                                 *
+* FILE* in - file to encode                                   *
+* FILE* out - file to write the encoded data to               *
+* char* symbolCodes[] - array of Symbols to codes             *
+* unsigned long freqCounter[] - array that holds symbol-freq  *
+***************************************************************
+* This function writes the header and then the encoded data   *
+* to out                                                      *
+***************************************************************
+* returns nothing                                             *
+***************************************************************/
 void createEncodedFile(FILE* in, FILE* out, char* symbolCodes[],unsigned long freqCounter[]);
-
+/* Free memory used by the tree. */
 void freeTree(tNode* root);
-
+/**************************************************************
+* Parameters:                                                 *
+* unsigned long freqCounter[] - array that has list of symbols*
+***************************************************************
+* This functions interates over the freqCounter array and     *
+* adds up all frequencies.                                    *
+***************************************************************
+* returns the total amount chars in file                      *
+***************************************************************/
 unsigned long getTotalChars(unsigned long freqCounter[]);
+/**************************************************************
+* Parameters:                                                 *
+* FILE* out- file to write header to                          *
+* unsigned long freqCounter[] - array that has list of symbols*
+***************************************************************
+* This functions writes ehader to file                        *
+***************************************************************
+* returns nothing                                             *
+***************************************************************/
 void buildHeader(FILE* out, unsigned long freqCounter[]);
+/**************************************************************
+* Parameters:                                                 *
+* FILE* in - file to encode                                   *
+* FILE* out - file to write the encoded data to               *
+* char* symbolCodes[] - array of SYmbols to codes             *
+***************************************************************
+* This function encodes in with codes from symbolCodes and    *
+* and writes it to out                                        *
+***************************************************************
+* returns nothing                                             *
+***************************************************************/
 void encodeTheData(FILE* in,FILE* out,char* symbolCodes[]);
+/**************************************************************
+* Parameters:                                                 *
+* unsigned long freqCounter[] - array that has list of symbols*
+***************************************************************
+* This functions interates over the freqCounter array and     *
+* and counts how many spots have values                       *
+***************************************************************
+* returns the total amount of unique symbols in file          *
+***************************************************************/
 unsigned char getTotalSymbols(unsigned long freqCounter[]);
+/**************************************************************
+* Parameters:                                                 *
+* char* code - code string to convert to binary representation*
+***************************************************************
+* This functions returns the binary representation of code    *
+***************************************************************
+* returns the binary representation of code                   *
+***************************************************************/
 unsigned long convertCode(char* code);
+/**************************************************************
+* Parameters:                                                 *
+* char* code - code string to get length of                   *
+***************************************************************
+* This functions returns the length of code string            *
+***************************************************************
+* returns the length of code string                           *
+***************************************************************/
 unsigned char getCodeLength(char* code);
 
 #endif
