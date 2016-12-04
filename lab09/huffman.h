@@ -155,6 +155,6 @@ void buildHeader(FILE* out, unsigned long freqCounter[]);
 void encodeTheData(FILE* in,FILE* out,char* symbolCodes[]);
 unsigned char getTotalSymbols(unsigned long freqCounter[]);
 unsigned long convertCode(char* code);
-unsigned char getCodeLength(char* code)
+unsigned char getCodeLength(char* code);
 
 #endif

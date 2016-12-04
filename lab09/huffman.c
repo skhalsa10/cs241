@@ -146,16 +146,18 @@ unsigned long convertCode(char* code)
   }
   return convertedCode;
 }
+
 unsigned char getCodeLength(char* code)
 {
   unsigned char codeLength = 0;
-  while(*code != '\0')
+  while((*code) != '\0')
   {
     codeLength++;
     code++;
   }
   return  codeLength;
 }
+
 void buildHeader(FILE* out, unsigned long freqCounter[])
 {
   int i;
