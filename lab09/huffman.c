@@ -9,8 +9,12 @@
 /***************************************************/
 void decodeFile(FILE* in, FILE* out)
 {
-  int i;
   unsigned long freqCounter[260];
+  char* symbolCodes[260];
+  char* code = malloc(sizeof(char)*260);
+  int i;
+  struct QueueNode* head = NULL;
+  tNode* root = NULL;
   unsigned char totalSymbols = 0;
   fread(&totalSymbols,1,1,in);
   /*initialize array to 0*/
