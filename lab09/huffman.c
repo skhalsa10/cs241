@@ -151,8 +151,8 @@ unsigned char getCodeLength(char* code)
   unsigned char codeLength = 0;
   while(*code != '\0')
   {
-    codeLength++
-    code++
+    codeLength++;
+    code++;
   }
   return  codeLength;
 }
