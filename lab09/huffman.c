@@ -136,7 +136,7 @@ unsigned long convertCode(char* code)
   {
     if(*code == '1')
     {
-      convertedCode = (convertCode<<1) & (unsigned long)1;
+      convertedCode = (convertedCode<<1) & 1;
     }
     else
     {
