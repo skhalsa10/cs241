@@ -82,9 +82,80 @@ void createEncodedFile(FILE* in, FILE* out,char* symbolCodes[],unsigned long fre
   rewind(in);
   rewind(out);
   buildHeader(out, freqCounter);
+  encodeTheData(in,out, symbolCodes[]);
 
 }
 
+void encodeTheData(FILE* in,FILE* out,char* symbolCodes[])
+{
+  int c;
+  unsigned char byteToWrite;
+  unsigned char codeLength;
+  unsigned long code;
+  unsigned char bitsAvailable = 8;
+  cIsUsedUp = FALSE;
+  while((c = getc(in)) != EOF)
+  {
+    codeLength = getCodeLength(symbolCodes[c]);
+    code = convertCode(symbolCodes[c]);
+    cIsUsedUp = FALSE;
+    while(!cIsUsedUp)
+    {
+      if(codeLength>bitsAvailable)
+      {
+        codeLength -= bitsAvailable;
+        byteToWrite = byteToWrite | (char)(code>>length);
+        fwrite(&byteToWrite,1,1,out);
+        code = code & ~((~0)<<length);
+        byteToWrite = 0;
+        bitsAvailable = 8;
+      }
+      if(codeLength == bitsAvailable)
+      {
+        byteToWrite = byteToWrite | code;
+        fwrite(&byteToWrite,1,1,out);
+        byteToWrite = 0;
+        bitsAvailable = 8;
+        cIsUsedUp = TRUE;
+      }
+      if(codeLength < bitsAvailable)
+      {
+        byteToWrite = byteToWrite | code<<(bitsAvailable-codeLength);
+        bitsAvailable +=codeLength;
+        cIsUsedUp = TRUE;
+      }
+    }
+  }
+
+}
+
+unsigned long convertCode(char* code)
+{
+  unsigned long convertedCode = 0;
+  while(*code != '\0')
+  {
+    if(*code == '1')
+    {
+      convertedCode = convertCode<<1 & 1;
+    }
+    else
+    {
+      convertedCode = convertedCode<<1;
+    }
+    code++;
+  }
+  return convertedCode;
+}
+unsigned char getCodeLength(char* code)
+{
+  unsigned char codeLength = 0;
+  while(*code != '\0')
+  {
+    codeLength++
+    code++
+  }
+  return  codeLength;
+}
 void buildHeader(FILE* out, unsigned long freqCounter[])
 {
   int i;

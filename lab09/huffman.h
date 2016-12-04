@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "queueAndTree.h"
+#define FALSE 0
+#define TRUE 1
 
 /* The following 2 functions are used in my huffencode and huffdecode
    programs. You'll need to write them if you want to use my code.  */
@@ -150,7 +152,9 @@ void freeTree(tNode* root);
 
 unsigned long getTotalChars(unsigned long freqCounter[]);
 void buildHeader(FILE* out, unsigned long freqCounter[]);
-
+void encodeTheData(FILE* in,FILE* out,char* symbolCodes[]);
 unsigned char getTotalSymbols(unsigned long freqCounter[]);
+unsigned long convertCode(char* code);
+unsigned char getCodeLength(char* code)
 
 #endif
