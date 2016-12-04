@@ -126,7 +126,10 @@ void encodeTheData(FILE* in,FILE* out,char* symbolCodes[])
       }
     }
   }
-
+  if(bitsAvailable < 8)
+  {
+    fwrite(&byteToWrite,1,1,out);
+  }
 }
 
 unsigned long convertCode(char* code)
