@@ -119,7 +119,7 @@ unsigned long getTotalChars(unsigned long freqCounter[])
   {
     if(freqCounter[i] != 0)
     {
-      totalChars++;
+      totalChars += freqCounter[i];
     }
   }
   return totalChars;
