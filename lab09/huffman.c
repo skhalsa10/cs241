@@ -150,7 +150,7 @@ void createDecodedFile(FILE* in, FILE* out,char* symbolCodes[],unsigned long fre
   
   unsigned int byteToDecode;
   unsigned long totalChars;
-  unsigned char bitsLeft = 8
+  unsigned char bitsLeft = 8;
   unsigned long code=0;
   unsigned char codeLength=0;
   int codeFound = FALSE;
@@ -159,8 +159,8 @@ void createDecodedFile(FILE* in, FILE* out,char* symbolCodes[],unsigned long fre
   byteToDecode = getc(in);
   while(totalChars !=0)
   {
-    code = 0
-    codeLength = 0
+    code = 0;
+    codeLength = 0;
     codeFound = FALSE;
     while(!codeFound)
     {
