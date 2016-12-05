@@ -43,10 +43,21 @@ void generateDecodeFreq(unsigned char totalSymbols,FILE* in,unsigned long freqCo
 {
   int i;
   unsigned char c;
+  int max = FALSE;
+  if(totalSymbols == 0)
+  {
+    max = TRUE;
+    totalSymbols = 255;
+  }
   for(i =0;i<totalSymbols;i++)
   {
     fread(&c,1,1,in);
     /*possible error??*/
+    fread((freqCounter+c),8,1,in);
+  }
+  if(max)
+  {
+    fread(&c,1,1,in);
     fread((freqCounter+c),8,1,in);
   }
 }
