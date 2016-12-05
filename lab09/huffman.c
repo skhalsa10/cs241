@@ -167,7 +167,7 @@ void createDecodedFile(FILE* in, FILE* out,char* symbolCodes[],unsigned long fre
       codeLength++;
       bitsLeft--;
       code = (code<<1)|(byteToDecode>>bitsLeft);
-      byteToDecode = byteToDecode & ~(~0<<bitsLeft)
+      byteToDecode = byteToDecode & ~(~0<<bitsLeft);
       if(bitsLeft == 0)
       {
         bitsLeft = 8;
