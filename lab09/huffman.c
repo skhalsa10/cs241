@@ -28,6 +28,13 @@ void decodeFile(FILE* in, FILE* out)
   root = head->dataNode;
   generateCodes(symbolCodes, root, code);
   printSymbolCodes(freqCounter, symbolCodes);
+  createDecodedFile(in, out, symbolCodes, freqCounter);
+
+  /*perform all shut down tasks*/
+  head->dataNode = NULL;
+  head->next = NULL;
+  free(head);
+  freeAllMemory(root, symbolCodes, freqCounter);
 
 }
 
@@ -138,6 +145,57 @@ void createEncodedFile(FILE* in, FILE* out,char* symbolCodes[],unsigned long fre
   encodeTheData(in,out,symbolCodes);
 }
 
+void createDecodedFile(FILE* in, FILE* out,char* symbolCodes[],unsigned long freqCounter[])
+{
+  
+  unsigned int byteToDecode;
+  unsigned long totalChars;
+  unsigned char bitsLeft = 8
+  unsigned long code=0;
+  unsigned char codeLength=0;
+  int codeFound = FALSE;
+  rewind(out);
+  fread(&totalChars,8,1,in);
+  byteToDecode = getc(in);
+  while(totalChars !=0)
+  {
+    code = 0
+    codeLength = 0
+    codeFound = FALSE;
+    while(!codeFound)
+    {
+      codeLength++;
+      bitsLeft--;
+      code = (code<<1)|(byteToDecode>>bitsLeft);
+      byteToDecode = byteToDecode & ~(~0<<bitsLeft)
+      if(bitsLeft == 0)
+      {
+        bitsLeft = 8;
+        byteToDecode = getc(in);
+      }
+      codeFound = checkCodeAndWrite(code, codeLength,out, symbolCodes, freqCounter);
+    }
+    totalChars--;
+  }
+  
+}
+
+int checkCodeAndWrite(unsigned long code, unsigned char codeLength, FILE* out,char* symbolCodes[],unsigned long freqCounter[])
+{
+  int i;
+  for(i=0;i<260;i++)
+  {
+    if(freqCounter[i] != 0)
+    {
+      if((code == convertCode(symbolCodes[i]))&&(codeLength == getCodeLength(symbolCodes[i])))
+      {
+        putc(i,out);
+        return 1;
+      }
+    }
+  }
+  return 0;
+}
 /**************************************************************
 * Parameters:                                                 *
 * FILE* in - file to encode                                   *
