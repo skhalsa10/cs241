@@ -28,7 +28,7 @@ void decodeFile(FILE* in, FILE* out)
   root = head->dataNode;
   generateCodes(symbolCodes, root, code);
   printSymbolCodes(freqCounter, symbolCodes);
-  /*createDecodedFile(in, out, symbolCodes, freqCounter);*/
+  createDecodedFile(in, out, symbolCodes, freqCounter);
 
   /*perform all shut down tasks*/
   head->dataNode = NULL;
