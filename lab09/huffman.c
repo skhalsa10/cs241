@@ -163,7 +163,6 @@ void createDecodedFile(FILE* in, FILE* out,char* symbolCodes[],unsigned long fre
   unsigned long totalChars;
   c96b code;
   unsigned char bitsLeft = 8;
-  unsigned char codeLength=0;
   int codeFound = FALSE;
   rewind(out);
   fread(&totalChars,8,1,in);
