@@ -212,11 +212,11 @@ int checkCodeAndWrite(c96b* testCode, FILE* out,char* symbolCodes[],unsigned lon
   {
     if(freqCounter[i] != 0)
     {
-      realCode convertDecodeCode(symbolCodes[i]);
-      if(testCode.part1 == realCode.part1&&
-         testCode.part2 == realCode.part2&&
-         testCode.part3 == realCode.part3&&
-         testCode.length == realCode.length)
+      realCode = convertDecodeCode(symbolCodes[i]);
+      if(testCode->part1 == realCode->part1&&
+         testCode->part2 == realCode->part2&&
+         testCode->part3 == realCode->part3&&
+         testCode->length == realCode->length)
       {
         putc(i,out);
         free(realCode);
