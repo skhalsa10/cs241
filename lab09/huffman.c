@@ -178,15 +178,15 @@ void createDecodedFile(FILE* in, FILE* out,char* symbolCodes[],unsigned long fre
     {
       code.length++;
       bitsLeft--;
-      if(code->length<32)
+      if(code.length<32)
       {
         code.part1 = (code.part1<<1)|(byteToDecode>>bitsLeft);
       }
-      else if(code->length>=32&&code->length<64)
+      else if(code.length>=32&&code.length<64)
       {
         code.part2 = (code.part2<<1)|(byteToDecode>>bitsLeft);
       }
-      else if(code->length>=64&&code->length<96)
+      else if(code.length>=64&&code.length<96)
       {
         code.part3 = (code.part3<<1)|(byteToDecode>>bitsLeft);
       }
