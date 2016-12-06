@@ -39,7 +39,7 @@ void decodeFile(FILE* in, FILE* out);
 c96b* convertDecodeCode(char* code);
 void createDecodedFile(FILE* in, FILE* out,char* symbolCodes[],unsigned long freqCounter[]);
 void generateDecodeFreq(unsigned char totalSymbols,FILE* in,unsigned long freqCounter[]);
-int checkCodeAndWrite(unsigned long code, FILE* out,char* symbolCodes[],unsigned long freqCounter[])
+int checkCodeAndWrite(c96b* code, FILE* out,char* symbolCodes[],unsigned long freqCounter[])
 ;
 /**************************************************************
 * Parameters:                                                 *
