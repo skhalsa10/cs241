@@ -161,8 +161,8 @@ void createDecodedFile(FILE* in, FILE* out,char* symbolCodes[],unsigned long fre
   
   unsigned int byteToDecode;
   unsigned long totalChars;
-  c96b code;
   unsigned char bitsLeft = 8;
+  unsigned long code=0;
   unsigned char codeLength=0;
   int codeFound = FALSE;
   rewind(out);
@@ -170,65 +170,43 @@ void createDecodedFile(FILE* in, FILE* out,char* symbolCodes[],unsigned long fre
   byteToDecode = getc(in);
   while(totalChars !=0)
   {
-    code.part1 = 0;
-    code.part2 = 0;
-    code.part3 = 0;
-    code.length = 0;
+    code = 0;
+    codeLength = 0;
     codeFound = FALSE;
     while(!codeFound)
     {
-      code.length++;
+      codeLength++;
       bitsLeft--;
-      if(fullCode->length<32)
-      {
-        code.part1 = (code.part1<<1)|(byteToDecode>>bitsLeft);
-      }
-      else if(fullCode->length>=32&&fullCode->length<64)
-      {
-        code.part2 = (code.part2<<1)|(byteToDecode>>bitsLeft);
-      }
-      else if(fullCode->length>=64&&fullCode->length<96)
-      {
-        code.part3 = (code.part3<<1)|(byteToDecode>>bitsLeft);
-      }
+      code = (code<<1)|(byteToDecode>>bitsLeft);
       byteToDecode = byteToDecode & ~(~0<<bitsLeft);
       if(bitsLeft == 0)
       {
         bitsLeft = 8;
         byteToDecode = getc(in);
       }
-      codeFound = checkCodeAndWrite(&code,out, symbolCodes, freqCounter);
+      codeFound = checkCodeAndWrite(code, codeLength,out, symbolCodes, freqCounter);
     }
     totalChars--;
   }
   
 }
 
-int checkCodeAndWrite(c96b* testCode, FILE* out,char* symbolCodes[],unsigned long freqCounter[])
+int checkCodeAndWrite(unsigned long code, unsigned char codeLength, FILE* out,char* symbolCodes[],unsigned long freqCounter[])
 {
   int i;
-  c96b* realCode;
   for(i=0;i<260;i++)
   {
     if(freqCounter[i] != 0)
     {
-      realCode convertDecodeCode(symbolCodes[i]);
-      if(testCode.part1 == realCode.part1&&
-         testCode.part2 == realCode.part2&&
-         testCode.part3 == realCode.part3&&
-         testCode.length == realCode.length)
+      if((code == convertCode(symbolCodes[i]))&&(codeLength == getCodeLength(symbolCodes[i])))
       {
         putc(i,out);
-        free(realCode);
         return 1;
       }
     }
   }
-  free(realCode);
   return 0;
 }
-
-
 /**************************************************************
 * Parameters:                                                 *
 * FILE* in - file to encode                                   *
@@ -310,50 +288,6 @@ unsigned long convertCode(char* code)
     code++;
   }
   return convertedCode;
-}
-c96b* convertDecodeCode(char* code)
-{
-  c96b* fullCode = malloc(sizeof(c96b));
-  fullCode->length = 0;
-  fullCode->part1 = 0;
-  fullCode->part2 = 0;
-  fullCode->part3 = 0;
-  while(*code != '\0')
-  {
-    if(*code == '1')
-    {
-      if(fullCode->length<32)
-      {
-        fullCode->part1 = (fullCode->part1<<1) | 1;
-      }
-      else if(fullCode->length>=32&&fullCode->length<64)
-      {
-        fullCode->part2 = (fullCode->part2<<1) | 1;
-      }
-      else if(fullCode->length>=64&&fullCode->length<96)
-      {
-        fullCode->part3 = (fullCode->part3<<1) | 1;
-      }
-    }
-    else
-    {
-      if(fullCode->length<32)
-      {
-        fullCode->part1 = (fullCode->part1<<1);
-      }
-      else if(fullCode->length>=32&&fullCode->length<64)
-      {
-        fullCode->part2 = (fullCode->part2<<1);
-      }
-      else if(fullCode->length>=64&&fullCode->length<96)
-      {
-        fullCode->part3 = (fullCode->part3<<1);
-      }
-    }
-    code++;
-    fullCode->length++;
-  }
-  return fullCode;
 }
 /**************************************************************
 * Parameters:                                                 *
