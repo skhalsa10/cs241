@@ -624,6 +624,8 @@ qNode* buildHuffmanTree(qNode* head)
   {
     printf("Error OverFlow with %lu and %lu", left->dataNode->freq,right->dataNode->freq);
     printf("|%lu\n",(left->dataNode->freq)+(right->dataNode->freq));
+    left->dataNode->freq = (left->dataNode->freq)-1;
+    right->dataNode->freq = (right->dataNode->freq)-1;
   }
   newFreq = (left->dataNode->freq)+(right->dataNode->freq);
 
