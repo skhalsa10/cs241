@@ -236,6 +236,6 @@ unsigned long convertCode(char* code);
 * returns the length of code string                           *
 ***************************************************************/
 unsigned char getCodeLength(char* code);
-int checkOverFlow(unsigned long a,unsigned long b)
+int checkOverFlow(unsigned long a,unsigned long b);
 
 #endif
