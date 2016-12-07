@@ -609,7 +609,7 @@ qNode* buildHuffmanTree(qNode* head)
   unsigned long newFreq;
   tNode* newTree;
 
-  printQueue(head);
+  /*printQueue(head);*/
   /*if head is null return head if head->next is null return head->dataNode
   this completed the returns needed for recursive use of this function*/
   if(head == NULL || head->next == NULL) 
