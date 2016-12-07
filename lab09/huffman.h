@@ -4,6 +4,7 @@
 /* Including stdio so we'll know about FILE type */
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 #include "queueAndTree.h"
 #define FALSE 0
 #define TRUE 1
