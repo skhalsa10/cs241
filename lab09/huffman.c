@@ -647,7 +647,7 @@ qNode* buildHuffmanTree(qNode* head)
 
 int checkOverFlow(unsigned long a,unsigned long b)
 {
-  if(a> ULONG_MAX-b)return 1;
+  if(b> ULONG_MAX-a)return 1;
 }
 
 /*********************************************************************
