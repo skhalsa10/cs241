@@ -651,7 +651,10 @@ int checkOverFlow(unsigned long a,unsigned long b)
   printf("a=%lu and ULONG_MAX-b=%lu\n",a,(ULONG_MAX-b));
   printf("a > (ULONG_MAX-b)= %lu\n", (a > (ULONG_MAX-b)));
   if(a > (ULONG_MAX-b))
-  {return 1;}
+  {
+    return 1;
+  }
+  return 0;
 }
 
 /*********************************************************************
