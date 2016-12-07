@@ -609,7 +609,7 @@ qNode* buildHuffmanTree(qNode* head)
   unsigned long newFreq;
   tNode* newTree;
 
-  printQueue(head);
+  /*printQueue(head);*/
   /*if head is null return head if head->next is null return head->dataNode
   this completed the returns needed for recursive use of this function*/
   if(head == NULL || head->next == NULL) 
@@ -620,6 +620,10 @@ qNode* buildHuffmanTree(qNode* head)
   left = head;
   right = head->next;
   head = right->next;
+  if(checkOverFlow(left->dataNode->freq,right->dataNode->freq))
+  {
+    printf("Error OverFlow with %lu and %lu", left->dataNode->freq,right->dataNode->freq);
+  }
   newFreq = (left->dataNode->freq)+(right->dataNode->freq);
 
   newTree = createTreeNode(getRightLeafSymbol(right->dataNode),newFreq);
@@ -638,6 +642,11 @@ qNode* buildHuffmanTree(qNode* head)
   head = buildHuffmanTree(head);
   
   return head;
+}
+
+int checkOverFlow(usigned long a,unsigned long b)
+{
+  if(a> ULONG_MAX-b)return 1;
 }
 
 /*********************************************************************
