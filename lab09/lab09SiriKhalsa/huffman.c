@@ -1,3 +1,14 @@
+/***********************************************
+*                                              *
+*               By: Siri Khalsa                *
+*                  11/04/16                    *
+*                 CS-241 001                   *
+*		            lab07                      *
+*              | huffman.c    |                *
+*                                              *
+*                                              *
+***********************************************/
+
 #include <stdio.h>
 #include "huffman.h"
 #include "queueAndTree.h"
@@ -42,21 +53,10 @@ void generateDecodeFreq(unsigned char totalSymbols,FILE* in,unsigned long freqCo
 {
   int i;
   unsigned char c;
-  int max = FALSE;
-  if(totalSymbols == 0)
-  {
-    max = TRUE;
-    totalSymbols = 255;
-  }
   for(i =0;i<totalSymbols;i++)
   {
     fread(&c,1,1,in);
     /*possible error??*/
-    fread((freqCounter+c),8,1,in);
-  }
-  if(max)
-  {
-    fread(&c,1,1,in);
     fread((freqCounter+c),8,1,in);
   }
 }
@@ -161,73 +161,52 @@ void createDecodedFile(FILE* in, FILE* out,char* symbolCodes[],unsigned long fre
   
   unsigned int byteToDecode;
   unsigned long totalChars;
-  c96b code;
   unsigned char bitsLeft = 8;
+  unsigned long code=0;
+  unsigned char codeLength=0;
   int codeFound = FALSE;
   rewind(out);
   fread(&totalChars,8,1,in);
   byteToDecode = getc(in);
   while(totalChars !=0)
   {
-    code.part1 = 0;
-    code.part2 = 0;
-    code.part3 = 0;
-    code.length = 0;
+    code = 0;
+    codeLength = 0;
     codeFound = FALSE;
     while(!codeFound)
     {
-      code.length++;
+      codeLength++;
       bitsLeft--;
-      if(code.length<32)
-      {
-        code.part1 = (code.part1<<1)|(byteToDecode>>bitsLeft);
-      }
-      else if(code.length>=32&&code.length<64)
-      {
-        code.part2 = (code.part2<<1)|(byteToDecode>>bitsLeft);
-      }
-      else if(code.length>=64&&code.length<96)
-      {
-        code.part3 = (code.part3<<1)|(byteToDecode>>bitsLeft);
-      }
+      code = (code<<1)|(byteToDecode>>bitsLeft);
       byteToDecode = byteToDecode & ~(~0<<bitsLeft);
       if(bitsLeft == 0)
       {
         bitsLeft = 8;
         byteToDecode = getc(in);
       }
-      codeFound = checkCodeAndWrite(&code,out, symbolCodes, freqCounter);
+      codeFound = checkCodeAndWrite(code, codeLength,out, symbolCodes, freqCounter);
     }
     totalChars--;
   }
   
 }
 
-int checkCodeAndWrite(c96b* testCode, FILE* out,char* symbolCodes[],unsigned long freqCounter[])
+int checkCodeAndWrite(unsigned long code, unsigned char codeLength, FILE* out,char* symbolCodes[],unsigned long freqCounter[])
 {
   int i;
-  c96b* realCode;
   for(i=0;i<260;i++)
   {
     if(freqCounter[i] != 0)
     {
-      realCode = convertDecodeCode(symbolCodes[i]);
-      if(testCode->part1 == realCode->part1&&
-         testCode->part2 == realCode->part2&&
-         testCode->part3 == realCode->part3&&
-         testCode->length == realCode->length)
+      if((code == convertCode(symbolCodes[i]))&&(codeLength == getCodeLength(symbolCodes[i])))
       {
         putc(i,out);
-        free(realCode);
         return 1;
       }
     }
   }
-  free(realCode);
   return 0;
 }
-
-
 /**************************************************************
 * Parameters:                                                 *
 * FILE* in - file to encode                                   *
@@ -309,50 +288,6 @@ unsigned long convertCode(char* code)
     code++;
   }
   return convertedCode;
-}
-c96b* convertDecodeCode(char* code)
-{
-  c96b* fullCode = malloc(sizeof(c96b));
-  fullCode->length = 0;
-  fullCode->part1 = 0;
-  fullCode->part2 = 0;
-  fullCode->part3 = 0;
-  while(*code != '\0')
-  {
-    if(*code == '1')
-    {
-      if(fullCode->length<32)
-      {
-        fullCode->part1 = (fullCode->part1<<1) | 1;
-      }
-      else if(fullCode->length>=32&&fullCode->length<64)
-      {
-        fullCode->part2 = (fullCode->part2<<1) | 1;
-      }
-      else if(fullCode->length>=64&&fullCode->length<96)
-      {
-        fullCode->part3 = (fullCode->part3<<1) | 1;
-      }
-    }
-    else
-    {
-      if(fullCode->length<32)
-      {
-        fullCode->part1 = (fullCode->part1<<1);
-      }
-      else if(fullCode->length>=32&&fullCode->length<64)
-      {
-        fullCode->part2 = (fullCode->part2<<1);
-      }
-      else if(fullCode->length>=64&&fullCode->length<96)
-      {
-        fullCode->part3 = (fullCode->part3<<1);
-      }
-    }
-    code++;
-    fullCode->length++;
-  }
-  return fullCode;
 }
 /**************************************************************
 * Parameters:                                                 *
@@ -543,15 +478,14 @@ void printQueue(qNode* head)
   {
     if(current->dataNode->symbol<33||current->dataNode->symbol>126)
     {
-      printf("|=%d:%lu|",current->dataNode->symbol, current->dataNode->freq);
+      printf("=%d\t%lu\n",current->dataNode->symbol, current->dataNode->freq);
     }
     else
     {
-      printf("|%c:%lu|",current->dataNode->symbol, current->dataNode->freq);
+      printf("%c\t%lu\n",current->dataNode->symbol, current->dataNode->freq);
     }
     current = current->next;
   }
-  printf("\n");
 }
 
 /*********************************************************************
@@ -609,7 +543,6 @@ qNode* buildHuffmanTree(qNode* head)
   unsigned long newFreq;
   tNode* newTree;
 
-  printQueue(head);
   /*if head is null return head if head->next is null return head->dataNode
   this completed the returns needed for recursive use of this function*/
   if(head == NULL || head->next == NULL) 
@@ -620,16 +553,9 @@ qNode* buildHuffmanTree(qNode* head)
   left = head;
   right = head->next;
   head = right->next;
-  while(checkOverFlow(left->dataNode->freq,right->dataNode->freq))
-  {
-    printf("Error OverFlow with %lu and %lu", left->dataNode->freq,right->dataNode->freq);
-    printf("|%lu\n",(left->dataNode->freq)+(right->dataNode->freq));
-    left->dataNode->freq = (left->dataNode->freq)-1;
-    right->dataNode->freq = (right->dataNode->freq)-1;
-  }
   newFreq = (left->dataNode->freq)+(right->dataNode->freq);
 
-  newTree = createTreeNode(getRightLeafSymbol(right->dataNode),newFreq);
+  newTree = createTreeNode('\0',newFreq);
   newTree->left = left->dataNode;
   newTree->right = right->dataNode;
 
@@ -640,20 +566,11 @@ qNode* buildHuffmanTree(qNode* head)
   right->dataNode = newTree;
   right->next = NULL;
   /*insert modified right qnode into queue with correct priority*/
-  head = insertTreeIntoQueue(head,newTree);
+  head = insertQueueIntoQueue(head,right);
   /*repeat until one qnode is left*/
   head = buildHuffmanTree(head);
   
   return head;
-}
-
-int checkOverFlow(unsigned long a,unsigned long b)
-{
-  if(a > (ULONG_MAX-b))
-  {
-    return 1;
-  }
-  return 0;
 }
 
 /*********************************************************************
