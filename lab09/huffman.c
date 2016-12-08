@@ -653,7 +653,7 @@ void reduceFreq(qNode* head)
 
   while(current != NULL)
   {
-    current->dataNode->freq = current->dataNode->freq/1000;
+    current->dataNode->freq = current->dataNode->freq % ULONG_MAX;
     current = current->next;
   }
 }
