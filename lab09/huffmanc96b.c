@@ -161,52 +161,73 @@ void createDecodedFile(FILE* in, FILE* out,char* symbolCodes[],unsigned long fre
   
   unsigned int byteToDecode;
   unsigned long totalChars;
+  c96b code;
   unsigned char bitsLeft = 8;
-  unsigned long code=0;
-  unsigned char codeLength=0;
   int codeFound = FALSE;
   rewind(out);
   fread(&totalChars,8,1,in);
   byteToDecode = getc(in);
   while(totalChars !=0)
   {
-    code = 0;
-    codeLength = 0;
+    code.part1 = 0;
+    code.part2 = 0;
+    code.part3 = 0;
+    code.length = 0;
     codeFound = FALSE;
     while(!codeFound)
     {
-      codeLength++;
+      code.length++;
       bitsLeft--;
-      code = (code<<1)|(byteToDecode>>bitsLeft);
+      if(code.length<32)
+      {
+        code.part1 = (code.part1<<1)|(byteToDecode>>bitsLeft);
+      }
+      else if(code.length>=32&&code.length<64)
+      {
+        code.part2 = (code.part2<<1)|(byteToDecode>>bitsLeft);
+      }
+      else if(code.length>=64&&code.length<96)
+      {
+        code.part3 = (code.part3<<1)|(byteToDecode>>bitsLeft);
+      }
       byteToDecode = byteToDecode & ~(~0<<bitsLeft);
       if(bitsLeft == 0)
       {
         bitsLeft = 8;
         byteToDecode = getc(in);
       }
-      codeFound = checkCodeAndWrite(code, codeLength,out, symbolCodes, freqCounter);
+      codeFound = checkCodeAndWrite(&code,out, symbolCodes, freqCounter);
     }
     totalChars--;
   }
   
 }
 
-int checkCodeAndWrite(unsigned long code, unsigned char codeLength, FILE* out,char* symbolCodes[],unsigned long freqCounter[])
+int checkCodeAndWrite(c96b* testCode, FILE* out,char* symbolCodes[],unsigned long freqCounter[])
 {
   int i;
+  c96b* realCode;
   for(i=0;i<260;i++)
   {
     if(freqCounter[i] != 0)
     {
-      if((code == convertCode(symbolCodes[i]))&&(codeLength == getCodeLength(symbolCodes[i])))
+      realCode = convertDecodeCode(symbolCodes[i]);
+      if(testCode->part1 == realCode->part1&&
+         testCode->part2 == realCode->part2&&
+         testCode->part3 == realCode->part3&&
+         testCode->length == realCode->length)
       {
         putc(i,out);
+        free(realCode);
         return 1;
       }
     }
   }
+  free(realCode);
   return 0;
 }
+
+
 /**************************************************************
 * Parameters:                                                 *
 * FILE* in - file to encode                                   *
@@ -288,6 +309,50 @@ unsigned long convertCode(char* code)
     code++;
   }
   return convertedCode;
+}
+c96b* convertDecodeCode(char* code)
+{
+  c96b* fullCode = malloc(sizeof(c96b));
+  fullCode->length = 0;
+  fullCode->part1 = 0;
+  fullCode->part2 = 0;
+  fullCode->part3 = 0;
+  while(*code != '\0')
+  {
+    if(*code == '1')
+    {
+      if(fullCode->length<32)
+      {
+        fullCode->part1 = (fullCode->part1<<1) | 1;
+      }
+      else if(fullCode->length>=32&&fullCode->length<64)
+      {
+        fullCode->part2 = (fullCode->part2<<1) | 1;
+      }
+      else if(fullCode->length>=64&&fullCode->length<96)
+      {
+        fullCode->part3 = (fullCode->part3<<1) | 1;
+      }
+    }
+    else
+    {
+      if(fullCode->length<32)
+      {
+        fullCode->part1 = (fullCode->part1<<1);
+      }
+      else if(fullCode->length>=32&&fullCode->length<64)
+      {
+        fullCode->part2 = (fullCode->part2<<1);
+      }
+      else if(fullCode->length>=64&&fullCode->length<96)
+      {
+        fullCode->part3 = (fullCode->part3<<1);
+      }
+    }
+    code++;
+    fullCode->length++;
+  }
+  return fullCode;
 }
 /**************************************************************
 * Parameters:                                                 *
@@ -478,14 +543,15 @@ void printQueue(qNode* head)
   {
     if(current->dataNode->symbol<33||current->dataNode->symbol>126)
     {
-      printf("=%d\t%lu\n",current->dataNode->symbol, current->dataNode->freq);
+      printf("|=%d:%lu|",current->dataNode->symbol, current->dataNode->freq);
     }
     else
     {
-      printf("%c\t%lu\n",current->dataNode->symbol, current->dataNode->freq);
+      printf("|%c:%lu|",current->dataNode->symbol, current->dataNode->freq);
     }
     current = current->next;
   }
+  printf("\n");
 }
 
 /*********************************************************************
@@ -543,6 +609,7 @@ qNode* buildHuffmanTree(qNode* head)
   unsigned long newFreq;
   tNode* newTree;
 
+  printQueue(head);
   /*if head is null return head if head->next is null return head->dataNode
   this completed the returns needed for recursive use of this function*/
   if(head == NULL || head->next == NULL) 
@@ -552,10 +619,17 @@ qNode* buildHuffmanTree(qNode* head)
     
   left = head;
   right = head->next;
+  
+  if(left->dataNode->symbol == 254)
+  {
+    printf("Error OverFlow with %lu and %lu", left->dataNode->freq,right->dataNode->freq);
+    printf("|%lu\n",(left->dataNode->freq)+(right->dataNode->freq));
+    reduceFreq(head);
+  }
   head = right->next;
   newFreq = (left->dataNode->freq)+(right->dataNode->freq);
 
-  newTree = createTreeNode('\0',newFreq);
+  newTree = createTreeNode(getRightLeafSymbol(right->dataNode),newFreq);
   newTree->left = left->dataNode;
   newTree->right = right->dataNode;
 
@@ -566,11 +640,33 @@ qNode* buildHuffmanTree(qNode* head)
   right->dataNode = newTree;
   right->next = NULL;
   /*insert modified right qnode into queue with correct priority*/
-  head = insertQueueIntoQueue(head,right);
+  head = insertTreeIntoQueue(head,newTree);
   /*repeat until one qnode is left*/
   head = buildHuffmanTree(head);
   
   return head;
+}
+
+void reduceFreq(qNode* head)
+{
+  qNode* current = head;
+
+  current->dataNode->freq = 1;
+  current = current->next;
+  while(current != NULL)
+  {
+    current->dataNode->freq = 5;
+    current = current->next;
+  }
+}
+
+int checkOverFlow(unsigned long a,unsigned long b)
+{
+  if(a > (ULONG_MAX-b))
+  {
+    return 1;
+  }
+  return 0;
 }
 
 /*********************************************************************

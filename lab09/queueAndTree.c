@@ -1,3 +1,13 @@
+/***********************************************
+*                                              *
+*               By: Siri Khalsa                *
+*                  11/04/16                    *
+*                 CS-241 001                   *
+*		            lab07                      *
+*              | queueAndTree.c |              *
+*                                              *
+*                                              *
+***********************************************/
 #include "queueAndTree.h"
 
 /*******************************************************************
@@ -6,7 +16,7 @@
  * unsigned long freq - value to set as frequency                  *
  *******************************************************************
  * This function dynamically allocates a tNode and                 * 
- * sets symbol and freq to theior respective data members          *                                  *
+ * sets symbol and freq to theior respective data members          *                                  
  *******************************************************************
  * Returns:                                                        *
  * tNode* - pointer to the new tNode                               *

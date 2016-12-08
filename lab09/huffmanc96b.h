@@ -4,10 +4,20 @@
 /* Including stdio so we'll know about FILE type */
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 #include "queueAndTree.h"
 #define FALSE 0
 #define TRUE 1
 
+struct code96Bit
+{
+  unsigned long part1;
+  unsigned long part2;
+  unsigned long part3;
+  unsigned char length;
+};
+
+typedef struct code96Bit c96b;
 /* The following 2 functions are used in my huffencode and huffdecode
    programs. You'll need to write them if you want to use my code.  */
 
@@ -27,9 +37,10 @@ void encodeFile(FILE* in, FILE* out);
 /***************************************************/
 void decodeFile(FILE* in, FILE* out);
 
+c96b* convertDecodeCode(char* code);
 void createDecodedFile(FILE* in, FILE* out,char* symbolCodes[],unsigned long freqCounter[]);
 void generateDecodeFreq(unsigned char totalSymbols,FILE* in,unsigned long freqCounter[]);
-int checkCodeAndWrite(unsigned long code, unsigned char codeLength, FILE* out,char* symbolCodes[],unsigned long freqCounter[])
+int checkCodeAndWrite(c96b* code, FILE* out,char* symbolCodes[],unsigned long freqCounter[])
 ;
 /**************************************************************
 * Parameters:                                                 *
@@ -225,5 +236,7 @@ unsigned long convertCode(char* code);
 * returns the length of code string                           *
 ***************************************************************/
 unsigned char getCodeLength(char* code);
+int checkOverFlow(unsigned long a,unsigned long b);
+void reduceFreq(qNode* head);
 
 #endif
