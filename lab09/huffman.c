@@ -505,6 +505,7 @@ void printSymbolCodes(unsigned long freqCounter[], char* symbolCodes[])
   printf("Symbol\tFreq\tCode\n");
   for (i=0;i<260;i++)
   {
+    totalChars++;
     if(freqCounter[i] != 0)
     {
       if(i<33||i>126)
