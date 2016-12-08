@@ -620,7 +620,7 @@ qNode* buildHuffmanTree(qNode* head)
   left = head;
   right = head->next;
   
-  while(checkOverFlow(left->dataNode->freq,right->dataNode->freq))
+  if(checkOverFlow(left->dataNode->freq,right->dataNode->freq))
   {
     printf("Error OverFlow with %lu and %lu", left->dataNode->freq,right->dataNode->freq);
     printf("|%lu\n",(left->dataNode->freq)+(right->dataNode->freq));
