@@ -606,6 +606,7 @@ qNode* buildHuffmanTree(qNode* head)
 {
   qNode* left;
   qNode* right;
+  q
   unsigned long newFreq;
   tNode* newTree;
 
@@ -619,14 +620,14 @@ qNode* buildHuffmanTree(qNode* head)
     
   left = head;
   right = head->next;
-  head = right->next;
+  
   while(checkOverFlow(left->dataNode->freq,right->dataNode->freq))
   {
     printf("Error OverFlow with %lu and %lu", left->dataNode->freq,right->dataNode->freq);
     printf("|%lu\n",(left->dataNode->freq)+(right->dataNode->freq));
-    left->dataNode->freq = (left->dataNode->freq)-1;
-    right->dataNode->freq = (right->dataNode->freq)-1;
+    reduceFreq(head);
   }
+  head = right->next;
   newFreq = (left->dataNode->freq)+(right->dataNode->freq);
 
   newTree = createTreeNode(getRightLeafSymbol(right->dataNode),newFreq);
@@ -645,6 +646,17 @@ qNode* buildHuffmanTree(qNode* head)
   head = buildHuffmanTree(head);
   
   return head;
+}
+
+void reduceFreq(qNode* head)
+{
+  qNode* current = head;
+
+  while(*current != NULL)
+  {
+    current->dataNode->freq = current->dataNode->freq/1000;
+    current = current->next;
+  }
 }
 
 int checkOverFlow(unsigned long a,unsigned long b)
