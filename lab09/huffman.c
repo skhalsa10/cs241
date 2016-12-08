@@ -3,7 +3,7 @@
 *               By: Siri Khalsa                *
 *                  11/04/16                    *
 *                 CS-241 001                   *
-*		            lab07                      *
+*		                lab07                      *
 *              | huffman.c    |                *
 *                                              *
 *                                              *
@@ -555,7 +555,7 @@ qNode* buildHuffmanTree(qNode* head)
   head = right->next;
   newFreq = (left->dataNode->freq)+(right->dataNode->freq);
 
-  newTree = createTreeNode('\0',newFreq);
+  newTree = createTreeNode(getRightLeafSymbol(right->dataNode),newFreq);
   newTree->left = left->dataNode;
   newTree->right = right->dataNode;
 
@@ -566,7 +566,7 @@ qNode* buildHuffmanTree(qNode* head)
   right->dataNode = newTree;
   right->next = NULL;
   /*insert modified right qnode into queue with correct priority*/
-  head = insertQueueIntoQueue(head,right);
+  head = insertTreeIntoQueue(head,newTree);
   /*repeat until one qnode is left*/
   head = buildHuffmanTree(head);
   
