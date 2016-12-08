@@ -237,5 +237,6 @@ unsigned long convertCode(char* code);
 ***************************************************************/
 unsigned char getCodeLength(char* code);
 int checkOverFlow(unsigned long a,unsigned long b);
+void reduceFreq(qNode* head);
 
 #endif
