@@ -1,3 +1,13 @@
+/***********************************************
+*                                              *
+*               By: Siri Khalsa                *
+*                  11/04/16                    *
+*                 CS-241 001                   *
+*		                lab07                      *
+*              | huffman.h    |                *
+*                                              *
+*                                              *
+***********************************************/
 #ifndef HUFFMAN_H
 #define HUFFMAN_H
 
@@ -26,11 +36,52 @@ void encodeFile(FILE* in, FILE* out);
 /* out -- File where decoded data will be written. */
 /***************************************************/
 void decodeFile(FILE* in, FILE* out);
-
-void createDecodedFile(FILE* in, FILE* out,char* symbolCodes[],unsigned long freqCounter[]);
-void generateDecodeFreq(unsigned char totalSymbols,FILE* in,unsigned long freqCounter[]);
-int checkCodeAndWrite(unsigned long code, unsigned char codeLength, FILE* out,char* symbolCodes[],unsigned long freqCounter[])
-;
+/**************************************************************
+* Parameters:                                                 *
+* FILE* in - file to read from                                *
+* FILE* out - file to write to                                *
+* char* symbolCodes[] - array of SYmbols to codes             *
+* unsigned long freqCounter[] - holds chars and their freq    *
+***************************************************************
+* This function takes a encoded file and decodes it           *
+*  with frequency codes                                       *
+***************************************************************
+* returns 1 if it found the code and 0 otherwise              *
+***************************************************************/
+void createDecodedFile(FILE* in, FILE* out,char* symbolCodes[],
+                       unsigned long freqCounter[]);
+/**************************************************************
+* Parameters:                                                 *
+* FILE* in - file to read from                                *
+* unsigned char totalSymbols- to know how many char and freq  *
+*                             to read in                      *
+* unsigned long freqCounter[] - holds chars and their freq    *
+***************************************************************
+* This function reads in freq from file and stores in array   *
+***************************************************************
+* Nothing                                                     *
+***************************************************************/
+void generateDecodeFreq(unsigned char totalSymbols,FILE* in,
+                        unsigned long freqCounter[]);
+/**************************************************************
+* Parameters:                                                 *
+* unsigned long code - code to check for                      *
+* unsigned char codeLength - this needs to match both codes   *
+* FILE* out - file to write to                                *
+* char* symbolCodes[] - array of SYmbols to codes             *
+* unsigned long freqCounter[] - holds chars and their freq    *
+***************************************************************
+* This function takes a code and compares it to all codes if  *
+* it is found it writes out char associated with code         *
+* NOTE: this function is huge performance issue and is brought*
+* on by using strings to hold codes initially. this entire    *
+* program should be rewritten without the use of strings      *
+* for codes... not enough time                                *
+***************************************************************
+* returns 1 if it found the code and 0 otherwise              *
+***************************************************************/
+int checkCodeAndWrite(unsigned long code, unsigned char codeLength, FILE* out,
+                      char* symbolCodes[],unsigned long freqCounter[]);
 /**************************************************************
 * Parameters:                                                 *
 * FILE* in - file stream to analyze                           *

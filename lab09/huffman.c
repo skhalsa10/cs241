@@ -49,7 +49,19 @@ void decodeFile(FILE* in, FILE* out)
 
 }
 
-void generateDecodeFreq(unsigned char totalSymbols,FILE* in,unsigned long freqCounter[])
+/**************************************************************
+* Parameters:                                                 *
+* FILE* in - file to read from                                *
+* unsigned char totalSymbols- to know how many char and freq  *
+*                             to read in                      *
+* unsigned long freqCounter[] - holds chars and their freq    *
+***************************************************************
+* This function reads in freq from file and stores in array   *
+***************************************************************
+* Nothing                                                     *
+***************************************************************/
+void generateDecodeFreq(unsigned char totalSymbols,
+                        FILE* in,unsigned long freqCounter[])
 {
   int i;
   unsigned char c;
@@ -124,7 +136,8 @@ void encodeFile(FILE* in, FILE* out)
 ***************************************************************
 * returns  Nothing                                            *
 ***************************************************************/
-void freeAllMemory(tNode* root, char* symbolCodes[], unsigned long freqCounter[])
+void freeAllMemory(tNode* root, char* symbolCodes[], 
+                   unsigned long freqCounter[])
 {
   int i;
   for(i = 0; i<260;i++)
@@ -158,7 +171,8 @@ void freeTree(tNode* root)
 ***************************************************************
 * returns nothing                                             *
 ***************************************************************/
-void createEncodedFile(FILE* in, FILE* out,char* symbolCodes[],unsigned long freqCounter[])
+void createEncodedFile(FILE* in, FILE* out,char* symbolCodes[],
+                       unsigned long freqCounter[])
 {
   
   rewind(in);
@@ -166,8 +180,20 @@ void createEncodedFile(FILE* in, FILE* out,char* symbolCodes[],unsigned long fre
   buildHeader(out, freqCounter);
   encodeTheData(in,out,symbolCodes);
 }
-
-void createDecodedFile(FILE* in, FILE* out,char* symbolCodes[],unsigned long freqCounter[])
+/**************************************************************
+* Parameters:                                                 *
+* FILE* in - file to read from                                *
+* FILE* out - file to write to                                *
+* char* symbolCodes[] - array of SYmbols to codes             *
+* unsigned long freqCounter[] - holds chars and their freq    *
+***************************************************************
+* This function takes a encoded file and decodes it           *
+*  with frequency codes                                       *
+***************************************************************
+* returns 1 if it found the code and 0 otherwise              *
+***************************************************************/
+void createDecodedFile(FILE* in, FILE* out,char* symbolCodes[],
+                       unsigned long freqCounter[])
 {
   
   unsigned int byteToDecode;
@@ -195,21 +221,41 @@ void createDecodedFile(FILE* in, FILE* out,char* symbolCodes[],unsigned long fre
         bitsLeft = 8;
         byteToDecode = getc(in);
       }
-      codeFound = checkCodeAndWrite(code, codeLength,out, symbolCodes, freqCounter);
+      codeFound = checkCodeAndWrite(code, codeLength,out, symbolCodes,
+                                     freqCounter);
     }
     totalChars--;
   }
   
 }
 
-int checkCodeAndWrite(unsigned long code, unsigned char codeLength, FILE* out,char* symbolCodes[],unsigned long freqCounter[])
+/**************************************************************
+* Parameters:                                                 *
+* unsigned long code - code to check for                      *
+* unsigned char codeLength - this needs to match both codes   *
+* FILE* out - file to write to                                *
+* char* symbolCodes[] - array of SYmbols to codes             *
+* unsigned long freqCounter[] - holds chars and their freq    *
+***************************************************************
+* This function takes a code and compares it to all codes if  *
+* it is found it writes out char associated with code         *
+* NOTE: this function is huge performance issue and is brought*
+* on by using strings to hold codes initially. this entire    *
+* program should be rewritten without the use of strings      *
+* for codes... not enough time                                *
+***************************************************************
+* returns 1 if it found the code and 0 otherwise              *
+***************************************************************/
+int checkCodeAndWrite(unsigned long code, unsigned char codeLength,
+                     FILE* out,char* symbolCodes[],unsigned long freqCounter[])
 {
   int i;
   for(i=0;i<260;i++)
   {
     if(freqCounter[i] != 0)
     {
-      if((code == convertCode(symbolCodes[i]))&&(codeLength == getCodeLength(symbolCodes[i])))
+      if((code == convertCode(symbolCodes[i]))&&
+      (codeLength == getCodeLength(symbolCodes[i])))
       {
         putc(i,out);
         return 1;
@@ -455,6 +501,7 @@ void printFreq(unsigned long freqCounter[])
 void printSymbolCodes(unsigned long freqCounter[], char* symbolCodes[])
 {
   int i;
+  unsigned long totalChars = 0;
   printf("Symbol\tFreq\tCode\n");
   for (i=0;i<260;i++)
   {
@@ -470,6 +517,7 @@ void printSymbolCodes(unsigned long freqCounter[], char* symbolCodes[])
       }
     }
   }
+  printf("Total chars = %lu\n", totalChars);
 }
 
 /*********************************************************************
