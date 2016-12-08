@@ -606,7 +606,6 @@ qNode* buildHuffmanTree(qNode* head)
 {
   qNode* left;
   qNode* right;
-  q
   unsigned long newFreq;
   tNode* newTree;
 
