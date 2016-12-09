@@ -9,15 +9,6 @@
 #define FALSE 0
 #define TRUE 1
 
-struct code96Bit
-{
-  unsigned long part1;
-  unsigned long part2;
-  unsigned long part3;
-  unsigned char length;
-};
-
-typedef struct code96Bit c96b;
 /* The following 2 functions are used in my huffencode and huffdecode
    programs. You'll need to write them if you want to use my code.  */
 
@@ -36,10 +27,32 @@ void encodeFile(FILE* in, FILE* out);
 /* out -- File where decoded data will be written. */
 /***************************************************/
 void decodeFile(FILE* in, FILE* out);
-
-c96b* convertDecodeCode(char* code);
+/**************************************************************
+* Parameters:                                                 *
+* FILE* in - file to read from                                *
+* FILE* out - file to write to                                *
+* char* symbolCodes[] - array of SYmbols to codes             *
+* unsigned long freqCounter[] - holds chars and their freq    *
+***************************************************************
+* This function takes a encoded file and decodes it           *
+*  with frequency codes                                       *
+***************************************************************
+* returns Nothing                                             *
+***************************************************************/
 void createDecodedFile(FILE* in, FILE* out,tNode* root);
-void generateDecodeFreq(unsigned char totalSymbols,FILE* in,unsigned long freqCounter[]);
+/**************************************************************
+* Parameters:                                                 *
+* FILE* in - file to read from                                *
+* unsigned char totalSymbols- to know how many char and freq  *
+*                             to read in                      *
+* unsigned long freqCounter[] - holds chars and their freq    *
+***************************************************************
+* This function reads in freq from file and stores in array   *
+***************************************************************
+* Nothing                                                     *
+***************************************************************/
+void generateDecodeFreq(unsigned char totalSymbols,
+                        FILE* in,unsigned long freqCounter[]);
 
 /**************************************************************
 * Parameters:                                                 *
@@ -159,7 +172,8 @@ void copyStringWithC(char* copyFrom, char* copyTo, char addToEnd);
 ***************************************************************
 * returns  Nothing                                            *
 ***************************************************************/
-void freeAllMemory(tNode* root, char* symbolCodes[], unsigned long freqCounter[]);
+void freeAllMemory(tNode* root, char* symbolCodes[],
+                   unsigned long freqCounter[]);
 /**************************************************************
 * Parameters:                                                 *
 * FILE* in - file to encode                                   *
@@ -172,7 +186,8 @@ void freeAllMemory(tNode* root, char* symbolCodes[], unsigned long freqCounter[]
 ***************************************************************
 * returns nothing                                             *
 ***************************************************************/
-void createEncodedFile(FILE* in, FILE* out, char* symbolCodes[],unsigned long freqCounter[]);
+void createEncodedFile(FILE* in, FILE* out, char* symbolCodes[],
+                        unsigned long freqCounter[]);
 /* Free memory used by the tree. */
 void freeTree(tNode* root);
 /**************************************************************
@@ -235,7 +250,5 @@ unsigned long convertCode(char* code);
 * returns the length of code string                           *
 ***************************************************************/
 unsigned char getCodeLength(char* code);
-int checkOverFlow(unsigned long a,unsigned long b);
-void reduceFreq(qNode* head);
 
 #endif

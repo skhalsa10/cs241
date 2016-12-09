@@ -190,7 +190,7 @@ void createEncodedFile(FILE* in, FILE* out,char* symbolCodes[],
 * This function takes a encoded file and decodes it           *
 *  with frequency codes                                       *
 ***************************************************************
-* returns 1 if it found the code and 0 otherwise              *
+* returns Nothing                                             *
 ***************************************************************/
 void createDecodedFile(FILE* in, FILE* out,tNode* root)
 {
