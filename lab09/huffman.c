@@ -209,7 +209,7 @@ void createDecodedFile(FILE* in, FILE* out,tNode* root)
       putc(current->symbol,out);
       totalChars--;
     }
-    else if(byteToDecode>>bitsLeft-1 == 1)
+    else if(byteToDecode>>(bitsLeft-1) == 1)
     {
       bitsLeft--;
       byteToDecode = byteToDecode&&~((~0)<<bitsleft);
@@ -220,7 +220,7 @@ void createDecodedFile(FILE* in, FILE* out,tNode* root)
       current = current->right;
 
     }
-    else if(byteToDecode>>bitsLeft-1 == 0)
+    else if(byteToDecode>>(bitsLeft-1) == 0)
     {
       bitsLeft--;
       byteToDecode = byteToDecode&&~((~0)<<bitsleft);
