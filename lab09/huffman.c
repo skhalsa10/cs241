@@ -39,7 +39,7 @@ void decodeFile(FILE* in, FILE* out)
   root = head->dataNode;
   generateCodes(symbolCodes, root, code);
   printSymbolCodes(freqCounter, symbolCodes);
-  createDecodedFile(in, out, symbolCodes, freqCounter);
+  createDecodedFile(in, out, root);
 
   /*perform all shut down tasks*/
   head->dataNode = NULL;
@@ -192,42 +192,53 @@ void createEncodedFile(FILE* in, FILE* out,char* symbolCodes[],
 ***************************************************************
 * returns 1 if it found the code and 0 otherwise              *
 ***************************************************************/
-void createDecodedFile(FILE* in, FILE* out,char* symbolCodes[],
-                       unsigned long freqCounter[])
+void createDecodedFile(FILE* in, FILE* out,tNode* root)
 {
-  
   unsigned int byteToDecode;
+  tNode* current;
   unsigned long totalChars;
   unsigned char bitsLeft = 8;
-  unsigned long code=0;
-  unsigned char codeLength=0;
-  int codeFound = FALSE;
   rewind(out);
   fread(&totalChars,8,1,in);
-  byteToDecode = getc(in);
+  current = root;
+  byteToDecode=getc(in);
   while(totalChars !=0)
   {
-    code = 0;
-    codeLength = 0;
-    codeFound = FALSE;
-    while(!codeFound)
+    if(current->left ==NULL && current->right ==NULL)
     {
-      codeLength++;
-      bitsLeft--;
-      code = (code<<1)|(byteToDecode>>bitsLeft);
-      byteToDecode = byteToDecode & ~(~0<<bitsLeft);
-      if(bitsLeft == 0)
-      {
-        bitsLeft = 8;
-        byteToDecode = getc(in);
-      }
-      codeFound = checkCodeAndWrite(code, codeLength,out, symbolCodes,
-                                     freqCounter);
+      putc(current->symbol,out);
+      totalChars--;
     }
-    totalChars--;
+    else if(byteToDecode>>bitsLeft-1 == 1)
+    {
+      bitsLeft--;
+      byteToDecode = byteToDecode&&~((~0)<<bitsleft);
+      if(current->right == NULL)
+      {
+        printf("ERROR");
+      }
+      current = current->right;
+
+    }
+    else if(byteToDecode>>bitsLeft-1 == 0)
+    {
+      bitsLeft--;
+      byteToDecode = byteToDecode&&~((~0)<<bitsleft);
+      if(current->left ==NULL)
+      {
+        printf("ERROR");
+      }
+      current = current->left;
+    }
+    if(bitsLeft==0)
+    {
+      bitsLeft = 8;
+      byteToDecode = getc(in);
+    } 
   }
   
 }
+
 
 /**************************************************************
 * Parameters:                                                 *

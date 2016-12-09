@@ -623,8 +623,9 @@ qNode* buildHuffmanTree(qNode* head)
   left->dataNode = NULL;
   left->next = NULL;
   free(left);
-  right->dataNode = newTree;
+  right->dataNode = NULL;
   right->next = NULL;
+  free(right);
   /*insert modified right qnode into queue with correct priority*/
   head = insertTreeIntoQueue(head,newTree);
   /*repeat until one qnode is left*/

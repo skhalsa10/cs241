@@ -10,7 +10,7 @@
 void decodeFile(FILE* in, FILE* out)
 {
   unsigned long freqCounter[260];
-  char* symbolCodes[260];
+  /*char* symbolCodes[260];*/
   char* code = malloc(sizeof(char)*260);
   int i;
   struct QueueNode* head = NULL;
