@@ -212,7 +212,7 @@ void createDecodedFile(FILE* in, FILE* out,tNode* root)
     else if(byteToDecode>>(bitsLeft-1) == 1)
     {
       bitsLeft--;
-      byteToDecode = byteToDecode&&~((~0)<<bitsleft);
+      byteToDecode = byteToDecode&&~((~0)<<bitsLeft);
       if(current->right == NULL)
       {
         printf("ERROR");
@@ -223,7 +223,7 @@ void createDecodedFile(FILE* in, FILE* out,tNode* root)
     else if(byteToDecode>>(bitsLeft-1) == 0)
     {
       bitsLeft--;
-      byteToDecode = byteToDecode&&~((~0)<<bitsleft);
+      byteToDecode = byteToDecode&&~((~0)<<bitsLeft);
       if(current->left ==NULL)
       {
         printf("ERROR");
