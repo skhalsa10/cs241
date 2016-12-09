@@ -239,42 +239,6 @@ void createDecodedFile(FILE* in, FILE* out,tNode* root)
   
 }
 
-
-/**************************************************************
-* Parameters:                                                 *
-* unsigned long code - code to check for                      *
-* unsigned char codeLength - this needs to match both codes   *
-* FILE* out - file to write to                                *
-* char* symbolCodes[] - array of SYmbols to codes             *
-* unsigned long freqCounter[] - holds chars and their freq    *
-***************************************************************
-* This function takes a code and compares it to all codes if  *
-* it is found it writes out char associated with code         *
-* NOTE: this function is huge performance issue and is brought*
-* on by using strings to hold codes initially. this entire    *
-* program should be rewritten without the use of strings      *
-* for codes... not enough time                                *
-***************************************************************
-* returns 1 if it found the code and 0 otherwise              *
-***************************************************************/
-int checkCodeAndWrite(unsigned long code, unsigned char codeLength,
-                     FILE* out,char* symbolCodes[],unsigned long freqCounter[])
-{
-  int i;
-  for(i=0;i<260;i++)
-  {
-    if(freqCounter[i] != 0)
-    {
-      if((code == convertCode(symbolCodes[i]))&&
-      (codeLength == getCodeLength(symbolCodes[i])))
-      {
-        putc(i,out);
-        return 1;
-      }
-    }
-  }
-  return 0;
-}
 /**************************************************************
 * Parameters:                                                 *
 * FILE* in - file to encode                                   *

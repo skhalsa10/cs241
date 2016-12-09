@@ -38,10 +38,9 @@ void encodeFile(FILE* in, FILE* out);
 void decodeFile(FILE* in, FILE* out);
 
 c96b* convertDecodeCode(char* code);
-void void createDecodedFile(FILE* in, FILE* out,tNode* root);
+void createDecodedFile(FILE* in, FILE* out,tNode* root);
 void generateDecodeFreq(unsigned char totalSymbols,FILE* in,unsigned long freqCounter[]);
-int checkCodeAndWrite(c96b* code, FILE* out,char* symbolCodes[],unsigned long freqCounter[])
-;
+
 /**************************************************************
 * Parameters:                                                 *
 * FILE* in - file stream to analyze                           *
