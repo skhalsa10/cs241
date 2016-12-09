@@ -206,7 +206,7 @@ void createDecodedFile(FILE* in, FILE* out,tNode* root)
   {
     if(current->left ==NULL && current->right ==NULL)
     {
-      fwrite(&(current->left),1,1,out);
+      fwrite(&(current->symbol),1,1,out);
       totalChars--;
     }
     else if(byteToDecode>>(bitsLeft-1) == 1)
